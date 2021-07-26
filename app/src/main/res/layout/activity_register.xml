@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.sungbin.noname.signup.viewmodel.SignUpViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".register.SignUpActivity">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/blue_backgorund">
+
+            </FrameLayout>
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha=".4"
+                android:background="@drawable/background_fade">
+
+            </FrameLayout>
+
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_left_16"
+                    android:layout_marginRight="@dimen/margin_right_16"
+                    android:layout_marginTop="@dimen/margin_top_16"
+                    android:layout_marginBottom="@dimen/margin_bottom_16"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/account_edit"
+                            style="@style/Font_family_light"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_style"
+                            android:drawableLeft="@drawable/ic_baseline_email_24"
+                            android:drawablePadding="@dimen/padding_16"
+                            android:hint="아이디 (이메일)"
+                            android:layout_marginTop="@dimen/margin_top_8"
+                            android:layout_marginBottom="@dimen/margin_top_8"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:inputType="text"
+                            android:maxLength="30"
+                            android:maxLines="1"
+                            android:padding="@dimen/padding_16"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="@dimen/text_20"
+                            android:text="@={vm.inputAccount}"
+                            />
+
+                        <Button
+                            android:id="@+id/accountDup_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.3"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/text_14"
+                            android:layout_marginTop="@dimen/margin_top_4"
+                            android:layout_marginBottom="@dimen/margin_bottom_4"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:layout_marginRight="@dimen/margin_right_16"
+                            android:background="@drawable/blue_border_fade"
+                            android:textColor="@color/white"
+                            android:text="중복 확인"
+                            android:onClick="@{()->vm.accountDuplicated()}"
+                          />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/account_error_text"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이메일 형식이 올바르지 않습니다."
+                        android:textColor="#E61610"
+                        android:layout_marginLeft="@dimen/margin_left_16"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/password_edt"
+                        app:layout_constraintTop_toBottomOf="@+id/password_edt" />
+
+                    <TextView
+                        android:id="@+id/account_right_text"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이메일 형식이 올바릅니다."
+                        android:textColor="#0AF421"
+                        android:layout_marginLeft="@dimen/margin_left_16"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/password_edt"
+                        app:layout_constraintTop_toBottomOf="@+id/password_edt" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/pw_edit"
+                            style="@style/Font_family_light"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:layout_marginTop="@dimen/margin_top_8"
+                            android:layout_marginRight="@dimen/margin_right_16"
+                            android:layout_marginBottom="@dimen/margin_top_8"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_style"
+                            android:drawableLeft="@drawable/baseline_password_white_24"
+                            android:drawablePadding="@dimen/padding_16"
+                            android:hint="비밀번호"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:padding="@dimen/padding_16"
+                            android:text="@={vm.inputPW}"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="@dimen/text_20" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/baseline_done_24"
+                            android:visibility="@{vm.isPasswordAbled()? View.VISIBLE : View.GONE}"
+                            android:layout_gravity="center"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/password_error_text"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="형식이 올바르지 않습니다."
+                        android:textColor="#E61610"
+                        android:layout_marginLeft="@dimen/margin_left_16"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/password_edt"
+                        app:layout_constraintTop_toBottomOf="@+id/password_edt" />
+
+                    <TextView
+                        android:id="@+id/password_right_text"
+                        style="@style/P6_12pt_Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="형식이 올바릅니다."
+                        android:textColor="#0AF421"
+                        android:layout_marginLeft="@dimen/margin_left_16"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/password_edt"
+                        app:layout_constraintTop_toBottomOf="@+id/password_edt" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+                        <EditText
+                            android:id="@+id/pw_check_edit"
+                            style="@style/Font_family_light"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:drawableLeft="@drawable/baseline_password_white_24"
+                            android:drawablePadding="@dimen/padding_16"
+                            android:background="@drawable/edit_style"
+                            android:hint="비밀번호 확인"
+                            android:layout_marginTop="@dimen/margin_top_8"
+                            android:layout_marginBottom="@dimen/margin_top_8"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:layout_marginRight="@dimen/margin_right_16"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:padding="@dimen/padding_16"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white"
+                            android:textSize="@dimen/text_20"
+                            android:text="@={vm.inputPWcheck}"/>
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.1"
+                            android:src="@drawable/baseline_done_24"
+                            android:visibility="@{vm.isPasswordAbled()? View.VISIBLE : View.GONE}"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+                    <EditText
+                        android:id="@+id/name_edit"
+                        style="@style/Font_family_light"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_baseline_person_24"
+                        android:drawablePadding="@dimen/padding_16"
+                        android:background="@drawable/edit_style"
+                        android:hint="이름"
+                        android:layout_marginTop="@dimen/margin_top_8"
+                        android:layout_marginBottom="@dimen/margin_top_8"
+                        android:layout_marginLeft="@dimen/margin_right_16"
+                        android:layout_marginRight="@dimen/margin_right_16"
+                        android:maxLines="1"
+                        android:padding="@dimen/padding_16"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textSize="@dimen/text_20"
+                        android:text="@={vm.inputName}"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/register_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="@dimen/margin_top_8"
+                            android:layout_marginBottom="@dimen/margin_top_8"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:layout_marginRight="@dimen/margin_right_16"
+                            android:background="@drawable/blue_border_fade"
+                            android:text="회원 가입"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_20"
+                            android:onClick="@{()->vm.registerRequest(vm.inputAccount, vm.inputPW, vm.inputName)}"/>
+
+                        <Button
+                            android:id="@+id/cancel_btn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginTop="@dimen/margin_top_8"
+                            android:layout_marginBottom="@dimen/margin_top_8"
+                            android:layout_marginLeft="@dimen/margin_right_16"
+                            android:layout_marginRight="@dimen/margin_right_16"
+                            android:background="@drawable/blue_border_fade"
+                            android:text="취소"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_20"
+                            android:onClick="@{()->vm.cancel()}"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
