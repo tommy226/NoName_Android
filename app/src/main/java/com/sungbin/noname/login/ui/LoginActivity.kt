@@ -11,6 +11,7 @@ import com.sungbin.noname.MainActivity
 import com.sungbin.noname.MyApplication
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityLoginBinding
+import com.sungbin.noname.home.ui.HomeActivity
 import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.signup.ui.SignUpActivity
 import com.sungbin.noname.util.showToast
@@ -42,9 +43,11 @@ class LoginActivity : AppCompatActivity() {
 
             if (result) {
                 showToast("로그인 성공")
-                MyApplication.prefs.setString("account", viewmmodel.inputAccount.value!!)           // 로그인 성공 시 자동로그인 아이디 등록
-                MyApplication.prefs.setString("password", viewmmodel.inputPW.value!!)
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                if (!viewmmodel.inputAccount.value.isNullOrEmpty()) {
+                    MyApplication.prefs.setString("account", viewmmodel.inputAccount.value!!)      // 로그인 성공 시 자동로그인 아이디 등록
+                    MyApplication.prefs.setString("password", viewmmodel.inputPW.value!!)
+                }
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             } else showToast("로그인 실패")
@@ -60,10 +63,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun autoLogin() {
-        if(!MyApplication.prefs.getString("account", "").isNullOrBlank()                    // 저장된 아이디가 있을 시 자동 로그인
-            || !MyApplication.prefs.getString("password","").isNullOrBlank()){
-            val account = MyApplication.prefs.getString("account","")
-            val password = MyApplication.prefs.getString("password","")
+        if (MyApplication.prefs.getString("account", "").isNotEmpty()) {
+            val account = MyApplication.prefs.getString("account", "")
+            val password = MyApplication.prefs.getString("password", "")
             viewmmodel.loginRequest(account, password)
         }
     }
