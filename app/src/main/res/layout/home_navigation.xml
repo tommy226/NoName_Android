@@ -109,7 +109,7 @@
 
 
             <TextView
-                android:id="@+id/navi_mail_txt"
+                android:id="@+id/navi_logout"
                 style="@style/P2_16pt_Light"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
 
 
             <ImageView
-                android:id="@+id/ic_setting"
+                android:id="@+id/navi_setting"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginEnd="12dp"
