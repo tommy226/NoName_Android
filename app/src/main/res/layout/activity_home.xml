@@ -61,6 +61,18 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:menu="@menu/bottom_navi_item" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toTopOf="@id/home_bottom_navi"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:tooltipText="업로드"
+                    android:src="@drawable/baseline_add_circle_outline_white_24"
+                    android:layout_margin="@dimen/margin_right_16"/>
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

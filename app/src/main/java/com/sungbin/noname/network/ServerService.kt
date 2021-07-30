@@ -6,10 +6,9 @@ import com.sungbin.noname.signup.data.AccountCheckRequest
 import com.sungbin.noname.signup.data.AccountCheckResponse
 import com.sungbin.noname.signup.data.RegisterRequest
 import com.sungbin.noname.signup.data.RegisterResponse
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface ServerService {
     @PUT("auth/") // login
@@ -20,4 +19,10 @@ interface ServerService {
 
     @POST("auth/") // sign
     fun register(@Body registerinfo: RegisterRequest): Call<RegisterResponse>
+
+    @Multipart
+    @POST("board/") // board upload
+    fun boardUpload(
+        @Part images: MutableList<MultipartBody.Part>
+    )
 }

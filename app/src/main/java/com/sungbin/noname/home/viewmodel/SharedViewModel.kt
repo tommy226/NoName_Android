@@ -23,6 +23,5 @@ class SharedViewModel : ViewModel() {
         viewModelScope.launch {
             _mutablelivedata.value = (mutableLiveData.value ?: 0).plus(2)
         }
-        Log.d(TAG, mutableLiveData.value.toString())
     }
 }

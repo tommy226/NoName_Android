@@ -8,10 +8,10 @@
         android:id="@+id/menu_search"
         android:title="검색"
         android:icon="@drawable/ic_baseline_search_24"/>
-    <item
-        android:id="@+id/menu_upload"
-        android:title="업로드"
-        android:icon="@drawable/baseline_add_circle_outline_white_24"/>
+<!--    <item-->
+<!--        android:id="@+id/menu_upload"-->
+<!--        android:title="업로드"-->
+<!--        android:icon="@drawable/baseline_add_circle_outline_white_24"/>-->
     <item
         android:id="@+id/menu_favorite"
         android:title="관심사"

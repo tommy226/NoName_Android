@@ -20,6 +20,7 @@ import com.sungbin.noname.databinding.ActivityHomeBinding
 import com.sungbin.noname.home.viewmodel.HomeViewModel
 import com.sungbin.noname.login.ui.LoginActivity
 import com.sungbin.noname.login.viewmodel.LoginViewModel
+import com.sungbin.noname.upload.ui.UploadActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -39,6 +40,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d(TAG, "lifecycle-> onCreate")
         super.onCreate(savedInstanceState)
 
         job = Job()
@@ -54,6 +56,16 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         transFragment(FeedFragment())
 
+    }
+
+    override fun onStart() {
+        Log.d(TAG, "lifecycle-> onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d(TAG, "lifecycle-> onResume")
+        super.onResume()
     }
 
     private fun setSwipeRefresh() {
@@ -78,6 +90,12 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
                 if (!binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {
                     binding.homeDrawerlayout.openDrawer(GravityCompat.START)
                 }
+            }
+
+            // 업로드 fab
+            fabUpload.setOnClickListener {
+                val intent = Intent(this@HomeActivity, UploadActivity::class.java)
+                startActivity(intent)
             }
 
             // 드로어 레이아웃 슬라이드 잠금 여부 설정
@@ -110,7 +128,6 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
                 when(item.itemId){
                     R.id.menu_feed -> transFragment(FeedFragment())
                     R.id.menu_search -> transFragment(SearchFragment())
-                    R.id.menu_upload -> transFragment(UploadFragment())
                     R.id.menu_favorite -> transFragment(FavoriteFragmnet())
                     else -> transFragment(ProfileFragment())
                 }
@@ -136,5 +153,26 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     override fun finish() {
         super.finish()
         overridePendingTransition(R.anim.slide_hold, R.anim.slide_out_right)
+    }
+
+    override fun onPause() {
+        Log.d(TAG, "lifecycle-> onPause")
+        super.onPause()
+    }
+
+    override fun onRestart() {
+        Log.d(TAG, "lifecycle-> onRestart")
+        super.onRestart()
+    }
+
+    override fun onStop() {
+        Log.d(TAG, "lifecycle-> onStop")
+        super.onStop()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "lifecycle-> onDestroy")
+        job.cancel()
     }
 }
