@@ -1,9 +1,12 @@
 package com.sungbin.noname.util
 
 import android.content.Context
+import android.net.Uri
 import android.nfc.Tag
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,4 +36,11 @@ fun<T> Call<T>.customEnqueue(
                 } ?: onError(response)
         }
     })
+}
+
+fun ImageView.createThumnail(uri: Uri){
+    Glide.with(this)
+        .load(uri)
+        .centerCrop()
+        .into(this)
 }
