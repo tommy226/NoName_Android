@@ -109,7 +109,7 @@
             android:onClick="@{()->activity.permissionCheck()}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_line"
-            app:srcCompat="@drawable/ic_baseline_image_24" />
+            app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
 
         <EditText
             android:id="@+id/borad_text"
@@ -128,6 +128,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/board_addimage" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/image_recyclerview"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/borad_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/board_addimage"
+            app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

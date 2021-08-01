@@ -5,12 +5,14 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityUploadBinding
+import com.sungbin.noname.upload.adapter.UploadImageAdapter
 import com.sungbin.noname.upload.viewmodel.UploadViewModel
-import com.sungbin.noname.util.createThumnail
 import com.sungbin.noname.util.showToast
 import gun0912.tedimagepicker.builder.TedImagePicker
 
@@ -24,6 +26,8 @@ class UploadActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_upload)
     }
 
+    private lateinit var adapter: UploadImageAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,6 +38,7 @@ class UploadActivity : AppCompatActivity() {
         }
 
     }
+
 
     fun permissionCheck(){
         val permissionListener: PermissionListener = object : PermissionListener {
@@ -58,7 +63,9 @@ class UploadActivity : AppCompatActivity() {
     private fun imagePick() {
         TedImagePicker.with(this@UploadActivity)
             .startMultiImage { uriList ->
-                binding.boardAddimage.createThumnail(uriList[0])
+                adapter = UploadImageAdapter(uriList)
+                binding.imageRecyclerview.adapter = adapter
+                binding.imageRecyclerview.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
             }
     }
 }
