@@ -11,6 +11,7 @@ import android.provider.MediaStore
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 
@@ -125,7 +126,8 @@ object FileUtils {
 
     fun multipartBody(filepath: String): MultipartBody.Part{
         val file = File(filepath)
-        val requestBody: RequestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
+        val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
+//        val requestBody: RequestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
         return MultipartBody.Part.createFormData("files", file.name,requestBody)
     }
 }
