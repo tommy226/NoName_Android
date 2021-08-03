@@ -23,7 +23,7 @@ import gun0912.tedimagepicker.builder.TedImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.File
+import okhttp3.RequestBody.Companion.toRequestBody
 
 
 class UploadActivity : AppCompatActivity() {
@@ -108,7 +108,7 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun uploadimages(id: String) {
-        val id: RequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), id)
+        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
         val parts = mutableListOf<MultipartBody.Part>()
         val partsMap = hashMapOf<String, RequestBody>()
         partsMap["id"] = id
