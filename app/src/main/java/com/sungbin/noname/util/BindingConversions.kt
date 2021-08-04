@@ -5,25 +5,25 @@ import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.sungbin.noname.R
 
 object BindingConversions {
-    @BindingAdapter("imageUrl","error")
+    @BindingAdapter("app:imageUrl")
     @JvmStatic
-    fun loadImage(imageView : ImageView, url : String, error : Drawable){
-
+    fun loadImage(imageView : ImageView, url : String){
         Glide.with(imageView.context)
             .load(url)
-            .error(error)
+            .error(R.drawable.baseline_close_white_24)
             .into(imageView)
     }
 
-    @BindingAdapter("imageUrl")
+    @BindingAdapter("app:imageUri")
     @JvmStatic
     fun loadLocalImage(imageView : ImageView, uri : Uri){
-
         Glide.with(imageView.context)
             .load(uri)
             .centerCrop()
+            .error(R.drawable.baseline_close_white_24)
             .into(imageView)
     }
 }

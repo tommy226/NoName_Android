@@ -3,7 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
+        <variable
+            name="uri"
+            type="android.net.Uri" />
     </data>
 
     <LinearLayout
@@ -14,7 +16,8 @@
             android:id="@+id/item_boardimage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/ic_launcher_background"
+            app:imageUri="@{uri}" />
 
     </LinearLayout>
 </layout>

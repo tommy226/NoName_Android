@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/board_toolbar" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/board_name"
             style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="60dp"

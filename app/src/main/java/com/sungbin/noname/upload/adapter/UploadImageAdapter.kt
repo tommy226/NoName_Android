@@ -29,7 +29,7 @@ class UploadImageAdapter(val uriList: List<Uri>) : RecyclerView.Adapter<UploadIm
 
     inner class ViewHolder(val binding: ItemUploadimageBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(uri: Uri){
-            binding.itemBoardimage.createThumnail(uri)
+            binding.uri = uri
         }
     }
 
