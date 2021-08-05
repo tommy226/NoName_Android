@@ -1,5 +1,6 @@
 package com.sungbin.noname.home.ui
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentProfileBinding
 import com.sungbin.noname.databinding.FragmentSearchBinding
 import com.sungbin.noname.home.viewmodel.SharedViewModel
+import com.sungbin.noname.profile.ui.ProfileEditActivity
 
 class ProfileFragment : Fragment() {
 
@@ -28,6 +30,10 @@ class ProfileFragment : Fragment() {
             lifecycleOwner =this@ProfileFragment
         }
 
+        binding.profileEditBtn.setOnClickListener {
+            val intent = Intent(activity, ProfileEditActivity::class.java)
+            startActivity(intent)
+        }
         return binding.root
     }
 
