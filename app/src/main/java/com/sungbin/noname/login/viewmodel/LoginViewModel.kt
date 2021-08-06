@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sungbin.noname.login.data.LoginResponse
+import com.sungbin.noname.login.data.LoginToken
 import com.sungbin.noname.login.repository.LoginRepository
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
@@ -20,9 +21,13 @@ class LoginViewModel: ViewModel() {
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
-    private val _tokenModel = MutableLiveData<LoginResponse>()
-    val tokenModel: LiveData<LoginResponse>
+    private val _tokenModel = MutableLiveData<LoginToken>()
+    val tokenModel: LiveData<LoginToken>
         get() = _tokenModel
+
+    private val _loginData = MutableLiveData<LoginResponse>()
+    val loginData: LiveData<LoginResponse>
+        get() = _loginData
 
     val inputAccount = MutableLiveData<String>("")
     val inputPW = MutableLiveData<String>("")
@@ -51,10 +56,11 @@ class LoginViewModel: ViewModel() {
                     TAG,
                     "MY refreshToken : ${it.headers()["refreshToken"]}"
                 )
-                _tokenModel.value = LoginResponse(
+                _tokenModel.value = LoginToken(
                     accessToken = accessToken.toString(),
                     refreshToken = refreshToken.toString()     // 로그인 성공 시 accessToken, refreshToken 획득
                 )
+                _loginData.value = it.body()
                 _loginResult.value = true
             },
             onError = {

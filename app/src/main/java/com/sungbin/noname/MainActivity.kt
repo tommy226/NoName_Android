@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.logoutBtn.setOnClickListener {
-            MyApplication.prefs.remove()
+            App.prefs.remove()
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()

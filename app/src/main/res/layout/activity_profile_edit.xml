@@ -1,150 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".profile.ui.ProfileEditActivity">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/board_toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        app:contentInsetStart="0dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <data>
+        <variable
+            name="activity"
+            type="com.sungbin.noname.profile.ui.ProfileEditActivity" />
 
-            <TextView
-                android:id="@+id/board_cancel"
-                style="@style/H3_18pt_Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:text="취소"
-                android:onClick="@{()->activity.onBackPressed()}"
-                android:textColor="@color/white" />
+        <variable
+            name="vm"
+            type="com.sungbin.noname.profile.viewmodel.ProfileEditViewModel" />
+    </data>
 
-            <TextView
-                style="@style/H3_18pt_Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="@string/profileEdit"
-                android:textColor="@color/white" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".profile.ui.ProfileEditActivity">
 
-            <TextView
-                android:id="@+id/board_complete"
-                style="@style/H3_18pt_Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:padding="16dp"
-                android:text="완료"
-                android:onClick="@{()->activity.uploadBoard()}"
-                android:textColor="@color/white" />
-        </RelativeLayout>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/board_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </androidx.appcompat.widget.Toolbar>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_imageView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_baseline_face_24"
-        app:civ_border_color="@color/gray"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_toolbar" />
+                <TextView
+                    android:id="@+id/board_cancel"
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:text="취소"
+                    android:onClick="@{()->activity.onBackPressed()}"
+                    android:textColor="@color/white" />
 
-    <TextView
-        style="@style/P6_12pt_Bold"
-        android:id="@+id/profile_imageChange"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/profile_imageEdit"
-        android:textColor="@color/navy_blue_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_imageView" />
+                <TextView
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/profileEdit"
+                    android:textColor="@color/white" />
 
-    <View
-        android:id="@+id/view_line"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_imageChange" />
+                <TextView
+                    android:id="@+id/board_complete"
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="16dp"
+                    android:text="완료"
+                    android:onClick="@{()->vm.editRequest(vm.inputName, vm.inputInfo)}"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
 
-    <TextView
-        style="@style/H3_18pt_Regular"
-        android:id="@+id/profile_nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="사용자 이름"
-        android:textColor="@color/black"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+        </androidx.appcompat.widget.Toolbar>
 
-    <TextView
-        style="@style/H3_18pt_Regular"
-        android:id="@+id/profile_introText"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:text="소개"
-        android:textColor="@color/black"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_nameText" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_imageView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_baseline_face_24"
+            app:civ_border_color="@color/gray"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/board_toolbar" />
 
-    <EditText
-        android:id="@+id/profile_nameEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="이름을 설정 해주세요"
-        app:layout_constraintStart_toEndOf="@+id/profile_nameText"
-        app:layout_constraintTop_toBottomOf="@+id/view_line" />
+        <TextView
+            style="@style/P6_12pt_Bold"
+            android:id="@+id/profile_imageChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/profile_imageEdit"
+            android:textColor="@color/navy_blue_dark"
+            android:onClick="@{()->activity.permissionCheck()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_imageView" />
 
-    <EditText
-        android:id="@+id/profile_introEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintStart_toEndOf="@+id/profile_introText"
-        app:layout_constraintTop_toBottomOf="@+id/profile_nameEdit" />
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_imageChange" />
+
+        <TextView
+            style="@style/H3_18pt_Regular"
+            android:id="@+id/profile_nameText"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="사용자 이름"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line" />
+
+        <TextView
+            style="@style/H3_18pt_Regular"
+            android:id="@+id/profile_introText"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="소개"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_nameText" />
+
+        <EditText
+            android:id="@+id/profile_nameEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@={vm.inputName}"
+            android:ems="10"
+            android:hint="이름을 설정 해주세요"
+            app:layout_constraintStart_toEndOf="@+id/profile_nameText"
+            app:layout_constraintTop_toBottomOf="@+id/view_line" />
+
+        <EditText
+            android:id="@+id/profile_introEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="@={vm.inputInfo}"
+            android:ems="10"
+            android:hint="자신을 소개 해주세요"
+            app:layout_constraintStart_toEndOf="@+id/profile_introText"
+            app:layout_constraintTop_toBottomOf="@+id/profile_nameEdit" />
 
 
-    <View
-        android:id="@+id/view_line2"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile_introEdit" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:id="@+id/view_line2"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/profile_introEdit" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

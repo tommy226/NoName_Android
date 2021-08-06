@@ -3,7 +3,7 @@ package com.sungbin.noname
 import android.app.Application
 import com.sungbin.noname.util.PreferenceUtil
 
-class MyApplication : Application() {
+class App : Application() {
     companion object{
         lateinit var prefs: PreferenceUtil
     }

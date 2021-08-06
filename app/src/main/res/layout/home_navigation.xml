@@ -68,7 +68,6 @@
                     app:layout_constraintBottom_toBottomOf="@+id/navi_profile_img"
                     app:layout_constraintStart_toEndOf="@+id/navi_profile_img"
                     app:layout_constraintTop_toTopOf="@+id/navi_profile_img"
-                    android:text="닉네임"
                     tools:text="닉네임" />
 
                 <ImageView

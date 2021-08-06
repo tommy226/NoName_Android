@@ -7,6 +7,9 @@
         <variable
             name="vm"
             type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
+        <variable
+            name="prefs"
+            type="com.sungbin.noname.util.PreferenceUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +24,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:gravity="center"
-            android:text="닉네임"
+            android:text="@{prefs.getString(prefs.Companion.Name, prefs.Companion.Empty)}"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

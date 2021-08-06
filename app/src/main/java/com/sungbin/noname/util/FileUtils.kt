@@ -124,10 +124,10 @@ object FileUtils {
         return "com.android.providers.media.documents" == uri.authority
     }
 
-    fun multipartBody(filepath: String): MultipartBody.Part{
+    fun multipartBody(filepath: String, key: String): MultipartBody.Part{
         val file = File(filepath)
         val requestBody: RequestBody = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
 //        val requestBody: RequestBody = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), file)
-        return MultipartBody.Part.createFormData("files", file.name,requestBody)
+        return MultipartBody.Part.createFormData(key, file.name,requestBody)
     }
 }

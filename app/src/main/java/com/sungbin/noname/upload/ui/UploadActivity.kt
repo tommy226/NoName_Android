@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.sungbin.noname.MyApplication
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityUploadBinding
 import com.sungbin.noname.network.ServerImpl
@@ -85,16 +85,12 @@ class UploadActivity : AppCompatActivity() {
 
                 if (imageUriList.isNotEmpty()) imageUriList.clear()
                 imageUriList.addAll(uriList)
-
-                for (i in imageUriList.indices) {
-                    Log.d(TAG, "imageUriList : ${FileUtils.getPath(this, imageUriList[i])}")
-                }
             }
     }
 
     fun uploadBoard() {
         val content = binding.boradText.toString()
-        ServerImpl.service.boardContentUpload(MyApplication.prefs.getString("access", ""), content)
+        ServerImpl.service.boardContentUpload(App.prefs.getString("access", ""), content)
             .customEnqueue(
                 onSuccess = { response ->
                     if(response.code()==200){
@@ -114,11 +110,11 @@ class UploadActivity : AppCompatActivity() {
         partsMap["id"] = id
         for(i in imageUriList.indices){
             val filepath = FileUtils.getPath(this, imageUriList[i])
-            val multipartBody = FileUtils.multipartBody(filepath = filepath.toString())
+            val multipartBody = FileUtils.multipartBody(filepath = filepath.toString(), "files")
             parts.add(multipartBody)
         }
 
-        ServerImpl.service.boardFileUpload(MyApplication.prefs.getString("access", ""), parts, partsMap)
+        ServerImpl.service.boardFileUpload(App.prefs.getString("access", ""), parts, partsMap)
             .customEnqueue(
                 onSuccess = { response ->
                     if(response.code()==200){

@@ -5,22 +5,19 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
-import android.view.View
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.navigation.NavigationView
-import com.sungbin.noname.MyApplication
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityHomeBinding
 import com.sungbin.noname.home.viewmodel.HomeViewModel
 import com.sungbin.noname.login.ui.LoginActivity
-import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.upload.ui.UploadActivity
+import com.sungbin.noname.util.PreferenceUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -101,6 +98,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             // 드로어 레이아웃 슬라이드 잠금 여부 설정
             homeDrawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
+            homeNavigation.naviNickText.text = App.prefs.getString(PreferenceUtil.Name, "")
             // 네비게이션 뷰 클릭 리스너
             homeNavigation.closeNaviImg.setOnClickListener { closeDrawer() }
             homeNavigation.layoutProfile.setOnClickListener {
@@ -111,7 +109,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
                 closeDrawer()
             }
             homeNavigation.naviLogout.setOnClickListener {
-                MyApplication.prefs.remove()
+                App.prefs.remove()
                 val intent = Intent(this@HomeActivity, LoginActivity::class.java)
                 startActivity(intent)
                 finish()

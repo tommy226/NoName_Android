@@ -4,6 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class PreferenceUtil(context: Context) {
+    companion object{
+        val Empty: String = ""
+
+        val AccessToken: String = "access"
+        val RefreshToken: String = "refresh"
+
+        val Account: String = "account"
+        val Password: String = "password"
+        val Name: String = "name"
+        val info: String = "info"
+    }
     private val prefs: SharedPreferences =
         context.getSharedPreferences("AUTO_LOGIN", Context.MODE_PRIVATE)
 

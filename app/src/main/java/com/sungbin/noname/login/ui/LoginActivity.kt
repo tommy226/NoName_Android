@@ -7,13 +7,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.sungbin.noname.MainActivity
-import com.sungbin.noname.MyApplication
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityLoginBinding
 import com.sungbin.noname.home.ui.HomeActivity
 import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.signup.ui.SignUpActivity
+import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.showToast
 
 class LoginActivity : AppCompatActivity() {
@@ -34,8 +34,11 @@ class LoginActivity : AppCompatActivity() {
 
         viewmmodel.tokenModel.observe(this, Observer { tokenModel ->
             Log.d(TAG, tokenModel.toString())                                                           // 서버에서 전달 받은 Token
-            MyApplication.prefs.setString("access", tokenModel.accessToken)
-            MyApplication.prefs.setString("refresh", tokenModel.refreshToken)
+            App.prefs.setString(PreferenceUtil.AccessToken, tokenModel.accessToken)
+            App.prefs.setString(PreferenceUtil.RefreshToken, tokenModel.refreshToken)
+        })
+        viewmmodel.loginData.observe(this, Observer { userData ->
+            App.prefs.setString(PreferenceUtil.Name, userData.items.name)
         })
 
         viewmmodel.loginResult.observe(this, Observer { result ->
@@ -44,8 +47,8 @@ class LoginActivity : AppCompatActivity() {
             if (result) {
                 showToast("로그인 성공")
                 if (!viewmmodel.inputAccount.value.isNullOrEmpty()) {
-                    MyApplication.prefs.setString("account", viewmmodel.inputAccount.value!!)      // 로그인 성공 시 자동로그인 아이디 등록
-                    MyApplication.prefs.setString("password", viewmmodel.inputPW.value!!)
+                    App.prefs.setString(PreferenceUtil.Account, viewmmodel.inputAccount.value!!)      // 로그인 성공 시 자동로그인 아이디 등록
+                    App.prefs.setString(PreferenceUtil.Password, viewmmodel.inputPW.value!!)
                 }
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -63,9 +66,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun autoLogin() {
-        if (MyApplication.prefs.getString("account", "").isNotEmpty()) {
-            val account = MyApplication.prefs.getString("account", "")
-            val password = MyApplication.prefs.getString("password", "")
+        if (App.prefs.getString(PreferenceUtil.Account, "").isNotEmpty()) {
+            val account = App.prefs.getString(PreferenceUtil.Account, "")
+            val password = App.prefs.getString(PreferenceUtil.Password, "")
             viewmmodel.loginRequest(account, password)
         }
     }
