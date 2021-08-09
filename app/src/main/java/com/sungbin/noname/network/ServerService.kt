@@ -4,10 +4,12 @@ import com.sungbin.noname.login.data.LoginRequest
 import com.sungbin.noname.login.data.LoginResponse
 import com.sungbin.noname.profile.data.ProfileEditRequest
 import com.sungbin.noname.profile.data.ProfileEditResponse
+import com.sungbin.noname.profile.data.ProfileImageResponse
 import com.sungbin.noname.signup.data.AccountCheckRequest
 import com.sungbin.noname.signup.data.AccountCheckResponse
 import com.sungbin.noname.signup.data.RegisterRequest
 import com.sungbin.noname.signup.data.RegisterResponse
+import com.sungbin.noname.upload.data.BoardsContentRequest
 import com.sungbin.noname.upload.data.BoardsContentResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -26,11 +28,10 @@ interface ServerService {
     @POST("auth/") // 회원가입
     fun register(@Body registerInfo: RegisterRequest): Call<RegisterResponse>
 
-    @FormUrlEncoded
     @POST("boards/") // 게시글 글 작성
     fun boardContentUpload(
         @Header("X-AUTH-TOKEN") token: String,
-        @Field("content") content: String
+        @Body Board: BoardsContentRequest
     ): Call<BoardsContentResponse>
 
     @Multipart
@@ -49,10 +50,11 @@ interface ServerService {
     ) : Call<ProfileEditResponse>
 
     @Multipart
-    @POST("files/members/") // 프로필 이미지 편집
+    @POST("files/members") // 프로필 이미지 편집
     fun profileImageUpload(
         @Header("X-AUTH-TOKEN") token: String,
         @Part image: MultipartBody.Part,
-        @PartMap data: HashMap<String, RequestBody>
-    ) : Call<ResponseBody>
+        @Query("account") account: String
+//        @PartMap data: HashMap<String, RequestBody>
+    ) : Call<ProfileImageResponse>
 }

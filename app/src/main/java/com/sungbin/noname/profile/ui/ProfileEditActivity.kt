@@ -8,16 +8,13 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityProfileEditBinding
 import com.sungbin.noname.profile.viewmodel.ProfileEditViewModel
-import com.sungbin.noname.util.EventObserver
-import com.sungbin.noname.util.FileUtils
-import com.sungbin.noname.util.createThumnail
-import com.sungbin.noname.util.showToast
+import com.sungbin.noname.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -43,12 +40,18 @@ class ProfileEditActivity : AppCompatActivity() {
             lifecycleOwner = this@ProfileEditActivity
         }
 
+
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)
         })
 
-        viewmodel.idResponse.observe(this, Observer {
+        viewmodel.idResponse.observe(this, Observer { idResponse ->
+            val id = idResponse.items.id
+            imageUpload(id, imageUri)
+        })
 
+        viewmodel.profileResult.observe(this, Observer {
+            finish()
         })
 
     }
@@ -83,14 +86,14 @@ class ProfileEditActivity : AppCompatActivity() {
     }
 
     private fun imageUpload(id: String, uri: Uri){
-        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
-        val partsMap = hashMapOf<String, RequestBody>()
-        partsMap["id"] = id
+//        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val partsMap = hashMapOf<String, RequestBody>()
+//        partsMap["id"] = id
 
         val filepath = FileUtils.getPath(this, uri)
-        val multipartBody = FileUtils.multipartBody(filepath = filepath.toString(), "file")
+        val multipartBody = FileUtils.multipartBody(filepath = filepath.toString(), key = "file")
 
-        viewmodel.editImageRequest(multipartBody, partsMap)
+        viewmodel.editImageRequest(multipartBody)
     }
 
     override fun onBackPressed() {

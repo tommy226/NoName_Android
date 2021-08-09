@@ -3,9 +3,8 @@ package com.sungbin.noname.profile.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sungbin.noname.login.repository.LoginRepository
-import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.profile.data.ProfileEditResponse
+import com.sungbin.noname.profile.data.ProfileImageResponse
 import com.sungbin.noname.profile.repository.ProfileEditRepository
 import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.customEnqueue
@@ -35,6 +34,10 @@ class ProfileEditViewModel : ViewModel() {
     val idResponse: LiveData<ProfileEditResponse>
         get() = _idResponse
 
+    private val _profileResult = MutableLiveData<ProfileImageResponse>()
+    val profileResult: LiveData<ProfileImageResponse>
+        get() = _profileResult
+
     fun editRequest(name: String, info: String) = viewModelScope.launch {
         val response = repo.profileEdit(name, info)
 
@@ -53,13 +56,15 @@ class ProfileEditViewModel : ViewModel() {
 
     fun editImageRequest(
         image: MultipartBody.Part,
-        data: HashMap<String, RequestBody>
+//        data: HashMap<String, RequestBody>
     ) = viewModelScope.launch {
-        val response = repo.profileImageEdit(image, data)
+        val response = repo.profileImageEdit(image)
 
-        response.customEnqueue(
+        response?.customEnqueue(
             onSuccess = {
-                if (it.code() == 200) {
+                if (it.code() == 201) {
+                    _profileResult.value = it.body()
+                    _toast.value = Event("프로필 편집 완료")
                 }
             },
             onError = {

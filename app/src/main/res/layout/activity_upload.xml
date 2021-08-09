@@ -59,7 +59,7 @@
                     android:layout_alignParentEnd="true"
                     android:padding="16dp"
                     android:text="완료"
-                    android:onClick="@{()->activity.uploadBoard()}"
+                    android:onClick="@{()->vm.uploadContent(vm.inputContent)}"
                     android:textColor="@color/white" />
             </RelativeLayout>
 
@@ -84,7 +84,6 @@
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="닉네임"
             tools:text="닉네임"
             android:textColor="@color/black"
             android:gravity="center"
@@ -125,6 +124,7 @@
             android:gravity="top"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textMultiLine"
+            android:text="@={vm.inputContent}"
             android:hint="@string/board_hint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

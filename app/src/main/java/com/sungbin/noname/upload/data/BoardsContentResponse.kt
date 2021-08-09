@@ -1,7 +1,7 @@
 package com.sungbin.noname.upload.data
 
 data class BoardsContentResponse(
-    val items: Items,
+    val items: BoardItems,
     val message: String
 )
 
@@ -10,6 +10,6 @@ data class Board(
     val id: String
 )
 
-data class Items(
+data class BoardItems(
     val board: Board
 )

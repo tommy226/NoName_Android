@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
@@ -16,9 +17,7 @@ import com.sungbin.noname.databinding.ActivityUploadBinding
 import com.sungbin.noname.network.ServerImpl
 import com.sungbin.noname.upload.adapter.UploadImageAdapter
 import com.sungbin.noname.upload.viewmodel.UploadViewModel
-import com.sungbin.noname.util.FileUtils
-import com.sungbin.noname.util.customEnqueue
-import com.sungbin.noname.util.showToast
+import com.sungbin.noname.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -29,7 +28,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 class UploadActivity : AppCompatActivity() {
     private val TAG = UploadActivity::class.java.simpleName
 
-    private val viewmmodel: UploadViewModel by viewModels()
+    private val viewmodel: UploadViewModel by viewModels()
 
     private val binding: ActivityUploadBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_upload)
@@ -43,10 +42,20 @@ class UploadActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding.run {
-            vm = viewmmodel
+            vm = viewmodel
             activity = this@UploadActivity
             lifecycleOwner = this@UploadActivity
+            boardName.text = App.prefs.getString(PreferenceUtil.Name, "")
         }
+
+        viewmodel.toast.observe(this, EventObserver { message ->
+            showToast(message)
+        })
+
+        viewmodel.boardId.observe(this, Observer {  idResponse ->
+            val id = idResponse.items.board.id
+            uploadimages(id = id)
+        })
 
     }
 
@@ -88,45 +97,19 @@ class UploadActivity : AppCompatActivity() {
             }
     }
 
-    fun uploadBoard() {
-        val content = binding.boradText.toString()
-        ServerImpl.service.boardContentUpload(App.prefs.getString("access", ""), content)
-            .customEnqueue(
-                onSuccess = { response ->
-                    if(response.code()==200){
-                        val id = response.body()?.items?.board?.id              // 게시글 id 받은 후 이미지 업로드
-                        id?.let { id -> uploadimages(id) }
-                    }
-                },
-                onError = {},
-                onFailure = {}
-            )
-    }
-
     private fun uploadimages(id: String) {
         val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
-        val parts = mutableListOf<MultipartBody.Part>()
+        val files = mutableListOf<MultipartBody.Part>()
         val partsMap = hashMapOf<String, RequestBody>()
         partsMap["id"] = id
-        for(i in imageUriList.indices){
+        for (i in imageUriList.indices) {
             val filepath = FileUtils.getPath(this, imageUriList[i])
-            val multipartBody = FileUtils.multipartBody(filepath = filepath.toString(), "files")
-            parts.add(multipartBody)
+            val multipartBody =
+                FileUtils.multipartBody(filepath = filepath.toString(), key = "files")
+            files.add(multipartBody)
         }
 
-        ServerImpl.service.boardFileUpload(App.prefs.getString("access", ""), parts, partsMap)
-            .customEnqueue(
-                onSuccess = { response ->
-                    if(response.code()==200){
-                        showToast("게시글을 작성 하였어요")
-                        finish()
-                    }
-                },
-                onError = {},
-                onFailure = {
-                    showToast("서버와의 연결이 원활하지 않습니다.")
-                }
-            )
+        viewmodel.uploadFiles(files, partsMap)   // 게시글 이미지 업로드
     }
 
     override fun onBackPressed() {

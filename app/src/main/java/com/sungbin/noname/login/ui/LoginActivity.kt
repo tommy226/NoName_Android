@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         })
         viewmmodel.loginData.observe(this, Observer { userData ->
             App.prefs.setString(PreferenceUtil.Name, userData.items.name)
+            App.prefs.setString(PreferenceUtil.info, userData.items.info)
         })
 
         viewmmodel.loginResult.observe(this, Observer { result ->

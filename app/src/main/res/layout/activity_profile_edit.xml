@@ -115,7 +115,7 @@
 
         <TextView
             style="@style/H3_18pt_Regular"
-            android:id="@+id/profile_introText"
+            android:id="@+id/profile_infoText"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -139,7 +139,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view_line" />
 
         <EditText
-            android:id="@+id/profile_introEdit"
+            android:id="@+id/profile_infoEdit"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
@@ -147,7 +147,7 @@
             android:text="@={vm.inputInfo}"
             android:ems="10"
             android:hint="자신을 소개 해주세요"
-            app:layout_constraintStart_toEndOf="@+id/profile_introText"
+            app:layout_constraintStart_toEndOf="@+id/profile_infoText"
             app:layout_constraintTop_toBottomOf="@+id/profile_nameEdit" />
 
 
@@ -160,6 +160,6 @@
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profile_introEdit" />
+            app:layout_constraintTop_toBottomOf="@id/profile_infoEdit" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
