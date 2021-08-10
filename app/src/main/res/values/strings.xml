@@ -7,4 +7,9 @@
     <string name="permission_denied">접근 거부하셨습니다. \n [설정] - [권한]에서 권한을 허용해주세요.</string>
     <string name="profileEdit">프로필 편집하기</string>
     <string name="profile_imageEdit">프로필 사진 바꾸기</string>
+
+    <string name="long_text">안녕하세요 저는 문성빈 입니다.
+        \n 안드로이드 개발자이며 코틀린과 자바를 사용합니다.
+        \n Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
+        \n La La La La La La La La La La La La La La La La La La La La La</string>
 </resources>

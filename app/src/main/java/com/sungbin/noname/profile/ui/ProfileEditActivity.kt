@@ -13,6 +13,7 @@ import com.gun0912.tedpermission.TedPermission
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityProfileEditBinding
+import com.sungbin.noname.home.viewmodel.ProfileViewModel
 import com.sungbin.noname.profile.viewmodel.ProfileEditViewModel
 import com.sungbin.noname.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker

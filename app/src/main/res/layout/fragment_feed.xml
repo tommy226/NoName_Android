@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
+            type="com.sungbin.noname.home.viewmodel.FeedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,28 +14,16 @@
         android:layout_height="match_parent"
         tools:context=".home.ui.FeedFragment">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
-            android:id="@+id/feed_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@{vm.mutableLiveData.toString}"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/feed_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/margin_left_4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="뉴스피드" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Plus"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feed_text"
-            android:onClick="@{()->vm.add()}"/>
+            tools:listitem="@layout/item_board"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="vm"
-            type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
+
+
     </data>
 
     <FrameLayout
@@ -19,7 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="검색"
-            android:text="@{vm.mutableLiveData.toString()}" />
+            tools:text="검색" />
     </FrameLayout>
 </layout>

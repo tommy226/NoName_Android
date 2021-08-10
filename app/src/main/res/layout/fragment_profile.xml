@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
+            type="com.sungbin.noname.home.viewmodel.ProfileViewModel" />
         <variable
             name="prefs"
             type="com.sungbin.noname.util.PreferenceUtil" />

@@ -1,19 +1,12 @@
 package com.sungbin.noname.upload.viewmodel
 
-import android.Manifest
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
-import com.sungbin.noname.login.repository.LoginRepository
-import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.upload.data.BoardsContentResponse
 import com.sungbin.noname.upload.repository.UploadRepository
 import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.customEnqueue
-import com.sungbin.noname.util.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -55,9 +48,10 @@ class UploadViewModel : ViewModel() {
 
     fun uploadFiles(
         files: MutableList<MultipartBody.Part>,
-        data: HashMap<String, RequestBody>
+//        data: HashMap<String, RequestBody>
+        id: String
     ) = viewModelScope.launch {
-        val response = repo.uploadFiles(files, data)
+        val response = repo.uploadFiles(files, id)
 
         response.customEnqueue(
             onSuccess = {

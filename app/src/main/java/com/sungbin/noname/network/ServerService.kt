@@ -35,11 +35,12 @@ interface ServerService {
     ): Call<BoardsContentResponse>
 
     @Multipart
-    @POST("files/boards/") // 게시글 이미지 업로드
+    @POST("files/boards") // 게시글 이미지 업로드
     fun boardFileUpload(
         @Header("X-AUTH-TOKEN") token: String,
         @Part files: MutableList<MultipartBody.Part>,
-        @PartMap data: HashMap<String, RequestBody>
+        @Query("boardId") boardId: String
+//        @PartMap data: HashMap<String, RequestBody>
     ) : Call<ResponseBody>
 
     @PUT("auth/{account}/") // 프로필 편집
@@ -57,4 +58,10 @@ interface ServerService {
         @Query("account") account: String
 //        @PartMap data: HashMap<String, RequestBody>
     ) : Call<ProfileImageResponse>
+
+    @GET("files/members/{memberId}")
+    fun profileImageGet(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("memberId") memberId: String
+    ) : Call<ResponseBody>
 }

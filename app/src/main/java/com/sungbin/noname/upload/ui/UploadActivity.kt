@@ -92,16 +92,18 @@ class UploadActivity : AppCompatActivity() {
                     Log.d(TAG, "File path : ${FileUtils.getPath(this, uriList[i])}")
                 }
 
-                if (imageUriList.isNotEmpty()) imageUriList.clear()
-                imageUriList.addAll(uriList)
+                imageUriList.let { list ->
+                    if(list.isNotEmpty()) list.clear()
+                    list.addAll(uriList)
+                }
             }
     }
 
     private fun uploadimages(id: String) {
-        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
+//        val partsMap = hashMapOf<String, RequestBody>()
+//        partsMap["id"] = id
         val files = mutableListOf<MultipartBody.Part>()
-        val partsMap = hashMapOf<String, RequestBody>()
-        partsMap["id"] = id
         for (i in imageUriList.indices) {
             val filepath = FileUtils.getPath(this, imageUriList[i])
             val multipartBody =
@@ -109,7 +111,7 @@ class UploadActivity : AppCompatActivity() {
             files.add(multipartBody)
         }
 
-        viewmodel.uploadFiles(files, partsMap)   // 게시글 이미지 업로드
+        viewmodel.uploadFiles(files, id)   // 게시글 이미지 업로드
     }
 
     override fun onBackPressed() {

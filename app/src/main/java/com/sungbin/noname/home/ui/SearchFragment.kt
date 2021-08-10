@@ -10,11 +10,9 @@ import androidx.fragment.app.activityViewModels
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.databinding.FragmentSearchBinding
-import com.sungbin.noname.home.viewmodel.SharedViewModel
 
 class SearchFragment : Fragment() {
 
-    private val viewModel: SharedViewModel by activityViewModels()
 
     private lateinit var binding: FragmentSearchBinding
     override fun onCreateView(
@@ -24,7 +22,6 @@ class SearchFragment : Fragment() {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_search, container, false)
 
         binding.run {
-            vm = viewModel
             lifecycleOwner =this@SearchFragment
         }
 

@@ -14,6 +14,7 @@ class PreferenceUtil(context: Context) {
         val Password: String = "password"
         val Name: String = "name"
         val info: String = "info"
+        val myId: String = "myId"
     }
     private val prefs: SharedPreferences =
         context.getSharedPreferences("AUTO_LOGIN", Context.MODE_PRIVATE)

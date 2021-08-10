@@ -18,10 +18,10 @@ class UploadRepository {
             Board = BoardsContentRequest(content = content)
         )     // retrofit api service
 
-    fun uploadFiles(files: MutableList<MultipartBody.Part>, data: HashMap<String, RequestBody>) =
+    fun uploadFiles(files: MutableList<MultipartBody.Part>, id: String) =
         ServerImpl.service.boardFileUpload(
             token = token,
             files = files,
-            data = data
+            boardId = id
         )
 }

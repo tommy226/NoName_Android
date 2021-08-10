@@ -3,6 +3,7 @@ package com.sungbin.noname.profile.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.home.viewmodel.ProfileViewModel
 import com.sungbin.noname.profile.data.ProfileEditResponse
 import com.sungbin.noname.profile.data.ProfileImageResponse
 import com.sungbin.noname.profile.repository.ProfileEditRepository
@@ -13,7 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class ProfileEditViewModel : ViewModel() {
     private val TAG = ProfileEditViewModel::class.java.simpleName
