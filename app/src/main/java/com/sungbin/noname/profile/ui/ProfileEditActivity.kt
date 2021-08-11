@@ -10,16 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
-import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityProfileEditBinding
-import com.sungbin.noname.home.viewmodel.ProfileViewModel
 import com.sungbin.noname.profile.viewmodel.ProfileEditViewModel
 import com.sungbin.noname.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 
 class ProfileEditActivity : AppCompatActivity() {
     private val TAG = ProfileEditActivity::class.java.simpleName
@@ -29,8 +24,6 @@ class ProfileEditActivity : AppCompatActivity() {
     private val binding: ActivityProfileEditBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_profile_edit)
     }
-
-    private lateinit var imageUri: Uri
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,8 +40,12 @@ class ProfileEditActivity : AppCompatActivity() {
         })
 
         viewmodel.idResponse.observe(this, Observer { idResponse ->
-            val id = idResponse.items.id
-            imageUpload(id, imageUri)
+            if (viewmodel.selectedImage != null) {  // 프로필 사진 변경 체크
+                val id = idResponse.items.id
+                imageUpload(id, viewmodel.selectedImage!!)
+            }else{
+                finish()
+            }
         })
 
         viewmodel.profileResult.observe(this, Observer {
@@ -82,7 +79,7 @@ class ProfileEditActivity : AppCompatActivity() {
             .start { uri ->
                 Log.d(TAG, uri.toString())
                 binding.profileImageView.createThumnail(uri = uri)
-                imageUri = uri
+                viewmodel.selectedImage = uri
             }
     }
 

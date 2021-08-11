@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.sungbin.noname.home.viewmodel.HomeViewModel" />
+            type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
     </data>
 
 

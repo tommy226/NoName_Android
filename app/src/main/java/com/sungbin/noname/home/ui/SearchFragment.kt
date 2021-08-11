@@ -21,10 +21,6 @@ class SearchFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_search, container, false)
 
-        binding.run {
-            lifecycleOwner =this@SearchFragment
-        }
-
         // Inflate the layout for this fragment
         return binding.root
     }

@@ -1,5 +1,6 @@
 package com.sungbin.noname.upload.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class UploadViewModel : ViewModel() {
     private val TAG = UploadViewModel::class.java.simpleName
@@ -22,6 +22,7 @@ class UploadViewModel : ViewModel() {
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
     val inputContent = MutableLiveData<String>("")      // uploadBoard의 content 파라미터 (게시글내용)
+    val selectedImages = mutableListOf<Uri>()                 // uploadImages
 
     private val _toast = MutableLiveData<Event<String>>()
     val toast: LiveData<Event<String>>
@@ -32,18 +33,22 @@ class UploadViewModel : ViewModel() {
         get() = _boardID
 
     fun uploadContent(content: String) = viewModelScope.launch {
-        val response = repo.uploadContent(content)
-        response.customEnqueue(
-            onSuccess = {
-                if (it.code() == 200) _boardID.value = it.body()
-            },
-            onError = {
-                _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")
-            },
-            onFailure = {
-                _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")
-            }
-        )
+        if (selectedImages.isNotEmpty()) {
+            val response = repo.uploadContent(content)
+            response.customEnqueue(
+                onSuccess = {
+                    if (it.code() == 200) _boardID.value = it.body()
+                },
+                onError = {
+                    _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")
+                },
+                onFailure = {
+                    _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")
+                }
+            )
+        }else{
+            _toast.value = Event("한 개 이상의 이미지를 선택 해주세요")
+        }
     }
 
     fun uploadFiles(

@@ -9,15 +9,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sungbin.noname.R
-import com.sungbin.noname.databinding.ActivityHomeBinding
 import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.FeedDataTemp
-import com.sungbin.noname.home.viewmodel.FeedViewModel
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 
 class FeedFragment : Fragment() {
 
-    private val viewModel: FeedViewModel by activityViewModels()
+    private val viewModel: SharedViewModel by activityViewModels()
 
     private lateinit var binding: FragmentFeedBinding
     override fun onCreateView(
@@ -28,7 +27,7 @@ class FeedFragment : Fragment() {
 
         binding.run {
             vm = viewModel
-            lifecycleOwner =this@FeedFragment
+            lifecycleOwner = viewLifecycleOwner
         }
 
         val items = mutableListOf<FeedDataTemp>()

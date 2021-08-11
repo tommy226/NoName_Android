@@ -4,7 +4,7 @@ import com.sungbin.noname.App
 import com.sungbin.noname.network.ServerImpl
 import com.sungbin.noname.util.PreferenceUtil
 
-class ProfileRepository {
+class SharedRepository {
     private val token = App.prefs.getString(PreferenceUtil.AccessToken, "")
     private val id = App.prefs.getString(PreferenceUtil.myId, "")
 

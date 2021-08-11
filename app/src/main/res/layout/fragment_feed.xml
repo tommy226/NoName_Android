@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.sungbin.noname.home.viewmodel.FeedViewModel" />
+            type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

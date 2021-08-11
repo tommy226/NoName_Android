@@ -8,16 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentProfileBinding
-import com.sungbin.noname.home.viewmodel.ProfileViewModel
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.ProfileEditActivity
 
 class ProfileFragment : Fragment() {
 
-    private val viewModel: ProfileViewModel by viewModels()
+    private val viewModel: SharedViewModel by activityViewModels()
 
     private lateinit var binding: FragmentProfileBinding
     override fun onCreateView(
@@ -29,7 +28,7 @@ class ProfileFragment : Fragment() {
         binding.run {
             vm = viewModel
             prefs = App.prefs
-            lifecycleOwner =this@ProfileFragment
+            lifecycleOwner = viewLifecycleOwner
         }
 
         viewModel.getImage()

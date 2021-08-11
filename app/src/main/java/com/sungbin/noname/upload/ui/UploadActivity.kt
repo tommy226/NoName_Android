@@ -36,7 +36,7 @@ class UploadActivity : AppCompatActivity() {
 
     private lateinit var adapter: UploadImageAdapter
 
-    private var imageUriList = mutableListOf<Uri>()
+//    private var imageUriList = mutableListOf<Uri>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,6 @@ class UploadActivity : AppCompatActivity() {
             val id = idResponse.items.board.id
             uploadimages(id = id)
         })
-
     }
 
 
@@ -92,7 +91,7 @@ class UploadActivity : AppCompatActivity() {
                     Log.d(TAG, "File path : ${FileUtils.getPath(this, uriList[i])}")
                 }
 
-                imageUriList.let { list ->
+                viewmodel.selectedImages.let { list ->
                     if(list.isNotEmpty()) list.clear()
                     list.addAll(uriList)
                 }
@@ -104,8 +103,8 @@ class UploadActivity : AppCompatActivity() {
 //        val partsMap = hashMapOf<String, RequestBody>()
 //        partsMap["id"] = id
         val files = mutableListOf<MultipartBody.Part>()
-        for (i in imageUriList.indices) {
-            val filepath = FileUtils.getPath(this, imageUriList[i])
+        for (i in viewmodel.selectedImages.indices) {
+            val filepath = FileUtils.getPath(this, viewmodel.selectedImages[i])
             val multipartBody =
                 FileUtils.multipartBody(filepath = filepath.toString(), key = "files")
             files.add(multipartBody)

@@ -14,7 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityHomeBinding
-import com.sungbin.noname.home.viewmodel.HomeViewModel
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.login.ui.LoginActivity
 import com.sungbin.noname.upload.ui.UploadActivity
 import com.sungbin.noname.util.PreferenceUtil
@@ -30,7 +30,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val viewmmodel: HomeViewModel by viewModels()
+    private val viewmmodel: SharedViewModel by viewModels()
 
     private val binding: ActivityHomeBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_home)
