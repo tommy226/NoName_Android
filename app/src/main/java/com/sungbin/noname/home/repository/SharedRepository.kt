@@ -8,6 +8,8 @@ class SharedRepository {
     private val token = App.prefs.getString(PreferenceUtil.AccessToken, "")
     private val id = App.prefs.getString(PreferenceUtil.myId, "")
 
-    fun profileImageGet() = ServerImpl.service.profileImageGet(token = token, memberId = id)
+    fun getProfileImage() = ServerImpl.service.getProfileImage(token = token, memberId = id)
+
+    fun getInfo() = ServerImpl.service.getInfo(token = token, memberId = id)
 
 }

@@ -10,8 +10,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityProfileEditBinding
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.viewmodel.ProfileEditViewModel
 import com.sungbin.noname.util.*
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -33,7 +35,7 @@ class ProfileEditActivity : AppCompatActivity() {
             activity = this@ProfileEditActivity
             lifecycleOwner = this@ProfileEditActivity
         }
-
+        viewmodel.getInfo()
 
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)
@@ -84,10 +86,6 @@ class ProfileEditActivity : AppCompatActivity() {
     }
 
     private fun imageUpload(id: String, uri: Uri){
-//        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val partsMap = hashMapOf<String, RequestBody>()
-//        partsMap["id"] = id
-
         val filepath = FileUtils.getPath(this, uri)
         val multipartBody = FileUtils.multipartBody(filepath = filepath.toString(), key = "file")
 

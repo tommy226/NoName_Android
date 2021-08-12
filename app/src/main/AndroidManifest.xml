@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".profile.ui.ProfileEditActivity"></activity>
+        <activity android:name=".profile.ui.OtherProfileActivity"></activity>
+        <activity android:name=".profile.ui.ProfileEditActivity" />
         <activity android:name=".upload.ui.UploadActivity" />
         <activity android:name=".home.ui.HomeActivity" />
         <activity android:name=".signup.ui.SignUpActivity" />

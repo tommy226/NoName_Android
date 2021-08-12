@@ -7,9 +7,6 @@
         <variable
             name="vm"
             type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
-        <variable
-            name="prefs"
-            type="com.sungbin.noname.util.PreferenceUtil" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +21,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:gravity="center"
-            android:text="@{prefs.getString(prefs.Companion.Name, prefs.Companion.Empty)}"
+            android:text="@{vm.myName}"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +36,8 @@
             app:civ_border_color="@color/cyan_dark"
             app:civ_border_width="2dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4"
+            app:imageUrl="@{vm.myImage}"/>
 
         <View
             android:id="@+id/view_line"
@@ -169,7 +167,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:textColor="@color/gray"
-            android:text="@{prefs.getString(prefs.Companion.info, prefs.Companion.Empty)}"
+            android:text="@{vm.myInfo}"
             tools:text="소개글"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />

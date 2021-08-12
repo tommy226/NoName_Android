@@ -1,6 +1,8 @@
 package com.sungbin.noname.home.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +15,14 @@ import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.FeedDataTemp
 import com.sungbin.noname.home.viewmodel.SharedViewModel
+import com.sungbin.noname.profile.ui.OtherProfileActivity
+import com.sungbin.noname.util.showToast
 
 class FeedFragment : Fragment() {
 
     private val viewModel: SharedViewModel by activityViewModels()
+
+    val items = mutableListOf<FeedDataTemp>()
 
     private lateinit var binding: FragmentFeedBinding
     override fun onCreateView(
@@ -30,7 +36,7 @@ class FeedFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
-        val items = mutableListOf<FeedDataTemp>()
+
         items.add(
             FeedDataTemp(
                 "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
@@ -53,16 +59,33 @@ class FeedFragment : Fragment() {
             )
         )
 
-        val adapter = FeedAdapter()
-        adapter.items = items
-        binding.feedRecycler.adapter = adapter
-        binding.feedRecycler.layoutManager = LinearLayoutManager(activity)
-
 
         // Inflate the layout for this fragment
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val adapter = FeedAdapter()
+        adapter.items = items
+        adapter.setOnItemClickLister(onClickListner)
+        binding.feedRecycler.adapter = adapter
+        binding.feedRecycler.layoutManager = LinearLayoutManager(activity)
+    }
 
+    val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener{
+        override fun onItemClick(v: View, data: FeedDataTemp) {
+            Log.d("SELECTED", data.name)
+            if (data.name == viewModel.myName.value) {              // 임시
+                v.context.showToast("내 아이디")
+                (activity as HomeActivity).transFragment(ProfileFragment())
+            } else {
+                v.context.showToast("상대 아이디")
+                val intent = Intent(v.context, OtherProfileActivity::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
 }

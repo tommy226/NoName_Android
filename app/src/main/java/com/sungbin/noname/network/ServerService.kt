@@ -1,5 +1,6 @@
 package com.sungbin.noname.network
 
+import com.sungbin.noname.home.data.MemberResponse
 import com.sungbin.noname.login.data.LoginRequest
 import com.sungbin.noname.login.data.LoginResponse
 import com.sungbin.noname.profile.data.ProfileEditRequest
@@ -60,8 +61,14 @@ interface ServerService {
     ) : Call<ProfileImageResponse>
 
     @GET("files/members/{memberId}")
-    fun profileImageGet(
+    fun getProfileImage(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("memberId") memberId: String
-    ) : Call<ResponseBody>
+    ) : Call<MemberResponse>
+
+    @GET("members/{id}")
+    fun getInfo(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") memberId: String
+    ) : Call<MemberResponse>
 }

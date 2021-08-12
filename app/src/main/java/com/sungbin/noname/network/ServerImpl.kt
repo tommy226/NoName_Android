@@ -1,6 +1,5 @@
 package com.sungbin.noname.network
 
-import com.sungbin.noname.util.SSLFactory
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

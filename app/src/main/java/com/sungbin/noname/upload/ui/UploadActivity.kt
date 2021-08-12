@@ -36,8 +36,6 @@ class UploadActivity : AppCompatActivity() {
 
     private lateinit var adapter: UploadImageAdapter
 
-//    private var imageUriList = mutableListOf<Uri>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -45,8 +43,8 @@ class UploadActivity : AppCompatActivity() {
             vm = viewmodel
             activity = this@UploadActivity
             lifecycleOwner = this@UploadActivity
-            boardName.text = App.prefs.getString(PreferenceUtil.Name, "")
         }
+        viewmodel.getInfo()
 
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)
@@ -99,9 +97,6 @@ class UploadActivity : AppCompatActivity() {
     }
 
     private fun uploadimages(id: String) {
-//        val id: RequestBody = id.toRequestBody("text/plain".toMediaTypeOrNull())
-//        val partsMap = hashMapOf<String, RequestBody>()
-//        partsMap["id"] = id
         val files = mutableListOf<MultipartBody.Part>()
         for (i in viewmodel.selectedImages.indices) {
             val filepath = FileUtils.getPath(this, viewmodel.selectedImages[i])

@@ -53,6 +53,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         transFragment(FeedFragment())
 
+        viewmmodel.getInfo() // 자기 정보 가져오기
     }
 
     override fun onStart() {
@@ -134,7 +135,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
-    private fun transFragment(fragment: Fragment) {
+    fun transFragment(fragment: Fragment) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.home_container, fragment)
@@ -159,6 +160,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onRestart() {
+        viewmmodel.getInfo()  // 프로필 재요청
         Log.d(TAG, "lifecycle-> onRestart")
         super.onRestart()
     }

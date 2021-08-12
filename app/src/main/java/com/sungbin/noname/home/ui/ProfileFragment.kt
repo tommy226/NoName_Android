@@ -27,11 +27,9 @@ class ProfileFragment : Fragment() {
 
         binding.run {
             vm = viewModel
-            prefs = App.prefs
             lifecycleOwner = viewLifecycleOwner
         }
 
-        viewModel.getImage()
 
         binding.profileEditBtn.setOnClickListener {
             val intent = Intent(activity, ProfileEditActivity::class.java)

@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.data.ProfileEditResponse
 import com.sungbin.noname.profile.data.ProfileImageResponse
 import com.sungbin.noname.profile.repository.ProfileEditRepository
@@ -15,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
-class ProfileEditViewModel : ViewModel() {
+class ProfileEditViewModel : SharedViewModel() {
     private val TAG = ProfileEditViewModel::class.java.simpleName
     private val repo = ProfileEditRepository()
 
@@ -44,7 +45,10 @@ class ProfileEditViewModel : ViewModel() {
         val response = repo.profileEdit(name, info)
         response.customEnqueue(
             onSuccess = {
-                if (it.code() == 200) _idResponse.value = it.body()
+                if (it.code() == 200) {
+                    _idResponse.value = it.body()
+                    _toast.value = Event("프로필 편집 완료")
+                }
             },
             onError = {
                 _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")
@@ -57,16 +61,13 @@ class ProfileEditViewModel : ViewModel() {
 
     fun editImageRequest(
         image: MultipartBody.Part,
-//        data: HashMap<String, RequestBody>
     ) = viewModelScope.launch {
         val response = repo.profileImageEdit(image)
 
         response?.customEnqueue(
             onSuccess = {
-                if (it.code() == 201) {
-                    _profileResult.value = it.body()
-                    _toast.value = Event("프로필 편집 완료")
-                }
+                if (it.code() == 201) _profileResult.value = it.body()
+
             },
             onError = {
                 _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")

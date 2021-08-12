@@ -4,6 +4,7 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.upload.data.BoardsContentResponse
 import com.sungbin.noname.upload.repository.UploadRepository
 import com.sungbin.noname.util.Event
@@ -14,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 
-class UploadViewModel : ViewModel() {
+class UploadViewModel : SharedViewModel() {
     private val TAG = UploadViewModel::class.java.simpleName
     private val repo = UploadRepository()
 

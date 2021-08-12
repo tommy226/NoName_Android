@@ -7,7 +7,7 @@
     <data>
 
         <variable
-            name="viewModel"
+            name="vm"
             type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
     </data>
 
@@ -56,7 +56,7 @@
                     android:src="@drawable/ic_baseline_chevron_right_24"
                     app:layout_constraintBottom_toBottomOf="@+id/navi_nick_text"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/navi_nick_text" />
+                    app:layout_constraintTop_toTopOf="@+id/navi_nick_text"/>
 
                 <TextView
                     android:id="@+id/navi_nick_text"
@@ -68,9 +68,10 @@
                     app:layout_constraintBottom_toBottomOf="@+id/navi_profile_img"
                     app:layout_constraintStart_toEndOf="@+id/navi_profile_img"
                     app:layout_constraintTop_toTopOf="@+id/navi_profile_img"
+                    android:text="@{vm.myName}"
                     tools:text="닉네임" />
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/navi_profile_img"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -81,7 +82,8 @@
                     app:layout_constraintEnd_toStartOf="@+id/navi_nick_text"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_baseline_person_outline_24" />
+                    tools:src="@drawable/ic_baseline_person_outline_24"
+                    app:imageUrl="@{vm.myImage}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
