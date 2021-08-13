@@ -60,15 +60,21 @@ interface ServerService {
 //        @PartMap data: HashMap<String, RequestBody>
     ) : Call<ProfileImageResponse>
 
-    @GET("files/members/{memberId}")
+    @GET("files/members/{memberId}")  // 유저 이미지 가져오기
     fun getProfileImage(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("memberId") memberId: String
     ) : Call<MemberResponse>
 
-    @GET("members/{id}")
+    @GET("members/{id}") // 유저 정보 가져오기
     fun getInfo(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("id") memberId: String
     ) : Call<MemberResponse>
+
+    @GET("boards/{id}")
+    fun getBoard(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") boardId: String
+    ): Call<ResponseBody>
 }

@@ -12,4 +12,5 @@ class SharedRepository {
 
     fun getInfo() = ServerImpl.service.getInfo(token = token, memberId = id)
 
+    fun getBoard() = ServerImpl.service.getBoard(token = token, boardId = "46")
 }

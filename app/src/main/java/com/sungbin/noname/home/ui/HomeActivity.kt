@@ -83,7 +83,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     private fun setDrawer(){
         binding.run {
             // 햄버거 버튼
-            homeToolbar.setNavigationOnClickListener {
+            titleMenu.setOnClickListener {
                 Log.d("OpenDrawer", "Open")
                 if (!binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {
                     binding.homeDrawerlayout.openDrawer(GravityCompat.START)
@@ -127,7 +127,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
                 when(item.itemId){
                     R.id.menu_feed -> transFragment(FeedFragment())
                     R.id.menu_search -> transFragment(SearchFragment())
-                    R.id.menu_favorite -> transFragment(FavoriteFragmnet())
+                    R.id.menu_favorite -> transFragment(FavoriteFragment())
                     else -> transFragment(ProfileFragment())
                 }
                 true
@@ -140,6 +140,14 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             .beginTransaction()
             .replace(R.id.home_container, fragment)
             .commit()
+
+        val title: String = when(fragment){
+            is FeedFragment -> getString(R.string.title_feed)
+            is SearchFragment -> getString(R.string.title_search)
+            is FavoriteFragment -> getString(R.string.title_favorite)
+            else-> getString(R.string.title_profile)
+        }
+        viewmmodel.titleName.value = title
     }
     override fun onBackPressed() {
         if (binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sungbin.noname.home.repository.SharedRepository
+import com.sungbin.noname.home.ui.HomeActivity
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,9 @@ open class SharedViewModel : ViewModel() {
 
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
+
+    // 타이틀 바
+    var titleName = MutableLiveData<String>("")
 
     // 자신의 계정
     private var _myAccount = MutableLiveData<String>("")
@@ -56,6 +60,16 @@ open class SharedViewModel : ViewModel() {
             onFailure = {
 
             }
+        )
+    }
+
+    fun getBoard() = viewModelScope.launch {
+        val response = repo.getBoard()
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
         )
     }
 

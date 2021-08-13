@@ -36,28 +36,31 @@ class FeedFragment : Fragment() {
             lifecycleOwner = viewLifecycleOwner
         }
 
+        for(i in 1..10){
+            items.add(
+                FeedDataTemp(
+                    "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
+                    "문성빈$i",
+                    getString(R.string.long_text)
+                )
+            )
+            items.add(
+                FeedDataTemp(
+                    "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
+                    "홍길동$i",
+                    getString(R.string.long_text)
+                )
+            )
+            items.add(
+                FeedDataTemp(
+                    "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
+                    "김배배$i",
+                    getString(R.string.long_text)
+                )
+            )
+        }
 
-        items.add(
-            FeedDataTemp(
-                "https://cdn.pixabay.com/photo/2019/12/26/10/44/horse-4720178_1280.jpg",
-                "문성빈",
-                getString(R.string.long_text)
-            )
-        )
-        items.add(
-            FeedDataTemp(
-                "https://cdn.pixabay.com/photo/2020/11/04/15/29/coffee-beans-5712780_1280.jpg",
-                "홍길동",
-                getString(R.string.long_text)
-            )
-        )
-        items.add(
-            FeedDataTemp(
-                "https://cdn.pixabay.com/photo/2020/09/02/18/03/girl-5539094_1280.jpg",
-                "김배배",
-                getString(R.string.long_text)
-            )
-        )
+
 
 
         // Inflate the layout for this fragment
@@ -67,8 +70,11 @@ class FeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.getBoard()
+
         val adapter = FeedAdapter()
         adapter.items = items
+        adapter.notifyDataSetChanged()
         adapter.setOnItemClickLister(onClickListner)
         binding.feedRecycler.adapter = adapter
         binding.feedRecycler.layoutManager = LinearLayoutManager(activity)
@@ -76,12 +82,9 @@ class FeedFragment : Fragment() {
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener{
         override fun onItemClick(v: View, data: FeedDataTemp) {
-            Log.d("SELECTED", data.name)
             if (data.name == viewModel.myName.value) {              // 임시
-                v.context.showToast("내 아이디")
                 (activity as HomeActivity).transFragment(ProfileFragment())
             } else {
-                v.context.showToast("상대 아이디")
                 val intent = Intent(v.context, OtherProfileActivity::class.java)
                 startActivity(intent)
             }
