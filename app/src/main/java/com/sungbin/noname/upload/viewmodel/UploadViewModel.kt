@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.upload.data.BoardsContentResponse
+import com.sungbin.noname.upload.data.BoardsImageResponse
 import com.sungbin.noname.upload.repository.UploadRepository
 import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.customEnqueue
@@ -32,6 +33,10 @@ class UploadViewModel : SharedViewModel() {
     private val _boardID = MutableLiveData<BoardsContentResponse>()
     val boardId: LiveData<BoardsContentResponse>
         get() = _boardID
+
+    private val _boardResponse = MutableLiveData<BoardsImageResponse>()
+    val boardResponse: LiveData<BoardsImageResponse>
+        get() = _boardResponse
 
     fun uploadContent(content: String) = viewModelScope.launch {
         if (selectedImages.isNotEmpty()) {
@@ -61,7 +66,10 @@ class UploadViewModel : SharedViewModel() {
 
         response.customEnqueue(
             onSuccess = {
-                if (it.code() == 200) _toast.value = Event("업로드 성공")
+                if (it.code() == 201){
+                    _boardResponse.value = it.body()
+                    _toast.value = Event("업로드 성공")
+                }
             },
             onError = {
                 _toast.value = Event("서버에 문제가 있습니다. 다시 시도해주세요")

@@ -6,7 +6,7 @@
     <data>
         <variable
             name="data"
-            type="com.sungbin.noname.home.data.FeedDataTemp" />
+            type="com.sungbin.noname.home.data.Feed" />
 
     </data>
 
@@ -22,8 +22,7 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_baseline_face_24"
-            app:imageUrl="@{data.profileImage}"/>
+            tools:src="@drawable/ic_baseline_face_24" />
 
         <TextView
             android:id="@+id/feed_profileNickname"
@@ -33,7 +32,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@{data.name}"
+            android:text="@{data.board.name}"
             tools:text="닉네임"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/feed_profileImage"
@@ -120,7 +119,7 @@
             app:readMoreColor="@color/gray"
             app:readMoreMaxLine="2"
             app:readMoreText="…더보기"
-            android:text="@{data.content}"/>
+            android:text="@{data.board.content}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

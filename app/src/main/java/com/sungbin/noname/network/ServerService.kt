@@ -1,5 +1,7 @@
 package com.sungbin.noname.network
 
+import com.sungbin.noname.home.data.Feed
+import com.sungbin.noname.home.data.FeedData
 import com.sungbin.noname.home.data.MemberResponse
 import com.sungbin.noname.login.data.LoginRequest
 import com.sungbin.noname.login.data.LoginResponse
@@ -12,6 +14,7 @@ import com.sungbin.noname.signup.data.RegisterRequest
 import com.sungbin.noname.signup.data.RegisterResponse
 import com.sungbin.noname.upload.data.BoardsContentRequest
 import com.sungbin.noname.upload.data.BoardsContentResponse
+import com.sungbin.noname.upload.data.BoardsImageResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
@@ -41,8 +44,7 @@ interface ServerService {
         @Header("X-AUTH-TOKEN") token: String,
         @Part files: MutableList<MultipartBody.Part>,
         @Query("boardId") boardId: String
-//        @PartMap data: HashMap<String, RequestBody>
-    ) : Call<ResponseBody>
+    ) : Call<BoardsImageResponse>
 
     @PUT("auth/{account}/") // 프로필 편집
     fun profileEdit(
@@ -72,9 +74,16 @@ interface ServerService {
         @Path("id") memberId: String
     ) : Call<MemberResponse>
 
+    @GET("boards")
+    fun getBoards(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Query("page") page: Int
+    ): Call<List<Feed>>
+
     @GET("boards/{id}")
     fun getBoard(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("id") boardId: String
-    ): Call<ResponseBody>
+    ): Call<FeedData>
+
 }

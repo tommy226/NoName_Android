@@ -54,6 +54,10 @@ class UploadActivity : AppCompatActivity() {
             val id = idResponse.items.board.id
             uploadimages(id = id)
         })
+
+        viewmodel.boardResponse.observe(this, Observer { boardResponse ->
+            finish()
+        })
     }
 
 
