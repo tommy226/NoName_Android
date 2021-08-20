@@ -99,7 +99,6 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             // 드로어 레이아웃 슬라이드 잠금 여부 설정
             homeDrawerlayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-            homeNavigation.naviNickText.text = App.prefs.getString(PreferenceUtil.Name, "")
             // 네비게이션 뷰 클릭 리스너
             homeNavigation.closeNaviImg.setOnClickListener { closeDrawer() }
             homeNavigation.layoutProfile.setOnClickListener {
