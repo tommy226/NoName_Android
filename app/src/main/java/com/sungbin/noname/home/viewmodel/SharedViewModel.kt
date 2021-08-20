@@ -3,11 +3,8 @@ package com.sungbin.noname.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.sungbin.noname.home.data.Feed
-import com.sungbin.noname.home.data.FeedData
+import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.repository.SharedRepository
-import com.sungbin.noname.home.ui.HomeActivity
-import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -44,7 +41,13 @@ open class SharedViewModel : ViewModel() {
     val myImage: LiveData<String>
         get() = _myImage
 
-    var feedResponse = ListLivedata<Feed>()
+    // 게시물(피드) 데이터
+    private var _feedResponse = MutableLiveData<FeedPagingResponse>()
+    val feedResponse: LiveData<FeedPagingResponse>
+        get() = _feedResponse
+
+    // 게시물 페이지
+    var page = 0
 
     fun getInfo() = viewModelScope.launch {
         val response = repo.getInfo()
@@ -73,7 +76,7 @@ open class SharedViewModel : ViewModel() {
 
         response.customEnqueue(
             onSuccess = {
-                        if(it.code()==200) feedResponse.value = it.body()?.toMutableList()
+                        if(it.code()==200) _feedResponse.value = it.body()
             },
             onError = {},
             onFailure = {}

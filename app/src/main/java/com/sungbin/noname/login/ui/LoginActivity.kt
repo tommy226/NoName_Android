@@ -19,7 +19,7 @@ import com.sungbin.noname.util.showToast
 class LoginActivity : AppCompatActivity() {
     private val TAG = LoginActivity::class.java.simpleName
 
-    private val viewmmodel: LoginViewModel by viewModels()
+    private val viewModel: LoginViewModel by viewModels()
 
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,29 +27,29 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
         binding.run {
-            vm = viewmmodel
+            vm = viewModel
             lifecycleOwner = this@LoginActivity
         }
         autoLogin()
 
-        viewmmodel.tokenModel.observe(this, Observer { tokenModel ->
+        viewModel.tokenModel.observe(this, Observer { tokenModel ->
             Log.d(TAG, tokenModel.toString())                                                           // 서버에서 전달 받은 Token
             App.prefs.setString(PreferenceUtil.AccessToken, tokenModel.accessToken)
             App.prefs.setString(PreferenceUtil.RefreshToken, tokenModel.refreshToken)
         })
-        viewmmodel.loginData.observe(this, Observer { userData ->
+        viewModel.loginData.observe(this, Observer { userData ->
             App.prefs.setString(PreferenceUtil.Name, userData.items.name)
             App.prefs.setString(PreferenceUtil.myId, userData.items.id)
         })
 
-        viewmmodel.loginResult.observe(this, Observer { result ->
+        viewModel.loginResult.observe(this, Observer { result ->
             Log.d(TAG, "LOGIN RESULT : ${result}")
 
             if (result) {
                 showToast("로그인 성공")
-                if (!viewmmodel.inputAccount.value.isNullOrEmpty()) {
-                    App.prefs.setString(PreferenceUtil.Account, viewmmodel.inputAccount.value!!)      // 로그인 성공 시 자동로그인 아이디 등록
-                    App.prefs.setString(PreferenceUtil.Password, viewmmodel.inputPW.value!!)
+                if (!viewModel.inputAccount.value.isNullOrEmpty()) {
+                    App.prefs.setString(PreferenceUtil.Account, viewModel.inputAccount.value!!)      // 로그인 성공 시 자동로그인 아이디 등록
+                    App.prefs.setString(PreferenceUtil.Password, viewModel.inputPW.value!!)
                 }
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                 startActivity(intent)
@@ -57,11 +57,11 @@ class LoginActivity : AppCompatActivity() {
             } else showToast("로그인 실패")
         })
 
-        viewmmodel.registerFlag.observe(this, Observer { result ->                                // 회원가입
+        viewModel.registerFlag.observe(this, Observer { result ->                                // 회원가입
             if(result){
                 val intent = Intent(this@LoginActivity, SignUpActivity::class.java)
                 startActivity(intent)
-                viewmmodel.registerFlagDone()
+                viewModel.registerFlagDone()
             }
         })
     }
@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
         if (App.prefs.getString(PreferenceUtil.Account, "").isNotEmpty()) {
             val account = App.prefs.getString(PreferenceUtil.Account, "")
             val password = App.prefs.getString(PreferenceUtil.Password, "")
-            viewmmodel.loginRequest(account, password)
+            viewModel.loginRequest(account, password)
         }
     }
 

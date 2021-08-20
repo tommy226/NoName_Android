@@ -30,12 +30,11 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
 
-    private val viewmmodel: SharedViewModel by viewModels()
+    private val viewModel: SharedViewModel by viewModels()
 
     private val binding: ActivityHomeBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_home)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d(TAG, "lifecycle-> onCreate")
         super.onCreate(savedInstanceState)
@@ -43,7 +42,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         job = Job()
 
         binding.apply {
-            vm = viewmmodel
+            vm = viewModel
             lifecycleOwner = this@HomeActivity
         }
 
@@ -53,7 +52,8 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         transFragment(FeedFragment())
 
-        viewmmodel.getInfo() // 자기 정보 가져오기
+        viewModel.getInfo() // 자기 정보 가져오기
+        viewModel.getBoards(viewModel.page) // 게시물 첫 페이지 요청
     }
 
     override fun onStart() {
@@ -147,7 +147,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             is FavoriteFragment -> getString(R.string.title_favorite)
             else-> getString(R.string.title_profile)
         }
-        viewmmodel.titleName.value = title
+        viewModel.titleName.value = title
     }
     override fun onBackPressed() {
         if (binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {
@@ -168,7 +168,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onRestart() {
-        viewmmodel.getInfo()  // 프로필 재요청
+        viewModel.getInfo()  // 프로필 재요청
         Log.d(TAG, "lifecycle-> onRestart")
         super.onRestart()
     }

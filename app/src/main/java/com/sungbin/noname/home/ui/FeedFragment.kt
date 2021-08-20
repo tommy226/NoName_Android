@@ -16,8 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.home.adapter.FeedAdapter
-
-import com.sungbin.noname.home.data.Feed
+import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.OtherProfileActivity
 
@@ -27,7 +26,7 @@ class FeedFragment : Fragment() {
 
     private lateinit var binding: FragmentFeedBinding
     private lateinit var feedAdapter: FeedAdapter
-    private var page = 0
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,12 +37,6 @@ class FeedFragment : Fragment() {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
 
         binding.feedRecycler.apply {
             feedAdapter = FeedAdapter()
@@ -52,13 +45,15 @@ class FeedFragment : Fragment() {
             layoutManager = LinearLayoutManager(activity)
         }
 
-        viewModel.getBoards(page)
 
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
             Log.d(TAG, feed.toString())
-
-            feedAdapter.setList(feed)
-            feedAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
+            for(i in feed.items.boards.indices){
+                Log.d(TAG, feed.items.boards[i].content)
+            }
+            feedAdapter.setList(feed.items.boards.toMutableList())
+//            feedAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
+            feedAdapter.notifyDataSetChanged()
         })
 
         binding.feedRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -71,25 +66,23 @@ class FeedFragment : Fragment() {
 
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.feedRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
-
                     Log.d(TAG, "새로고침")
-
-                    binding.feedRecycler.postDelayed(
-                        {
-//                            feedAdapter.deleteLoading()
-                            feedAdapter.notifyDataSetChanged()
-                        },
-                        500
-                    )
-//                    viewModel.getBoards(++page)
+                    viewModel.getBoards(++viewModel.page)
                 }
             }
         })
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
-        override fun onItemClick(v: View, data: Feed) {
-            if (data.board.name == viewModel.myName.value) {              // 임시
+        override fun onItemClick(v: View, data: Board) {
+            if (data.name == viewModel.myName.value) {              // 임시
                 (activity as HomeActivity).transFragment(ProfileFragment())
             } else {
                 val intent = Intent(v.context, OtherProfileActivity::class.java)

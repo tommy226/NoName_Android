@@ -1,12 +1,14 @@
 package com.sungbin.noname.home.data
 
-data class FeedData(
-    val items: Feed,
+data class FeedPagingResponse(
+    val items: FeedItems,
     val message: String
 )
 
-data class Feed(
-    val board: Board
+data class FeedItems(
+    val TotalElements: Int,
+    val boards: List<Board>,
+    val page: Int
 )
 
 data class Board(
