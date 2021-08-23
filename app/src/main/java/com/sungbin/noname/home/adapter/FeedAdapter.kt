@@ -65,7 +65,6 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val binding = binding
         fun bind(data: Board) {
             binding.data = data
-
             itemView.setOnClickListener {
                 listener.onItemClick(binding.root, data)
             }

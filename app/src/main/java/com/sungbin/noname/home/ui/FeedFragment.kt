@@ -47,11 +47,12 @@ class FeedFragment : Fragment() {
 
 
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
-            Log.d(TAG, feed.toString())
             for(i in feed.items.boards.indices){
-                Log.d(TAG, feed.items.boards[i].content)
+                Log.d(TAG, "name : "+feed.items.boards[i].name)
+                Log.d(TAG, "content : "+feed.items.boards[i].content)
             }
             feedAdapter.setList(feed.items.boards.toMutableList())
+            feedAdapter.deleteLoading()
 //            feedAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
             feedAdapter.notifyDataSetChanged()
         })
@@ -73,11 +74,6 @@ class FeedFragment : Fragment() {
         })
         // Inflate the layout for this fragment
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
     }
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
