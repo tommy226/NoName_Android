@@ -22,7 +22,8 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_baseline_face_24" />
+            tools:src="@drawable/ic_baseline_face_24"
+            app:imageUrl="@{data.memberDto.src}"/>
 
         <TextView
             android:id="@+id/feed_profileNickname"
@@ -32,7 +33,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:text="@{data.name}"
+            android:text="@{data.memberDto.name}"
             tools:text="닉네임"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/feed_profileImage"

@@ -47,10 +47,6 @@ class FeedFragment : Fragment() {
 
 
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
-            for(i in feed.items.boards.indices){
-                Log.d(TAG, "name : "+feed.items.boards[i].name)
-                Log.d(TAG, "content : "+feed.items.boards[i].content)
-            }
             feedAdapter.setList(feed.items.boards.toMutableList())
             feedAdapter.deleteLoading()
 //            feedAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
@@ -67,7 +63,6 @@ class FeedFragment : Fragment() {
 
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.feedRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
-                    Log.d(TAG, "새로고침")
                     viewModel.getBoards(++viewModel.page)
                 }
             }
@@ -78,7 +73,7 @@ class FeedFragment : Fragment() {
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
         override fun onItemClick(v: View, data: Board) {
-            if (data.name == viewModel.myName.value) {              // 임시
+            if (data.memberDto.name == viewModel.myName.value) {              // 임시
                 (activity as HomeActivity).transFragment(ProfileFragment())
             } else {
                 val intent = Intent(v.context, OtherProfileActivity::class.java)

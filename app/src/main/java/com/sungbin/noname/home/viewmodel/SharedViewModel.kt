@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sungbin.noname.home.data.FeedPagingResponse
+import com.sungbin.noname.home.data.GetProfileImageResponse
 import com.sungbin.noname.home.repository.SharedRepository
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
@@ -93,8 +94,8 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
-    fun getImage() = viewModelScope.launch {
-        val response = repo.getProfileImage()
+    fun getProfileImage(id: String) = viewModelScope.launch {
+        val response = repo.getProfileImage(id)
 
         response.customEnqueue(
             onSuccess = {},
