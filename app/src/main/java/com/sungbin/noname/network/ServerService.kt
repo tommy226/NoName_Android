@@ -76,6 +76,13 @@ interface ServerService {
     @GET("boards")
     fun getBoards(
         @Header("X-AUTH-TOKEN") token: String,
+        @Query("page") page: Int,
+    ): Call<FeedPagingResponse>
+
+    @GET("boards/users/{memberId}")
+    fun getUserBoards(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("memberId") memberId: String,
         @Query("page") page: Int
     ): Call<FeedPagingResponse>
 

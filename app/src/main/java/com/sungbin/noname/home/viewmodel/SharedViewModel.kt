@@ -3,9 +3,12 @@ package com.sungbin.noname.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.data.GetProfileImageResponse
+import com.sungbin.noname.home.data.MemberDto
 import com.sungbin.noname.home.repository.SharedRepository
+import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +53,13 @@ open class SharedViewModel : ViewModel() {
     // 게시물 페이지
     var page = 0
 
+    // 유저가 올린 게시글
+    var userBoards = ListLivedata<Board>()
+    var userBoardsCount = MutableLiveData(0)
+    fun clearBoards(){
+        userBoards.clear()
+    }
+
     fun getInfo() = viewModelScope.launch {
         val response = repo.getInfo()
 
@@ -77,7 +87,24 @@ open class SharedViewModel : ViewModel() {
 
         response.customEnqueue(
             onSuccess = {
-                        if(it.code()==200) _feedResponse.value = it.body()
+                if (it.code() == 200) _feedResponse.value = it.body()
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun getBoardsMember(memberId: String, number: Int) = viewModelScope.launch {
+        val response = repo.getUserBoards(memberId, number)
+
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+                    it.body()?.items?.boards?.toMutableList()?.let { boards ->
+                        userBoards.addAll(boards)
+                    }
+                    userBoardsCount.value = it.body()?.items?.TotalElements
+                }
             },
             onError = {},
             onFailure = {}

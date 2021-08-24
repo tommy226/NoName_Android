@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentProfileBinding
@@ -27,19 +30,34 @@ class ProfileFragment : Fragment() {
 
         binding.run {
             vm = viewModel
+            fragment = this@ProfileFragment
             lifecycleOwner = viewLifecycleOwner
         }
+        viewModel.clearBoards()  // 처음 데이터 삭제
 
+        var page = 0
+        viewModel.getBoardsMember("2",page)
 
-        binding.profileEditBtn.setOnClickListener {
-            val intent = Intent(activity, ProfileEditActivity::class.java)
-            startActivity(intent)
-        }
+        binding.profileBoardRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+
+                // 스크롤이 끝에 도달했는지 확인
+                if (!binding.profileBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                    viewModel.getBoardsMember("2",++page)
+                }
+            }
+        })
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    fun editProfile(){
+        val intent = Intent(activity, ProfileEditActivity::class.java)
+        startActivity(intent)
     }
-
 }

@@ -7,6 +7,10 @@
         <variable
             name="vm"
             type="com.sungbin.noname.home.viewmodel.SharedViewModel" />
+
+        <variable
+            name="fragment"
+            type="com.sungbin.noname.home.ui.ProfileFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,7 +129,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="0"
+            android:text="@{Integer.toString(vm.userBoardsCount)}"
             style="@style/P6_12pt_Regular"
             android:textColor="@color/black"
             tools:text="0"
@@ -185,7 +189,8 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_line" />
+            app:layout_constraintTop_toBottomOf="@+id/view_line"
+            android:onClick="@{()->fragment.editProfile()}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/profile_boardRecycler"
@@ -195,7 +200,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_editBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_editBtn"
+            app:setFeedList="@{vm.userBoards}"/>
 
 
 
