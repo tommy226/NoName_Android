@@ -15,7 +15,7 @@ data class Board(
     val content: String,
     val fileDtos: List<FileDto>,
     val id: Int?,
-    val memberDto: MemberDto
+    val memberDto: MemberDto,
 )
 
 data class FileDto(

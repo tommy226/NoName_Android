@@ -7,6 +7,9 @@
         <variable
             name="data"
             type="com.sungbin.noname.home.data.Board" />
+        <variable
+            name="indicator"
+            type="com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator" />
 
     </data>
 
@@ -43,34 +46,28 @@
             android:id="@+id/feed_viewpager"
             android:layout_width="match_parent"
             android:layout_height="400dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:imageAdapter="@{data.fileDtos}"
-            app:layout_constraintTop_toBottomOf="@+id/feed_profileNickname" />
+            app:setIndicator="@{indicator}"
+            app:layout_constraintTop_toBottomOf="@+id/feed_profileNickname"
+            tools:layout_editor_absoluteX="16dp" />
 
-        <View
-            android:id="@+id/viewFadingEdge"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/bg_fading_edge"
-            app:layout_constraintBottom_toBottomOf="@id/feed_viewpager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/layoutIndicators"
-            android:layout_width="0dp"
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:paddingBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="@id/viewFadingEdge"
+            android:layout_marginBottom="8dp"
+            app:dotsColor="@color/colorAccent"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsStrokeColor="@color/white"
+            app:dotsStrokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/feed_viewpager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
-
 
         <ImageView
             android:id="@+id/feed_heart"
@@ -120,6 +117,5 @@
             app:readMoreMaxLine="2"
             app:readMoreText="…더보기"
             android:text="@{data.content}"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

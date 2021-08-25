@@ -41,6 +41,7 @@ class FeedFragment : Fragment() {
         binding.feedRecycler.apply {
             feedAdapter = FeedAdapter()
             feedAdapter.setOnItemClickLister(onClickListner)
+            feedAdapter.items = mutableListOf()
             adapter = feedAdapter
             layoutManager = LinearLayoutManager(activity)
         }
@@ -49,7 +50,6 @@ class FeedFragment : Fragment() {
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
             feedAdapter.setList(feed.items.boards.toMutableList())
             feedAdapter.deleteLoading()
-//            feedAdapter.notifyItemRangeInserted((page - 1) * 10, 10)
             feedAdapter.notifyDataSetChanged()
         })
 

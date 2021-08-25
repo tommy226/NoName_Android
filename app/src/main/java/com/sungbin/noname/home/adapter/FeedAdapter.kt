@@ -9,6 +9,7 @@ import com.sungbin.noname.databinding.ItemLoadingBinding
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.ImageItems
 import com.sungbin.noname.home.data.MemberDto
+import com.sungbin.noname.util.BindingConversions.setImageAdapter
 
 class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val FEED_TYPE = 0
@@ -66,6 +67,7 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val binding = binding
         fun bind(data: Board) {
             binding.data = data
+            binding.indicator = binding.dotsIndicator
             itemView.setOnClickListener {
                 listener.onItemClick(binding.root, data)
             }
