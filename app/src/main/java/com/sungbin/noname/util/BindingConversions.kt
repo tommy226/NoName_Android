@@ -2,23 +2,20 @@ package com.sungbin.noname.util
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.sungbin.noname.R
-import com.sungbin.noname.home.adapter.FeedAdapter
+import com.sungbin.noname.detail.ui.DetailActivity
 import com.sungbin.noname.home.adapter.FeedImageAdapter
 import com.sungbin.noname.home.adapter.MemberFeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.FileDto
-import com.sungbin.noname.home.ui.HomeActivity
-import com.sungbin.noname.home.ui.ProfileFragment
-import com.sungbin.noname.profile.ui.OtherProfileActivity
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 object BindingConversions {
@@ -28,7 +25,7 @@ object BindingConversions {
         Glide.with(imageView.context)
             .load(url)
             .centerCrop()
-            .error(R.drawable.baseline_close_white_24)
+            .error(R.drawable.ic_baseline_face_24)
             .into(imageView)
     }
 
@@ -57,6 +54,15 @@ object BindingConversions {
     @JvmStatic
     fun RecyclerView.userBoardList(boardList: List<Board>){
         val memberFeedAdapter = MemberFeedAdapter()
+
+        memberFeedAdapter.setOnItemClickLister(object : MemberFeedAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: Board) {
+                val intent = Intent(v.context, DetailActivity::class.java)
+                intent.putExtra("boardId", data.id)
+                v.context.startActivity(intent)
+            }
+        })
+
         this.apply {
             adapter = memberFeedAdapter
             layoutManager = GridLayoutManager(this.context, 3)

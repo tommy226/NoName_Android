@@ -36,7 +36,7 @@ class ProfileFragment : Fragment() {
         viewModel.clearBoards()  // 처음 데이터 삭제
 
         var page = 0
-        viewModel.getBoardsMember("2",page)
+        viewModel.getBoardsMember(viewModel.myId,page)
 
         binding.profileBoardRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -48,7 +48,7 @@ class ProfileFragment : Fragment() {
 
                 // 스크롤이 끝에 도달했는지 확인
                 if (!binding.profileBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
-                    viewModel.getBoardsMember("2",++page)
+                    viewModel.getBoardsMember(viewModel.myId,++page)
                 }
             }
         })

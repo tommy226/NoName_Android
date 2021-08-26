@@ -18,4 +18,6 @@
         \n 안드로이드 개발자이며 코틀린과 자바를 사용합니다.
         \n Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah Blah
         \n La La La La La La La La La La La La La La La La La La La La La</string>
+
+    <string name="empty">empty</string>
 </resources>

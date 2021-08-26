@@ -1,6 +1,7 @@
 package com.sungbin.noname.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.databinding.ItemLoadingBinding
@@ -9,6 +10,15 @@ import com.sungbin.noname.home.data.Board
 
 class MemberFeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var items = mutableListOf<Board>()
+
+    private lateinit var listener: OnItemClickListener
+
+    interface OnItemClickListener {
+        fun onItemClick(v: View, data: Board)
+    }
+    fun setOnItemClickLister(listener: OnItemClickListener){
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding =
@@ -30,6 +40,9 @@ class MemberFeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val binding = binding
         fun bind(data: Board) {
             binding.data = data
+            itemView.setOnClickListener {
+                listener.onItemClick(binding.root, data)
+            }
         }
     }
 

@@ -3,12 +3,14 @@ package com.sungbin.noname.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.App
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.data.GetProfileImageResponse
 import com.sungbin.noname.home.data.MemberDto
 import com.sungbin.noname.home.repository.SharedRepository
 import com.sungbin.noname.util.ListLivedata
+import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +26,9 @@ open class SharedViewModel : ViewModel() {
 
     // 타이틀 바
     var titleName = MutableLiveData<String>("")
+
+    // 자신의 Id
+    val myId = App.prefs.getString(PreferenceUtil.myId, "")
 
     // 자신의 계정
     private var _myAccount = MutableLiveData<String>("")
@@ -111,8 +116,8 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
-    fun getBoard() = viewModelScope.launch {
-        val response = repo.getBoard()
+    fun getBoard(id: Int) = viewModelScope.launch {
+        val response = repo.getBoard(id)
 
         response.customEnqueue(
             onSuccess = {},

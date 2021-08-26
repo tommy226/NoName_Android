@@ -1,5 +1,6 @@
 package com.sungbin.noname.network
 
+import com.sungbin.noname.detail.data.DetailResponse
 import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.data.GetProfileImageResponse
 import com.sungbin.noname.home.data.MemberResponse
@@ -89,7 +90,7 @@ interface ServerService {
     @GET("boards/{id}")
     fun getBoard(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("id") boardId: String
-    ): Call<ResponseBody>
+        @Path("id") boardId: Int
+    ): Call<DetailResponse>
 
 }

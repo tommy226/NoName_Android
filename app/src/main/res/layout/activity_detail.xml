@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.sungbin.noname.detail.viewmodel.DetailViewModel" />
+        <variable
+            name="indicator"
+            type="com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".detail.ui.DetailActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            app:contentInsetStart="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/board_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                    android:textColor="@color/white" />
+
+            </RelativeLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/detail_profileImage"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
+            tools:src="@drawable/ic_baseline_face_24"
+            app:imageUrl="@{vm.detailResponse.memberDto.src ?? @string/empty}"/>
+
+        <TextView
+            android:id="@+id/detail_profileNickname"
+            style="@style/P1_16pt_Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/detail_profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
+            android:text="@{vm.detailResponse.memberDto.name}"
+            tools:text="닉네임" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/detail_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:imageAdapter="@{vm.detailResponse.fileDtos ?? vm.emptyList}"
+            app:setIndicator="@{indicator}"
+            app:layout_constraintTop_toBottomOf="@+id/detail_profileNickname"
+            tools:layout_editor_absoluteX="16dp" />
+
+
+        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:dotsColor="@color/colorAccent"
+            app:dotsCornerRadius="8dp"
+            app:dotsSize="16dp"
+            app:dotsSpacing="4dp"
+            app:dotsStrokeColor="@color/white"
+            app:dotsStrokeWidth="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_viewpager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/detail_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_viewpager"
+            app:srcCompat="@drawable/baseline_favorite_border_24" />
+
+        <ImageView
+            android:id="@+id/detail_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/detail_heart"
+            app:layout_constraintTop_toBottomOf="@+id/detail_viewpager"
+            app:srcCompat="@drawable/baseline_chat_bubble_outline_24" />
+
+        <ImageView
+            android:id="@+id/datail_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toEndOf="@+id/detail_comment"
+            app:layout_constraintTop_toBottomOf="@+id/detail_viewpager"
+            app:srcCompat="@drawable/baseline_share_24" />
+
+            <kr.co.prnd.readmore.ReadMoreTextView
+                android:id="@+id/detail_text"
+                style="@style/P6_12pt_Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:foreground="?attr/selectableItemBackground"
+                tools:text="@string/long_text"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detail_comment"
+                app:readMoreColor="@color/gray"
+                app:readMoreMaxLine="2"
+                android:text="@{vm.detailResponse.content}"
+                app:readMoreText="…더보기" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

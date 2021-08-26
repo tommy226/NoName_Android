@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_baseline_face_24"
-            app:imageUrl="@{data.memberDto.src}"/>
+            app:imageUrl="@{data.memberDto.src ?? data.memberDto.name}"/>
 
         <TextView
             android:id="@+id/feed_profileNickname"
