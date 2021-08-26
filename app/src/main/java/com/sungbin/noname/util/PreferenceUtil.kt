@@ -22,9 +22,17 @@ class PreferenceUtil(context: Context) {
     fun getString(key: String, defValue: String): String {
         return prefs.getString(key, defValue).toString()
     }
+    fun getInteger(key: String, defValue: Int): Int {
+        return prefs.getInt(key, defValue)
+    }
 
     fun setString(key: String, str: String) {
         prefs.edit().putString(key, str)
+            .apply()
+    }
+
+    fun setInteger(key: String, int: Int) {
+        prefs.edit().putInt(key, int)
             .apply()
     }
 

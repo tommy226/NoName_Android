@@ -52,7 +52,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         transFragment(FeedFragment())
 
-        viewModel.getInfo() // 자기 정보 가져오기
+        viewModel.getInfo(viewModel.myId) // 자기 정보 가져오기
         viewModel.getBoards(viewModel.page) // 게시물 첫 페이지 요청
     }
 
@@ -167,7 +167,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onRestart() {
-        viewModel.getInfo()  // 프로필 재요청
+        viewModel.getInfo(viewModel.myId)  // 프로필 재요청
         Log.d(TAG, "lifecycle-> onRestart")
         super.onRestart()
     }

@@ -72,8 +72,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_baseline_face_24"
-            app:civ_border_color="@color/gray"
-            app:civ_border_width="2dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/board_toolbar"
             app:imageUrl="@{vm.myImage}"/>

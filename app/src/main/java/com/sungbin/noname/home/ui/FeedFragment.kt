@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
@@ -15,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentFeedBinding
+import com.sungbin.noname.databinding.ItemBoardBinding
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.OtherProfileActivity
+import com.sungbin.noname.util.showToast
 
 class FeedFragment : Fragment() {
     private val TAG = FeedFragment::class.java.simpleName
@@ -73,13 +76,28 @@ class FeedFragment : Fragment() {
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
         override fun onItemClick(v: View, data: Board) {
-            if (data.memberDto.name == viewModel.myName.value) {              // 임시
-                (activity as HomeActivity).transFragment(ProfileFragment())
-            } else {
-                val intent = Intent(v.context, OtherProfileActivity::class.java)
-                startActivity(intent)
+            when (v.id) {
+                R.id.feed_profileImage, R.id.feed_profileNickname -> {
+                    if (data.memberDto.name == viewModel.myName.value) {              // 임시
+                        (activity as HomeActivity).transFragment(ProfileFragment())
+                    } else {
+                        val intent = Intent(v.context, OtherProfileActivity::class.java)
+                        intent.putExtra("memberId", data.memberDto.id)
+                        startActivity(intent)
+                    }
+                }
+                R.id.feed_heart -> {
+                    v.context.showToast("좋아요")
+                }
+                R.id.feed_comment -> {
+                    v.context.showToast("댓글")
+                }
+                R.id.feed_share -> {
+                    v.context.showToast("공유")
+                }
+                else -> {
+                }
             }
         }
-
     }
 }

@@ -35,7 +35,7 @@ class ProfileEditActivity : AppCompatActivity() {
             activity = this@ProfileEditActivity
             lifecycleOwner = this@ProfileEditActivity
         }
-        viewmodel.getInfo()
+        viewmodel.getInfo(viewmodel.myId)
 
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)

@@ -44,7 +44,7 @@ class UploadActivity : AppCompatActivity() {
             activity = this@UploadActivity
             lifecycleOwner = this@UploadActivity
         }
-        viewmodel.getInfo()
+        viewmodel.getInfo(viewmodel.myId)
 
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)

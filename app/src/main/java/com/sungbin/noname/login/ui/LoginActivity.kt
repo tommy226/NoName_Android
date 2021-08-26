@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity() {
         })
         viewModel.loginData.observe(this, Observer { userData ->
             App.prefs.setString(PreferenceUtil.Name, userData.items.name)
-            App.prefs.setString(PreferenceUtil.myId, userData.items.id)
+            App.prefs.setInteger(PreferenceUtil.myId, userData.items.id)
         })
 
         viewModel.loginResult.observe(this, Observer { result ->

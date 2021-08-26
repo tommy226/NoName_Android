@@ -68,13 +68,23 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(data: Board) {
             binding.data = data
             binding.indicator = binding.dotsIndicator
-            itemView.setOnClickListener {
-                listener.onItemClick(binding.root, data)
+
+            binding.feedProfileImage.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
+            binding.feedProfileNickname.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
+            binding.feedHeart.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
+            binding.feedComment.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
+            binding.feedShare.setOnClickListener { view ->
+                listener.onItemClick(view, data)
             }
         }
     }
-
-    inner class LoadingViewHolder(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root){
-
-    }
+    inner class LoadingViewHolder(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root)
 }

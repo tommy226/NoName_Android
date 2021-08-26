@@ -65,13 +65,13 @@ interface ServerService {
     @GET("files/members/{memberId}")  // 유저 이미지 가져오기
     fun getProfileImage(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("memberId") memberId: String
+        @Path("memberId") memberId: Int
     ) : Call<GetProfileImageResponse>
 
     @GET("members/{id}") // 유저 정보 가져오기
     fun getInfo(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("id") memberId: String
+        @Path("id") memberId: Int
     ) : Call<MemberResponse>
 
     @GET("boards")
@@ -83,7 +83,7 @@ interface ServerService {
     @GET("boards/users/{memberId}")
     fun getUserBoards(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("memberId") memberId: String,
+        @Path("memberId") memberId: Int,
         @Query("page") page: Int
     ): Call<FeedPagingResponse>
 

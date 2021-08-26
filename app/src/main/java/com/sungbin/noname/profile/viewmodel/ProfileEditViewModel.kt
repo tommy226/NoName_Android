@@ -4,11 +4,13 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.sungbin.noname.App
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.data.ProfileEditResponse
 import com.sungbin.noname.profile.data.ProfileImageResponse
 import com.sungbin.noname.profile.repository.ProfileEditRepository
 import com.sungbin.noname.util.Event
+import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

@@ -28,7 +28,7 @@ open class SharedViewModel : ViewModel() {
     var titleName = MutableLiveData<String>("")
 
     // 자신의 Id
-    val myId = App.prefs.getString(PreferenceUtil.myId, "")
+    val myId: Int = App.prefs.getInteger(PreferenceUtil.myId, 99999)
 
     // 자신의 계정
     private var _myAccount = MutableLiveData<String>("")
@@ -65,8 +65,8 @@ open class SharedViewModel : ViewModel() {
         userBoards.clear()
     }
 
-    fun getInfo() = viewModelScope.launch {
-        val response = repo.getInfo()
+    fun getInfo(id: Int) = viewModelScope.launch {
+        val response = repo.getInfo(id)
 
         response.customEnqueue(
             onSuccess = {
@@ -99,7 +99,7 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
-    fun getBoardsMember(memberId: String, number: Int) = viewModelScope.launch {
+    fun getBoardsMember(memberId: Int, number: Int) = viewModelScope.launch {
         val response = repo.getUserBoards(memberId, number)
 
         response.customEnqueue(
@@ -126,7 +126,7 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
-    fun getProfileImage(id: String) = viewModelScope.launch {
+    fun getProfileImage(id: Int) = viewModelScope.launch {
         val response = repo.getProfileImage(id)
 
         response.customEnqueue(
