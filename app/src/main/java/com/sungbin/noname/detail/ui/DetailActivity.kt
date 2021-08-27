@@ -34,7 +34,7 @@ class DetailActivity : AppCompatActivity() {
             indicator = binding.dotsIndicator
             boardCancel.setOnClickListener { onBackPressed() }
         }
-
+        viewModel.boardId = this.boardId
         viewModel.getBoardDetail(boardId)
     }
 }

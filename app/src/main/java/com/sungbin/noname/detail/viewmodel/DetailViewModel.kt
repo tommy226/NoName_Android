@@ -19,6 +19,8 @@ class DetailViewModel : ViewModel() {
     private val job = Job()
     private val viewModelScope = CoroutineScope(Dispatchers.Main + job)
 
+    var boardId: Int? = null
+
     private var _detailResponse = MutableLiveData<Board>()
     val detailResponse: LiveData<Board>
         get() = _detailResponse
