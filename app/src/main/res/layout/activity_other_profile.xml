@@ -30,7 +30,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/board_cancel"
+                    android:id="@+id/back_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -51,6 +51,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/other_toolbar"
+            android:text="@{vm.memberInfo.items.member.info}"
             tools:text="닉네임" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -60,7 +61,8 @@
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_baseline_face_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
+            app:layout_constraintTop_toBottomOf="@+id/guideline4"
+            app:imageUrl="@{vm.memberInfo.items.src ?? @string/empty}"/>
 
         <View
             android:id="@+id/view_line"
@@ -182,17 +184,22 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/other_follow" />
 
-        <TextView
+        <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/other_intro"
             style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/gray"
-            tools:text="소개글"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@{vm.memberInfo.items.member.info}"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/other_image" />
+            app:layout_constraintTop_toBottomOf="@+id/other_image"
+            app:readMoreColor="@color/gray"
+            app:readMoreMaxLine="2"
+            app:readMoreText="…더보기"
+            tools:text="소개글" />
 
         <Button
             android:id="@+id/other_editBtn"
@@ -217,7 +224,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/other_editBtn" />
+            app:layout_constraintTop_toBottomOf="@+id/other_editBtn"
+            app:userBoardList="@{vm.otherBoards}"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

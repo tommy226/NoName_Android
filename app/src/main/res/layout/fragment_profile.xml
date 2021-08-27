@@ -161,18 +161,23 @@
             app:layout_constraintStart_toStartOf="@+id/guideline7"
             app:layout_constraintTop_toBottomOf="@+id/profile_follow" />
 
-        <TextView
+        <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/profile_intro"
             style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:textColor="@color/gray"
+            android:foreground="?attr/selectableItemBackground"
             android:text="@{vm.myInfo}"
-            tools:text="소개글"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_image" />
+            app:layout_constraintTop_toBottomOf="@+id/profile_image"
+            app:readMoreColor="@color/gray"
+            app:readMoreMaxLine="2"
+            app:readMoreText="…더보기"
+            tools:text="소개글" />
+
 
         <Button
             android:id="@+id/profile_editBtn"

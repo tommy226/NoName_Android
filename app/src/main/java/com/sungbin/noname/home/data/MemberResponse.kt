@@ -21,5 +21,7 @@ data class File(
     val fileType: String,
     val id: Int,
     val originalName: String,
-    val serverName: String
+    val serverName: String,
+    val path: String,
+    val boardId: Int
 )

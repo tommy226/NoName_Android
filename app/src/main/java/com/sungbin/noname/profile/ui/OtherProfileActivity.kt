@@ -25,8 +25,12 @@ class OtherProfileActivity : AppCompatActivity() {
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@OtherProfileActivity
+            backBtn.setOnClickListener { onBackPressed() }
         }
+        viewModel.clearBoards()  // 처음 데이터 삭제
+        viewModel.getInfo(memberId) // 다른 사람 정보 가져오기
 
-        viewModel.getInfo(memberId)
+        var page = 0
+        viewModel.getBoardsOther(memberId, page)
     }
 }
