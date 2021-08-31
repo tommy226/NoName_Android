@@ -2,22 +2,22 @@ package com.sungbin.noname.home.ui
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentProfileBinding
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.ProfileEditActivity
 
 class ProfileFragment : Fragment() {
+    private val TAG = ProfileFragment::class.java.simpleName
 
     private val viewModel: SharedViewModel by activityViewModels()
 
@@ -42,13 +42,18 @@ class ProfileFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                val lastVisibleItemPosition =
-                    (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
-                val itemTotalCount = recyclerView.adapter!!.itemCount - 1
+                if(dy > 0){                         // 데이터 없을 시 무한 스크롤 현상이 일어나서 스크롤이 움직일 시 활성화
+                    val lastVisibleItemPosition =
+                        (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
+                    val itemTotalCount = recyclerView.adapter!!.itemCount - 1
 
-                // 스크롤이 끝에 도달했는지 확인
-                if (!binding.profileBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
-                    viewModel.getBoardsMember(viewModel.myId,++page)
+                    Log.d(TAG, "lastVisibleItemPosition : $lastVisibleItemPosition")
+                    Log.d(TAG, "itemTotalCount : $itemTotalCount")
+
+                    // 스크롤이 끝에 도달했는지 확인
+                    if (!binding.profileBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        viewModel.getBoardsMember(viewModel.myId,++page)
+                    }
                 }
             }
         })
