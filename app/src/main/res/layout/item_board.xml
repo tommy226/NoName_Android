@@ -77,7 +77,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feed_viewpager"
-            app:srcCompat="@drawable/baseline_favorite_border_24" />
+            app:srcCompat="@drawable/ic_favorite_border" />
 
         <ImageView
             android:id="@+id/feed_comment"
@@ -99,6 +99,43 @@
             app:layout_constraintTop_toBottomOf="@+id/feed_viewpager"
             app:srcCompat="@drawable/baseline_share_24" />
 
+        <TextView
+            android:id="@+id/feed_like_count"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_comment"
+            android:textColor="@color/black"
+            android:text="1000"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="명이 좋아합니다."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/feed_like_count"
+            app:layout_constraintTop_toBottomOf="@+id/feed_comment" />
+
+        <TextView
+            android:id="@+id/feed_name_content"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_like_count"
+            android:textColor="@color/black"
+            android:text="@{data.memberDto.name}"
+            tools:text="닉네임"/>
+
         <kr.co.prnd.readmore.ReadMoreTextView
             android:id="@+id/feed_text"
             style="@style/P6_12pt_Regular"
@@ -112,10 +149,12 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/feed_comment"
+            app:layout_constraintTop_toBottomOf="@+id/feed_name_content"
             app:readMoreColor="@color/gray"
             app:readMoreMaxLine="2"
             app:readMoreText="…더보기"
             android:text="@{data.content}"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

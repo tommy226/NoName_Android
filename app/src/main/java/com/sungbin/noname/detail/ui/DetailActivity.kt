@@ -23,7 +23,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private val boardId: Int by lazy {
-        intent.getIntExtra("boardId",9999)
+        intent.getIntExtra("boardId",-1)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

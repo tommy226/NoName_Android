@@ -50,13 +50,13 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int =
         when(items[position].id){
-            99999 -> LOADING_TYPE
+            -1 -> LOADING_TYPE
             else -> FEED_TYPE
         }
 
     fun setList(boards: MutableList<Board>) {
         items.addAll(boards)
-        items.add((Board("", listOf(),99999, memberDto = MemberDto(0,",","","")))) // progress bar 넣을 자리
+        items.add((Board("", listOf(),-1, memberDto = MemberDto(0,",","","")))) // progress bar 넣을 자리
     }
 
     fun deleteLoading(){

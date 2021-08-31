@@ -47,9 +47,6 @@ class ProfileFragment : Fragment() {
                         (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                     val itemTotalCount = recyclerView.adapter!!.itemCount - 1
 
-                    Log.d(TAG, "lastVisibleItemPosition : $lastVisibleItemPosition")
-                    Log.d(TAG, "itemTotalCount : $itemTotalCount")
-
                     // 스크롤이 끝에 도달했는지 확인
                     if (!binding.profileBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
                         viewModel.getBoardsMember(viewModel.myId,++page)

@@ -3,6 +3,7 @@ package com.sungbin.noname.home.ui
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,9 +52,10 @@ class FeedFragment : Fragment() {
 
 
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
-            feedAdapter.setList(feed.items.boards.toMutableList())
-            feedAdapter.deleteLoading()
-            feedAdapter.notifyDataSetChanged()
+            Handler(Looper.getMainLooper()).postDelayed({
+                feedAdapter.setList(feed.items.boards.toMutableList())
+                feedAdapter.notifyDataSetChanged()
+            }, 1000)
         })
 
         binding.feedRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -64,11 +66,10 @@ class FeedFragment : Fragment() {
                     val lastVisibleItemPosition =
                         (recyclerView.layoutManager as LinearLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                     val itemTotalCount = recyclerView.adapter!!.itemCount - 1
-                    Log.d(TAG, "lastVisibleItemPosition : $lastVisibleItemPosition")
-                    Log.d(TAG, "itemTotalCount : $itemTotalCount")
 
                     // 스크롤이 끝에 도달했는지 확인
                     if (!binding.feedRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {
+                        feedAdapter.deleteLoading()
                         viewModel.getBoards(++viewModel.page)
                     }
                 }

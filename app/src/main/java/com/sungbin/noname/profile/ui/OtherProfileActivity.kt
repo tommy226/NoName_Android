@@ -20,7 +20,7 @@ class OtherProfileActivity : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_other_profile)
     }
     private val memberId: Int by lazy {
-        intent.getIntExtra("memberId",99999)
+        intent.getIntExtra("memberId",-1)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,6 @@ class OtherProfileActivity : AppCompatActivity() {
                     val lastVisibleItemPosition =
                         (recyclerView.layoutManager as GridLayoutManager?)!!.findLastCompletelyVisibleItemPosition()
                     val itemTotalCount = recyclerView.adapter!!.itemCount - 1
-
-                    Log.d(TAG, "lastVisibleItemPosition : $lastVisibleItemPosition")
-                    Log.d(TAG, "itemTotalCount : $itemTotalCount")
 
                     // 스크롤이 끝에 도달했는지 확인
                     if (!binding.otherBoardRecycler.canScrollVertically(1) && lastVisibleItemPosition == itemTotalCount) {

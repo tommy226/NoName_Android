@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="vm"
             type="com.sungbin.noname.detail.viewmodel.DetailViewModel" />
+
         <variable
             name="indicator"
             type="com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator" />
@@ -49,10 +51,10 @@
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
+            app:imageUrl="@{vm.detailResponse.memberDto.src ?? @string/empty}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
-            tools:src="@drawable/ic_baseline_face_24"
-            app:imageUrl="@{vm.detailResponse.memberDto.src ?? @string/empty}"/>
+            tools:src="@drawable/ic_baseline_face_24" />
 
         <TextView
             android:id="@+id/detail_profileNickname"
@@ -62,10 +64,10 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            android:text="@{vm.detailResponse.memberDto.name}"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/detail_profileImage"
             app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
-            android:text="@{vm.detailResponse.memberDto.name}"
             tools:text="닉네임" />
 
         <androidx.viewpager2.widget.ViewPager2
@@ -75,8 +77,8 @@
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             app:imageAdapter="@{vm.detailResponse.fileDtos ?? vm.emptyList}"
-            app:setIndicator="@{indicator}"
             app:layout_constraintTop_toBottomOf="@+id/detail_profileNickname"
+            app:setIndicator="@{indicator}"
             tools:layout_editor_absoluteX="16dp" />
 
 
@@ -103,7 +105,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_viewpager"
-            app:srcCompat="@drawable/baseline_favorite_border_24" />
+            app:srcCompat="@drawable/ic_favorite_border" />
 
         <ImageView
             android:id="@+id/detail_comment"
@@ -125,24 +127,61 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_viewpager"
             app:srcCompat="@drawable/baseline_share_24" />
 
-            <kr.co.prnd.readmore.ReadMoreTextView
-                android:id="@+id/detail_text"
-                style="@style/P6_12pt_Regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:foreground="?attr/selectableItemBackground"
-                tools:text="@string/long_text"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detail_comment"
-                app:readMoreColor="@color/gray"
-                app:readMoreMaxLine="2"
-                android:text="@{vm.detailResponse.content}"
-                app:readMoreText="…더보기" />
+        <TextView
+            android:id="@+id/detail_like_count"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_comment"
+            android:textColor="@color/black"
+            android:text="1000"
+            tools:text="1000"/>
+
+        <TextView
+            android:id="@+id/textView"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="명이 좋아합니다."
+            android:textColor="@color/black"
+            app:layout_constraintStart_toEndOf="@+id/detail_like_count"
+            app:layout_constraintTop_toBottomOf="@+id/detail_comment" />
+
+        <TextView
+            android:id="@+id/detail_name_content"
+            style="@style/P6_12pt_Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_like_count"
+            android:textColor="@color/black"
+            android:text="@{vm.detailResponse.memberDto.name}"
+            tools:text="닉네임"/>
+
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:id="@+id/detail_text"
+            style="@style/P6_12pt_Regular"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:foreground="?attr/selectableItemBackground"
+            android:text="@{vm.detailResponse.content}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_name_content"
+            app:readMoreColor="@color/gray"
+            app:readMoreMaxLine="2"
+            app:readMoreText="…더보기"
+            tools:text="@string/long_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
