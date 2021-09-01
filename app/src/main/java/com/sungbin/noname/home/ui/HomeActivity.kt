@@ -18,6 +18,7 @@ import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.login.ui.LoginActivity
 import com.sungbin.noname.upload.ui.UploadActivity
 import com.sungbin.noname.util.PreferenceUtil
+import com.sungbin.noname.util.showToast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -148,12 +149,21 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         }
         viewModel.titleName.value = title
     }
+
+    var time: Long = 0
     override fun onBackPressed() {
-        if (binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START)) {
-            closeDrawer()
-        } else {
-            super.onBackPressed()
-            ActivityCompat.finishAffinity(this)
+        when {
+            binding.homeDrawerlayout.isDrawerOpen(GravityCompat.START) -> {
+                closeDrawer()
+            }
+            System.currentTimeMillis() - time >= 2000 -> {
+                time = System.currentTimeMillis();
+                showToast("한번 더 누르면 종료 됩니다.")
+            }
+            else -> {
+                super.onBackPressed()
+                ActivityCompat.finishAffinity(this)
+            }
         }
     }
     override fun finish() {
