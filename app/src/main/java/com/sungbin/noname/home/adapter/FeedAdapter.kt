@@ -68,6 +68,7 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(data: Board) {
             binding.data = data
             binding.indicator = binding.dotsIndicator
+            binding.executePendingBindings()
 
             binding.feedProfileImage.setOnClickListener { view ->
                 listener.onItemClick(view, data)

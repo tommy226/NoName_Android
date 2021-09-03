@@ -27,6 +27,7 @@ class FeedImageAdapter : RecyclerView.Adapter<FeedImageAdapter.ImageViewHolder>(
         private val binding = binding
         fun bind(data: FileDto) {
             binding.data = data
+            binding.executePendingBindings()
         }
     }
 

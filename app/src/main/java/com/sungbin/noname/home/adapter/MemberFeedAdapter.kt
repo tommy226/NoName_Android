@@ -40,6 +40,7 @@ class MemberFeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private val binding = binding
         fun bind(data: Board) {
             binding.data = data
+            binding.executePendingBindings()
             itemView.setOnClickListener {
                 listener.onItemClick(binding.root, data)
             }
