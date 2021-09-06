@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -82,5 +83,9 @@ dependencies {
     implementation 'gun0912.ted:tedimagepicker:1.1.10'
     // PRND readMore
     implementation 'kr.co.prnd:readmore-textview:1.0.0'
+
+    // firebase
+    implementation platform('com.google.firebase:firebase-bom:28.4.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
 }

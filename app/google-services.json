@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "846525386545",
+    "project_id": "nonameandroid-fabde",
+    "storage_bucket": "nonameandroid-fabde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846525386545:android:75463b113ff5f8e438aa10",
+        "android_client_info": {
+          "package_name": "com.sungbin.noname"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846525386545-ofdtm27h1ku5bcnp05jeln8825hvi0ua.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sungbin.noname",
+            "certificate_hash": "3768599ed817776f3483f53a17d50e08965441bc"
+          }
+        },
+        {
+          "client_id": "846525386545-2tgder4e1mtf5q0f86l1gmld7tm5eujo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUcJtWCbQpIClim7ulCeVlbHbmrGBHyd8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846525386545-2tgder4e1mtf5q0f86l1gmld7tm5eujo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
