@@ -8,13 +8,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.ktx.Firebase
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.user.UserApiClient
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityLoginBinding
@@ -23,6 +23,7 @@ import com.sungbin.noname.login.viewmodel.LoginViewModel
 import com.sungbin.noname.signup.ui.SignUpActivity
 import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.showToast
+
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = LoginActivity::class.java.simpleName
@@ -52,9 +53,11 @@ class LoginActivity : AppCompatActivity() {
             vm = viewModel
             lifecycleOwner = this@LoginActivity
         }
-        binding.googleLoginBtn.setOnClickListener {
-            googleLogin()
+        binding.apply {
+            googleLoginBtn.setOnClickListener {  googleLogin()  }
+            kakaoLoginBtn.setOnClickListener {  }
         }
+
         auth = FirebaseAuth.getInstance()
 
         autoLogin()
@@ -101,8 +104,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+
+        Log.d(TAG, "is google user? : ${currentUser?.displayName}")
+    }
+
     fun googleLogin(){
         startActivityForResult(googleSignInIntent, GOOGLE_CODE)
+    }
+
+    fun kakaoLogin(){
+
     }
 
     override fun onRestart() {
@@ -120,9 +134,14 @@ class LoginActivity : AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
 
-                Log.d(TAG, "GOOGLE NAME : ${account.displayName}")
-                Log.d(TAG, "GOOGLE E-MAIL : ${account.email}")
-                Log.d(TAG, "GOOGLE TOKEN : ${account.idToken}")
+                Log.d(TAG, "GOOGLE displayName : ${account.displayName}")
+                Log.d(TAG, "GOOGLE e-mail : ${account.email}")
+                Log.d(TAG, "GOOGLE idToken : ${account.idToken}")
+                Log.d(TAG, "GOOGLE id : ${account.id}")
+                Log.d(TAG, "GOOGLE isExpired : ${account.isExpired}")
+                Log.d(TAG, "GOOGLE serverAuthCode : ${account.serverAuthCode}")
+
+
 
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
@@ -144,8 +163,13 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
-//                    updateUI(null)
+                    showToast("구글 로그인에 실패 하였습니다.")
                 }
             }
+    }
+
+    private fun googleLogout(){
+        auth.signOut()
+        Log.d(TAG, "Google Logout Success")
     }
 }

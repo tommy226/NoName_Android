@@ -1,6 +1,7 @@
 package com.sungbin.noname
 
 import android.app.Application
+import com.kakao.sdk.common.KakaoSdk
 import com.sungbin.noname.util.PreferenceUtil
 
 class App : Application() {
@@ -9,7 +10,9 @@ class App : Application() {
     }
 
     override fun onCreate() {
-        prefs = PreferenceUtil(applicationContext)
         super.onCreate()
+        prefs = PreferenceUtil(applicationContext)
+
+        KakaoSdk.init(this, getString(R.string.kakao_app_key))
     }
 }
