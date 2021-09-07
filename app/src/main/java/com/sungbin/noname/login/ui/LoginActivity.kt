@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.apply {
             googleLoginBtn.setOnClickListener {  googleLogin()  }
-            kakaoLoginBtn.setOnClickListener {  }
+            kakaoLoginBtn.setOnClickListener { kakaoLogin() }
         }
 
         auth = FirebaseAuth.getInstance()
@@ -116,7 +116,23 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun kakaoLogin(){
-
+        if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
+            UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity, callback = kakaoCallback)
+        } else {
+            UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = kakaoCallback)
+        }
+    }
+    internal val kakaoCallback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Log.d(TAG, "로그인 실패")
+        } else if (token != null) {
+            UserApiClient.instance.me { user, error ->
+                Log.d(TAG, "kakaoId : ${user?.id}")
+                Log.d(TAG, "kakaogroupUserToken : ${user?.groupUserToken}")
+                Log.d(TAG, "kakaoAccount : ${user?.kakaoAccount}")
+            }
+            Log.d(TAG, "로그인 성공")
+        }
     }
 
     override fun onRestart() {
