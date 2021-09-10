@@ -19,5 +19,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        // git token test
     }
 }
