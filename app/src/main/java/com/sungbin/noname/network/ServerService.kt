@@ -74,23 +74,41 @@ interface ServerService {
         @Path("id") memberId: Int
     ) : Call<MemberResponse>
 
-    @GET("boards")
+    @GET("boards") // 보드 페이징
     fun getBoards(
         @Header("X-AUTH-TOKEN") token: String,
         @Query("page") page: Int,
     ): Call<FeedPagingResponse>
 
-    @GET("boards/users/{memberId}")
+    @GET("boards/users/{memberId}")  // 유저가 올린 게시물 확인 (프로필 게시글)
     fun getUserBoards(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("memberId") memberId: Int,
         @Query("page") page: Int
     ): Call<FeedPagingResponse>
 
-    @GET("boards/{id}")
+    @GET("boards/{id}") // 보드 상세 정보
     fun getBoard(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("id") boardId: Int
     ): Call<DetailResponse>
+
+    @POST("subscribes/")
+    fun subscribe(
+        @Header("X-AUTH-TOKEN") token: String,
+//        @Body
+    ): Call<ResponseBody>
+
+    @GET("subscribes/fallow/{ownerId}")
+    fun getSubscribePageByOwenerId(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("ownerId") owenerId: Int
+    ): Call<ResponseBody>
+
+    @GET("subscribes/like/{boardId}")
+    fun getSubscribePageByBoardId(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("boardId") boardId: Int
+    ): Call<ResponseBody>
 
 }
