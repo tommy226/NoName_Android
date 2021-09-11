@@ -136,6 +136,26 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
+    fun getSubscribeOwnerId(ownerId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByOwenerId(ownerId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun getSubscribeBoardId(boardId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByBoardId(boardId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()

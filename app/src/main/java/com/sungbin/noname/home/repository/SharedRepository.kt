@@ -16,4 +16,8 @@ class SharedRepository {
     fun getBoards(number: Int) = ServerImpl.service.getBoards(token = token, page = number)
 
     fun getUserBoards(memberId: Int, number: Int) = ServerImpl.service.getUserBoards(token = token, memberId = memberId, page = number)
+
+    fun getSubscribePageByOwenerId(ownerId: Int) = ServerImpl.service.getSubscribePageByOwenerId(token = token, owenerId = ownerId)
+
+    fun getSubscribePageByBoardId(boardId: Int) = ServerImpl.service.getSubscribePageByBoardId(token = token, boardId = boardId)
 }
