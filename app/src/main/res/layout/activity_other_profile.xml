@@ -202,7 +202,7 @@
             tools:text="소개글" />
 
         <Button
-            android:id="@+id/other_editBtn"
+            android:id="@+id/other_fallow_btn"
             style="@style/P1_16pt_Medium"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/other_editBtn"
+            app:layout_constraintTop_toBottomOf="@+id/other_fallow_btn"
             app:userBoardList="@{vm.otherBoards}"/>
 
 

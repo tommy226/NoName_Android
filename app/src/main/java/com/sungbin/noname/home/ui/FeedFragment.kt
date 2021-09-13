@@ -92,6 +92,7 @@ class FeedFragment : Fragment() {
                     }
                 }
                 R.id.feed_heart -> {
+                    viewModel.likeBoard(data.id!!)
                     v.context.showToast("좋아요")
                 }
                 R.id.feed_comment -> {

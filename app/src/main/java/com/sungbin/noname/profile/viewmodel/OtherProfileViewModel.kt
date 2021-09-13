@@ -63,4 +63,14 @@ class OtherProfileViewModel : ViewModel() {
         )
     }
 
+    fun fallowOther(ownerId: Int) = viewModelScope.launch {
+        val response = repo.fallowByMember(ownerId = ownerId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
 }

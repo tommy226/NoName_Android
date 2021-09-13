@@ -36,6 +36,10 @@ class OtherProfileActivity : AppCompatActivity() {
         var page = 0
         viewModel.getBoardsOther(memberId, page)
 
+        binding.otherFallowBtn.setOnClickListener {
+            viewModel.fallowOther(memberId)
+        }
+
         binding.otherBoardRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

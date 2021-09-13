@@ -136,6 +136,26 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
+    fun fallow(ownerId: Int) = viewModelScope.launch {
+        val response = repo.fallowByMember(ownerId = ownerId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun likeBoard(boardId: Int) = viewModelScope.launch {
+        val response = repo.likeByBoard(boardId = boardId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
     fun getSubscribeOwnerId(ownerId: Int) = viewModelScope.launch {
         val response = repo.getSubscribePageByOwenerId(ownerId)
 

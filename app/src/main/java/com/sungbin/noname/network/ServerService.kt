@@ -4,6 +4,7 @@ import com.sungbin.noname.detail.data.DetailResponse
 import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.data.GetProfileImageResponse
 import com.sungbin.noname.home.data.MemberResponse
+import com.sungbin.noname.home.data.SubscribeRequest
 import com.sungbin.noname.login.data.LoginRequest
 import com.sungbin.noname.login.data.LoginResponse
 import com.sungbin.noname.profile.data.ProfileEditRequest
@@ -93,11 +94,17 @@ interface ServerService {
         @Path("id") boardId: Int
     ): Call<DetailResponse>
 
-    @POST("subscribes/")
+    @POST("subscribes/")            // 팔로우 or 좋아요 (ownerId or fallowId)
     fun subscribe(
         @Header("X-AUTH-TOKEN") token: String,
-//        @Body
+        @Body subscribeDTO: SubscribeRequest
     ): Call<ResponseBody>
+
+    @DELETE("subscribes/{id}")      // 언팔로우 or 좋아요 취소
+    fun unSubscribe(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") id: Int
+    )
 
     @GET("subscribes/fallow/{ownerId}")
     fun getSubscribePageByOwenerId(
