@@ -20,7 +20,7 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var listener: OnItemClickListener
 
     interface OnItemClickListener {
-        fun onItemClick(v: View, data: Board)
+        fun onItemClick(v: View, data: Board, binding: ItemBoardBinding)
     }
     fun setOnItemClickLister(listener: OnItemClickListener){
         this.listener = listener
@@ -71,19 +71,22 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.executePendingBindings()
 
             binding.feedProfileImage.setOnClickListener { view ->
-                listener.onItemClick(view, data)
+                listener.onItemClick(view, data, binding)
             }
             binding.feedProfileNickname.setOnClickListener { view ->
-                listener.onItemClick(view, data)
+                listener.onItemClick(view, data, binding)
             }
             binding.feedHeart.setOnClickListener { view ->
-                listener.onItemClick(view, data)
+                listener.onItemClick(view, data, binding)
+            }
+            binding.feedFillHeart.setOnClickListener { view ->
+                listener.onItemClick(view, data, binding)
             }
             binding.feedComment.setOnClickListener { view ->
-                listener.onItemClick(view, data)
+                listener.onItemClick(view, data, binding)
             }
             binding.feedShare.setOnClickListener { view ->
-                listener.onItemClick(view, data)
+                listener.onItemClick(view, data, binding)
             }
         }
     }

@@ -103,8 +103,8 @@ interface ServerService {
     @DELETE("subscribes/{id}")      // 언팔로우 or 좋아요 취소
     fun unSubscribe(
         @Header("X-AUTH-TOKEN") token: String,
-        @Path("id") id: Int
-    )
+        @Path("id") subscribeId: Int
+    ): Call<ResponseBody>
 
     @GET("subscribes/fallow/{ownerId}")
     fun getSubscribePageByOwenerId(

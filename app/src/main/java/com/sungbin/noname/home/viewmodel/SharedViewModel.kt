@@ -156,6 +156,16 @@ open class SharedViewModel : ViewModel() {
         )
     }
 
+    fun unSubscribe(subscribeId: Int) = viewModelScope.launch {
+        val response = repo.unSubscribe(subscribeId = subscribeId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
     fun getSubscribeOwnerId(ownerId: Int) = viewModelScope.launch {
         val response = repo.getSubscribePageByOwenerId(ownerId)
 

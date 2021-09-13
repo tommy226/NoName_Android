@@ -12,6 +12,8 @@ class SharedRepository {
 
     fun likeByBoard(boardId: Int) = ServerImpl.service.subscribe(token = token, SubscribeRequest(ownerId = 0, boardId = boardId))
 
+    fun unSubscribe(subscribeId: Int) = ServerImpl.service.unSubscribe(token = token, subscribeId = subscribeId)
+
     fun getProfileImage(id: Int) = ServerImpl.service.getProfileImage(token = token, memberId = id)
 
     fun getInfo(id: Int) = ServerImpl.service.getInfo(token = token, memberId = id)

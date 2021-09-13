@@ -1,5 +1,6 @@
 package com.sungbin.noname.home.data
 
+
 data class FeedPagingResponse(
     val items: FeedItems,
     val message: String
@@ -16,6 +17,7 @@ data class Board(
     val fileDtos: List<FileDto>,
     val id: Int?,
     val memberDto: MemberDto,
+    val fallow: Fallow? = null
 )
 
 data class FileDto(
@@ -33,4 +35,11 @@ data class MemberDto(
     val info: String,
     val name: String,
     val src: String
+)
+
+data class Fallow(
+    val boardId: Int,
+    val fallowId: Int,
+    val id: Int,
+    val ownerId: Int
 )

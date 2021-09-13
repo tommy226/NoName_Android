@@ -80,7 +80,7 @@ class FeedFragment : Fragment() {
     }
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
-        override fun onItemClick(v: View, data: Board) {
+        override fun onItemClick(v: View, data: Board, binding: ItemBoardBinding) {
             when (v.id) {
                 R.id.feed_profileImage, R.id.feed_profileNickname -> {
                     if (data.memberDto.name == viewModel.myName.value) {              // 임시
@@ -94,6 +94,14 @@ class FeedFragment : Fragment() {
                 R.id.feed_heart -> {
                     viewModel.likeBoard(data.id!!)
                     v.context.showToast("좋아요")
+                    binding.feedHeart.visibility = View.INVISIBLE
+                    binding.feedFillHeart.visibility = View.VISIBLE
+                }
+                R.id.feed_fill_heart -> {
+                    viewModel.unSubscribe(data.fallow!!.id)
+                    v.context.showToast("좋아요 취소")
+                    binding.feedHeart.visibility = View.VISIBLE
+                    binding.feedFillHeart.visibility = View.INVISIBLE
                 }
                 R.id.feed_comment -> {
                     v.context.showToast("댓글")

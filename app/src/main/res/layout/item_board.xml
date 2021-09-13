@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="data"
             type="com.sungbin.noname.home.data.Board" />
@@ -77,7 +78,19 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feed_viewpager"
+            android:visibility="@{data.fallow == null ? View.VISIBLE : View.INVISIBLE}"
             app:srcCompat="@drawable/ic_favorite_border" />
+
+        <ImageView
+            android:id="@+id/feed_fill_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/feed_viewpager"
+            android:visibility="@{data.fallow == null ? View.INVISIBLE : View.VISIBLE}"
+            app:srcCompat="@drawable/ic_favorite" />
 
         <ImageView
             android:id="@+id/feed_comment"
