@@ -31,7 +31,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha=".3"
+                android:alpha=".1"
                 android:background="@drawable/background_fade">
 
             </FrameLayout>
@@ -121,7 +121,7 @@
                         android:id="@+id/kakao_login_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/kakao_login_medium_wide"
+                        android:background="@drawable/kakao_login_large_wide"
                         android:layout_margin="@dimen/margin_right_16"/>
 
                     <LinearLayout
