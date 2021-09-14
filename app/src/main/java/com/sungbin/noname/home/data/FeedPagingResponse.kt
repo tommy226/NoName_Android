@@ -40,6 +40,6 @@ data class MemberDto(
 data class Fallow(
     val boardId: Int,
     val fallowId: Int,
-    val id: Int,
+    var id: Int,
     val ownerId: Int
 )

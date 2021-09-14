@@ -22,6 +22,7 @@ import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.OtherProfileActivity
+import com.sungbin.noname.util.LinearLayoutManagerWrapper
 import com.sungbin.noname.util.showToast
 
 class FeedFragment : Fragment() {
@@ -47,7 +48,7 @@ class FeedFragment : Fragment() {
             feedAdapter.setOnItemClickLister(onClickListner)
             feedAdapter.items = mutableListOf()
             adapter = feedAdapter
-            layoutManager = LinearLayoutManager(activity)
+            layoutManager = LinearLayoutManagerWrapper(context, LinearLayoutManager.VERTICAL, false)
         }
 
 
