@@ -1,5 +1,6 @@
 package com.sungbin.noname.home.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +10,11 @@ import com.sungbin.noname.home.data.FeedPagingResponse
 import com.sungbin.noname.home.data.GetProfileImageResponse
 import com.sungbin.noname.home.data.MemberDto
 import com.sungbin.noname.home.repository.SharedRepository
+import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.customEnqueue
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 open class SharedViewModel : ViewModel() {
     private val TAG = SharedViewModel::class.java.simpleName
@@ -64,6 +63,10 @@ open class SharedViewModel : ViewModel() {
     fun clearBoards(){
         userBoards.clear()
     }
+
+    private var _likeSuccess = MutableLiveData<Event<Boolean>>()
+    val likeSuccess: LiveData<Event<Boolean>>
+        get() = _likeSuccess
 
     fun getInfo(id: Int) = viewModelScope.launch {
         val response = repo.getInfo(id)
@@ -150,7 +153,11 @@ open class SharedViewModel : ViewModel() {
         val response = repo.likeByBoard(boardId = boardId)
 
         response.customEnqueue(
-            onSuccess = {},
+            onSuccess = {
+                        if(it.code() == 200){
+
+                        }
+            },
             onError = {},
             onFailure = {}
         )
@@ -185,6 +192,21 @@ open class SharedViewModel : ViewModel() {
             onFailure = {}
         )
     }
+
+    fun getlikeCount(boardId: Int) {
+        val response = repo.getSubscribePageByBoardId(boardId)
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+
+                }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+
 
     override fun onCleared() {
         super.onCleared()

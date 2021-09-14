@@ -9,9 +9,10 @@ import com.sungbin.noname.databinding.ItemLoadingBinding
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.ImageItems
 import com.sungbin.noname.home.data.MemberDto
+import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.util.BindingConversions.setImageAdapter
 
-class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class FeedAdapter(val viewModel: SharedViewModel) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val FEED_TYPE = 0
     private val LOADING_TYPE = 1
 
@@ -42,7 +43,7 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val data = items[position]
         if (holder is FeedViewHolder) {
-            holder.bind(data)
+            holder.bind(data, viewModel)
         }
     }
 
@@ -65,8 +66,9 @@ class FeedAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class FeedViewHolder(binding: ItemBoardBinding) : RecyclerView.ViewHolder(binding.root) {
         private val binding = binding
-        fun bind(data: Board) {
+        fun bind(data: Board, viewModel: SharedViewModel) {
             binding.data = data
+            binding.vm = viewModel
             binding.indicator = binding.dotsIndicator
             binding.executePendingBindings()
 

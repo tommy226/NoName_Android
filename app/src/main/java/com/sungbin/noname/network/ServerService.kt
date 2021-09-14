@@ -103,16 +103,16 @@ interface ServerService {
         @Path("id") subscribeId: Int
     ): Call<ResponseBody>
 
-    @GET("subscribes/fallow/{ownerId}")
+    @GET("subscribes/fallow/{ownerId}")  // 팔로우 정보 및 팔로우 갯수 확인
     fun getSubscribePageByOwenerId(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("ownerId") owenerId: Int
     ): Call<ResponseBody>
 
-    @GET("subscribes/like/{boardId}")
+    @GET("subscribes/like/{boardId}")   // 게시글 좋아요 정보 및 갯수 확인
     fun getSubscribePageByBoardId(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("boardId") boardId: Int
-    ): Call<ResponseBody>
+    ): Call<GetSubscribesInfo>
 
 }

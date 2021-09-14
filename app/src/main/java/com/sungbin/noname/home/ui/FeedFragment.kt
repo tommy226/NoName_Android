@@ -44,7 +44,7 @@ class FeedFragment : Fragment() {
         }
 
         binding.feedRecycler.apply {
-            feedAdapter = FeedAdapter()
+            feedAdapter = FeedAdapter(viewModel)
             feedAdapter.setOnItemClickLister(onClickListner)
             feedAdapter.items = mutableListOf()
             adapter = feedAdapter
