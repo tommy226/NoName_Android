@@ -17,6 +17,7 @@ import com.sungbin.noname.databinding.ActivityHomeBinding
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.login.ui.LoginActivity
 import com.sungbin.noname.upload.ui.UploadActivity
+import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.showToast
 import kotlinx.coroutines.CoroutineScope
@@ -177,7 +178,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     override fun onRestart() {
-        viewModel.getInfo(viewModel.myId)  // 프로필 재요청
+        refresh()
         Log.d(TAG, "lifecycle-> onRestart")
         super.onRestart()
     }
@@ -191,5 +192,13 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         super.onDestroy()
         Log.d(TAG, "lifecycle-> onDestroy")
         job.cancel()
+    }
+
+    private fun refresh(){
+        viewModel.getInfo(viewModel.myId)  // 프로필 재요청
+
+        viewModel.feedClear.value = Event(true) // 피드 데이터 삭제 후 재요청
+        viewModel.page = 0
+        viewModel.getBoards(viewModel.page)
     }
 }

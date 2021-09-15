@@ -21,7 +21,7 @@ class FeedAdapter(val viewModel: SharedViewModel) : RecyclerView.Adapter<Recycle
     private lateinit var listener: OnItemClickListener
 
     interface OnItemClickListener {
-        fun onItemClick(v: View, data: Board, binding: ItemBoardBinding)
+        fun onItemClick(v: View, data: Board)
     }
     fun setOnItemClickLister(listener: OnItemClickListener){
         this.listener = listener
@@ -73,22 +73,22 @@ class FeedAdapter(val viewModel: SharedViewModel) : RecyclerView.Adapter<Recycle
             binding.executePendingBindings()
 
             binding.feedProfileImage.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
             binding.feedProfileNickname.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
             binding.feedHeart.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
             binding.feedFillHeart.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
             binding.feedComment.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
             binding.feedShare.setOnClickListener { view ->
-                listener.onItemClick(view, data, binding)
+                listener.onItemClick(view, data)
             }
         }
     }

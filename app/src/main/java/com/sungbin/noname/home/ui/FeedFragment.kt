@@ -18,10 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.databinding.ItemBoardBinding
+import com.sungbin.noname.detail.ui.DetailActivity
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.OtherProfileActivity
+import com.sungbin.noname.util.EventObserver
 import com.sungbin.noname.util.LinearLayoutManagerWrapper
 import com.sungbin.noname.util.showToast
 
@@ -51,12 +53,18 @@ class FeedFragment : Fragment() {
             layoutManager = LinearLayoutManagerWrapper(context, LinearLayoutManager.VERTICAL, false)
         }
 
-
         viewModel.feedResponse.observe(viewLifecycleOwner, Observer { feed ->
             Handler(Looper.getMainLooper()).postDelayed({
                 feedAdapter.setList(feed.items.boards.toMutableList())
                 feedAdapter.notifyDataSetChanged()
             }, 1000)
+        })
+
+        viewModel.feedClear.observe(viewLifecycleOwner, EventObserver{ isClear ->
+            if(isClear){
+                feedAdapter.items.clear()
+                feedAdapter.notifyDataSetChanged()
+            }
         })
 
         binding.feedRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -81,28 +89,21 @@ class FeedFragment : Fragment() {
     }
 
     val onClickListner: FeedAdapter.OnItemClickListener = object : FeedAdapter.OnItemClickListener {
-        override fun onItemClick(v: View, data: Board, binding: ItemBoardBinding) {
+        override fun onItemClick(v: View, data: Board) {
             when (v.id) {
                 R.id.feed_profileImage, R.id.feed_profileNickname -> {
-                    if (data.memberDto.name == viewModel.myName.value) {              // 임시
-                        (activity as HomeActivity).transFragment(ProfileFragment())
+                    if (data.memberDto.name == viewModel.myName.value) {     // 유저 이름 비교 후 상대방인지 자신인지 확인인
+                       (activity as HomeActivity).transFragment(ProfileFragment())
                     } else {
                         val intent = Intent(v.context, OtherProfileActivity::class.java)
                         intent.putExtra("memberId", data.memberDto.id)
                         startActivity(intent)
                     }
                 }
-                R.id.feed_heart -> {
-                    viewModel.likeBoard(data.id!!)
-                    v.context.showToast("좋아요")
-                    binding.feedHeart.visibility = View.INVISIBLE
-                    binding.feedFillHeart.visibility = View.VISIBLE
-                }
-                R.id.feed_fill_heart -> {
-                    viewModel.unSubscribe(data.fallow!!.id)
-                    v.context.showToast("좋아요 취소")
-                    binding.feedHeart.visibility = View.VISIBLE
-                    binding.feedFillHeart.visibility = View.INVISIBLE
+                R.id.feed_heart, R.id.feed_fill_heart -> {                  //  좋아요 클릭 시 상세 뷰어로 이동
+                    val intent = Intent(v.context, DetailActivity::class.java)
+                    intent.putExtra("boardId", data.id)
+                    startActivity(intent)
                 }
                 R.id.feed_comment -> {
                     v.context.showToast("댓글")

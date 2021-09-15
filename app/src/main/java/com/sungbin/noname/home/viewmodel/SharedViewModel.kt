@@ -57,6 +57,9 @@ open class SharedViewModel : ViewModel() {
     // 게시물 페이지
     var page = 0
 
+    // 피드 재요청 시 데이터 클리어
+    var feedClear = MutableLiveData<Event<Boolean>>()
+
     // 유저가 올린 게시글
     var userBoards = ListLivedata<Board>()
     var userBoardsCount = MutableLiveData(0)
