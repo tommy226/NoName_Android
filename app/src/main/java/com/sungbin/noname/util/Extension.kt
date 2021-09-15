@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.nfc.Tag
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import com.bumptech.glide.Glide
@@ -49,4 +50,11 @@ fun ImageView.createThumnail(uri: Uri){
 fun Int.toComma(): String {
     val fm = DecimalFormat("###,###")
     return fm.format(this)
+}
+
+fun View.setOnSingleClickListener(onSingleClick: (View) -> Unit) {
+    val oneClick = OnSingleClickListener {
+        onSingleClick(it)
+    }
+    setOnClickListener(oneClick)
 }

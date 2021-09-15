@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars"
-            app:imageUrl="@{data.fileDtos[0].src}"/>
+            app:imageUrl="@{data.fileDtos[0].src ?? @string/empty}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -58,6 +58,10 @@ class UploadActivity : AppCompatActivity() {
         viewmodel.boardResponse.observe(this, Observer { boardResponse ->
             finish()
         })
+
+        binding.boardComplete.setOnSingleClickListener {    // 중복 클릭 방지
+            viewmodel.inputContent.value?.let { content -> viewmodel.uploadContent(content) }
+        }
     }
 
 

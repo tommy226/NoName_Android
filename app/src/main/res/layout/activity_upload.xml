@@ -59,7 +59,6 @@
                     android:layout_alignParentEnd="true"
                     android:padding="16dp"
                     android:text="완료"
-                    android:onClick="@{()->vm.uploadContent(vm.inputContent)}"
                     android:textColor="@color/white" />
             </RelativeLayout>
 
