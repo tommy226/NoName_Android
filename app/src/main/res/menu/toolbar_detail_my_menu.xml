@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item
+            android:id="@+id/menu_config"
+            android:title="수정하기"
+            tools:ignore="HardcodedText" />
+        <item
+            android:id="@+id/menu_delete"
+            android:title="삭제하기"
+            tools:ignore="HardcodedText" />
+
+    </group>
+</menu>

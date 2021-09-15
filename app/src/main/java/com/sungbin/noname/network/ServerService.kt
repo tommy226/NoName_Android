@@ -91,6 +91,12 @@ interface ServerService {
         @Path("id") boardId: Int
     ): Call<DetailResponse>
 
+    @DELETE("boards/{id}") // 보드 삭제
+    fun deleteBoard(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") boardId: Int
+    ): Call<ResponseBody>
+
     @POST("subscribes/")            // 팔로우 or 좋아요 (ownerId or fallowId)
     fun subscribe(
         @Header("X-AUTH-TOKEN") token: String,

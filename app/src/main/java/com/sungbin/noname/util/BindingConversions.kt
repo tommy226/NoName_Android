@@ -68,6 +68,7 @@ object BindingConversions {
             layoutManager = GridLayoutManager(this.context, 3)
         }
         memberFeedAdapter.items = boardList.toMutableList()
+        this.scrollToPosition(memberFeedAdapter.itemCount - 15)
         memberFeedAdapter.notifyDataSetChanged()
     }
 }

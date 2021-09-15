@@ -98,6 +98,16 @@ class DetailViewModel : ViewModel() {
         )
     }
 
+    fun deleteMyBoard(boardId: Int) = viewModelScope.launch {
+        val response = repo.deleteBoard(boardId)
+
+        response.customEnqueue(
+            onSuccess = {},
+            onError = {},
+            onFailure = {}
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()

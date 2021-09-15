@@ -27,4 +27,6 @@ class SharedRepository {
     fun getSubscribePageByOwenerId(ownerId: Int) = ServerImpl.service.getSubscribePageByOwenerId(token = token, owenerId = ownerId)
 
     fun getSubscribePageByBoardId(boardId: Int) = ServerImpl.service.getSubscribePageByBoardId(token = token, boardId = boardId)
+
+    fun deleteBoard(id: Int) = ServerImpl.service.deleteBoard(token = token, boardId = id)
 }

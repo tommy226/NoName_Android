@@ -19,6 +19,7 @@ import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.databinding.ItemBoardBinding
 import com.sungbin.noname.detail.ui.DetailActivity
+import com.sungbin.noname.detail.ui.DetailMyActivity
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
@@ -92,8 +93,8 @@ class FeedFragment : Fragment() {
         override fun onItemClick(v: View, data: Board) {
             when (v.id) {
                 R.id.feed_profileImage, R.id.feed_profileNickname -> {
-                    if (data.memberDto.name == viewModel.myName.value) {     // 유저 이름 비교 후 상대방인지 자신인지 확인인
-                       (activity as HomeActivity).transFragment(ProfileFragment())
+                    if (data.memberDto.id == viewModel.myId) {     // 유저 아이디 검증
+                        (activity as HomeActivity).transFragment(ProfileFragment())
                     } else {
                         val intent = Intent(v.context, OtherProfileActivity::class.java)
                         intent.putExtra("memberId", data.memberDto.id)
@@ -101,7 +102,12 @@ class FeedFragment : Fragment() {
                     }
                 }
                 R.id.feed_heart, R.id.feed_fill_heart -> {                  //  좋아요 클릭 시 상세 뷰어로 이동
-                    val intent = Intent(v.context, DetailActivity::class.java)
+                    val intent =
+                        if (data.memberDto.id == viewModel.myId) {
+                            Intent(v.context, DetailMyActivity::class.java)
+                        } else {
+                            Intent(v.context, DetailActivity::class.java)
+                        }
                     intent.putExtra("boardId", data.id)
                     startActivity(intent)
                 }

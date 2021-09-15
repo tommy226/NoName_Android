@@ -51,7 +51,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/other_toolbar"
-            android:text="@{vm.memberInfo.items.member.info}"
+            android:text="@{vm.memberInfo.items.member.name}"
             tools:text="닉네임" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -221,11 +221,20 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_margin="@dimen/padding_8"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/other_fallow_btn"
-            app:userBoardList="@{vm.otherBoards}"/>
+            app:userBoardList="@{vm.otherBoards}" />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
