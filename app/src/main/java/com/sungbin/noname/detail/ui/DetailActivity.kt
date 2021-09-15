@@ -41,6 +41,7 @@ class DetailActivity : AppCompatActivity() {
 
         viewModel.boardId = this.boardId
         viewModel.getBoardDetail(boardId)
+        viewModel.getlikeCount(boardId)
 
         viewModel.isLiked.observe(this, EventObserver { isLiked ->
             if (isLiked) {

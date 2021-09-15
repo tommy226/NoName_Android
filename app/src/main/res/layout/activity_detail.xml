@@ -149,7 +149,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_comment"
             android:textColor="@color/black"
-            android:text="1000"
+            android:text="@{vm.likeCount}"
             tools:text="1000"/>
 
         <TextView

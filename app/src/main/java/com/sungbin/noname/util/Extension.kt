@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.text.DecimalFormat
 
 fun Context.showToast(message: String){
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -43,4 +44,9 @@ fun ImageView.createThumnail(uri: Uri){
         .load(uri)
         .centerCrop()
         .into(this)
+}
+
+fun Int.toComma(): String {
+    val fm = DecimalFormat("###,###")
+    return fm.format(this)
 }

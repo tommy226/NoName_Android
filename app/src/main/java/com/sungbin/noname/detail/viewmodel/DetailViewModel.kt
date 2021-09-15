@@ -8,6 +8,7 @@ import com.sungbin.noname.home.data.FileDto
 import com.sungbin.noname.home.repository.SharedRepository
 import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.customEnqueue
+import com.sungbin.noname.util.toComma
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -31,6 +32,12 @@ class DetailViewModel : ViewModel() {
     val isLiked: LiveData<Event<Boolean>>
         get() = _isLiked
 
+    private var _likeCount = MutableLiveData<String>("")
+    val likeCount: LiveData<String>
+        get() = _likeCount
+
+    private var templikeCount = 0
+
     fun getBoardDetail(id: Int) = viewModelScope.launch {
         val response = repo.getBoard(id)
 
@@ -51,6 +58,8 @@ class DetailViewModel : ViewModel() {
                 if (it.code() == 200) {
                     _isLiked.value = Event(true)
                     _detailResponse.value?.fallow?.id = it.body()?.items?.id!!  // 좋아요 할 시 subscribeId 업데이트
+                    templikeCount += 1
+                    _likeCount.value = templikeCount.toComma()
                 }
             },
             onError = {},
@@ -65,7 +74,24 @@ class DetailViewModel : ViewModel() {
             onSuccess = {
                 if (it.code() == 200){
                     _isLiked.value = Event(false)
+                    templikeCount -= 1
+                    _likeCount.value = templikeCount.toComma()
                 }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun getlikeCount(boardId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByBoardId(boardId)
+
+        response.customEnqueue(
+            onSuccess = {
+                        if(it.code()==200){
+                            templikeCount = it.body()?.items?.TotalElements ?: 0
+                            _likeCount.value = templikeCount.toComma()
+                        }
             },
             onError = {},
             onFailure = {}
