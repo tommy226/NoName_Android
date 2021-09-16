@@ -38,6 +38,10 @@ class DetailViewModel : ViewModel() {
 
     private var templikeCount = 0
 
+    private var _isDelete = MutableLiveData<Event<Boolean>>()
+    val isDelete: LiveData<Event<Boolean>>
+        get() = _isDelete
+
     fun getBoardDetail(id: Int) = viewModelScope.launch {
         val response = repo.getBoard(id)
 
@@ -102,7 +106,11 @@ class DetailViewModel : ViewModel() {
         val response = repo.deleteBoard(boardId)
 
         response.customEnqueue(
-            onSuccess = {},
+            onSuccess = {
+                        if(it.code() == 200){
+                            _isDelete.value = Event(true)
+                        }
+            },
             onError = {},
             onFailure = {}
         )

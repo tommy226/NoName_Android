@@ -1,10 +1,14 @@
 package com.sungbin.noname.home.ui
 
+import android.app.Activity
 import androidx.fragment.app.Fragment
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -95,7 +99,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
             // 업로드 fab
             fabUpload.setOnClickListener {
                 val intent = Intent(this@HomeActivity, UploadActivity::class.java)
-                startActivity(intent)
+                startForResult.launch(intent)
             }
 
             // 드로어 레이아웃 슬라이드 잠금 여부 설정
@@ -200,5 +204,13 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         viewModel.feedClear.value = Event(true) // 피드 데이터 삭제 후 재요청
         viewModel.page = 0
         viewModel.getBoards(viewModel.page)
+    }
+
+    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            result: ActivityResult ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val intent = result.data
+            refresh()
+        }
     }
 }

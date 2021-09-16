@@ -54,6 +54,13 @@ class DetailMyActivity : AppCompatActivity() {
                 binding.detailMyFillHeart.visibility = View.INVISIBLE
             }
         })
+
+        viewModel.isDelete.observe(this, EventObserver{ isDeleted ->
+            if(isDeleted){
+                finish()
+                showToast("글이 삭제 되었어요")
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

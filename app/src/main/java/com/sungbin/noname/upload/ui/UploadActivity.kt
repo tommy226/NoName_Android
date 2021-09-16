@@ -1,6 +1,7 @@
 package com.sungbin.noname.upload.ui
 
 import android.Manifest
+import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -56,6 +57,7 @@ class UploadActivity : AppCompatActivity() {
         })
 
         viewmodel.boardResponse.observe(this, Observer { boardResponse ->
+            setResult(Activity.RESULT_OK)
             finish()
         })
 
@@ -118,6 +120,7 @@ class UploadActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
+        setResult(Activity.RESULT_CANCELED)
         finish()
     }
 
