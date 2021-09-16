@@ -61,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
             viewModel.boardId?.let { boardId -> viewModel.likeBoard(boardId) }
         }
         binding.detailFillHeart.setOnClickListener {
-            viewModel.detailResponse.value?.fallow?.id?.let { subscribeId -> viewModel.unSubscribe(subscribeId) }
+            viewModel.detailResponse.value?.fallow?.id?.let { subscribeId -> viewModel.unlikeBoard(subscribeId) }
         }
     }
 }

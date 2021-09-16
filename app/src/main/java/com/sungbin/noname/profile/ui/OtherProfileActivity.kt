@@ -3,6 +3,7 @@ package com.sungbin.noname.profile.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityOtherProfileBinding
 import com.sungbin.noname.profile.viewmodel.OtherProfileViewModel
+import com.sungbin.noname.util.EventObserver
 
 class OtherProfileActivity : AppCompatActivity() {
     private val TAG = OtherProfileActivity::class.java.simpleName
@@ -30,15 +32,24 @@ class OtherProfileActivity : AppCompatActivity() {
             lifecycleOwner = this@OtherProfileActivity
             backBtn.setOnClickListener { onBackPressed() }
         }
+        fallowButton()
         viewModel.clearBoards()  // 처음 데이터 삭제
         viewModel.getInfo(memberId) // 다른 사람 정보 가져오기
 
         var page = 0
         viewModel.getBoardsOther(memberId, page)
 
-        binding.otherFallowBtn.setOnClickListener {
-            viewModel.fallowOther(memberId)
-        }
+        viewModel.isFallowed.observe(this, EventObserver { isFallowed ->
+            if (isFallowed) {
+                Log.d(TAG, "ISFALLOWED ? $isFallowed")
+                binding.otherFallowBtn.visibility = View.INVISIBLE
+                binding.otherUnfallowBtn.visibility = View.VISIBLE
+            } else {
+                Log.d(TAG, "ISFALLOWED ? $isFallowed")
+                binding.otherFallowBtn.visibility = View.VISIBLE
+                binding.otherUnfallowBtn.visibility = View.INVISIBLE
+            }
+        })
 
         binding.otherBoardRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -56,5 +67,14 @@ class OtherProfileActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    fun fallowButton(){
+        binding.otherFallowBtn.setOnClickListener {
+            viewModel.fallowOther(memberId)
+        }
+        binding.otherUnfallowBtn.setOnClickListener {
+            viewModel.memberInfo.value?.items?.member?.fallow?.id?.let { subscribeId -> viewModel.unfallowOther(subscribeId) }
+        }
     }
 }

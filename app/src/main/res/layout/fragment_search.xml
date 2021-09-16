@@ -18,6 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            tools:text="검색" />
+            android:text="검색 개발중" />
     </FrameLayout>
 </layout>

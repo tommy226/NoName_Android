@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.MemberResponse
 import com.sungbin.noname.home.repository.SharedRepository
+import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.customEnqueue
 import kotlinx.coroutines.CoroutineScope
@@ -30,6 +31,10 @@ class OtherProfileViewModel : ViewModel() {
     fun clearBoards(){
         otherBoards.clear()
     }
+
+    private var _isFallowed = MutableLiveData<Event<Boolean>>()
+    val isFallowed: LiveData<Event<Boolean>>
+        get() = _isFallowed
 
     fun getInfo(id: Int) = viewModelScope.launch {
         val response = repo.getInfo(id)
@@ -67,7 +72,26 @@ class OtherProfileViewModel : ViewModel() {
         val response = repo.fallowByMember(ownerId = ownerId)
 
         response.customEnqueue(
-            onSuccess = {},
+            onSuccess = {
+                if (it.code() == 200) {
+                    _isFallowed.value = Event(true)
+                    _memberInfo.value?.items?.member?.fallow?.id = it.body()?.items?.id!!  // 팔로우 성공 시 subscribeId 업데이트
+                }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun unfallowOther(subscribeId: Int) = viewModelScope.launch {
+        val response = repo.unSubscribe(subscribeId = subscribeId)
+
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+                    _isFallowed.value = Event(false)
+                }
+            },
             onError = {},
             onFailure = {}
         )

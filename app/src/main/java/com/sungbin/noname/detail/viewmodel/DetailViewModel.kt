@@ -67,7 +67,7 @@ class DetailViewModel : ViewModel() {
         )
     }
 
-    fun unSubscribe(subscribeId: Int) = viewModelScope.launch {
+    fun unlikeBoard(subscribeId: Int) = viewModelScope.launch {
         val response = repo.unSubscribe(subscribeId = subscribeId)
 
         response.customEnqueue(

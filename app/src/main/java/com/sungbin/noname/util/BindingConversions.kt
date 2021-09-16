@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.detail.ui.DetailActivity
+import com.sungbin.noname.detail.ui.DetailMyActivity
 import com.sungbin.noname.home.adapter.FeedImageAdapter
 import com.sungbin.noname.home.adapter.MemberFeedAdapter
 import com.sungbin.noname.home.data.Board
@@ -55,9 +57,14 @@ object BindingConversions {
     fun RecyclerView.userBoardList(boardList: List<Board>){
         val memberFeedAdapter = MemberFeedAdapter()
 
-        memberFeedAdapter.setOnItemClickLister(object : MemberFeedAdapter.OnItemClickListener{
+        memberFeedAdapter.setOnItemClickLister(object : MemberFeedAdapter.OnItemClickListener {
             override fun onItemClick(v: View, data: Board) {
-                val intent = Intent(v.context, DetailActivity::class.java)
+                val intent =
+                    if (data.memberDto.id == App.prefs.getInteger(PreferenceUtil.myId, 99999)) {
+                        Intent(v.context, DetailMyActivity::class.java)
+                    } else {
+                        Intent(v.context, DetailActivity::class.java)
+                    }
                 intent.putExtra("boardId", data.id)
                 v.context.startActivity(intent)
             }

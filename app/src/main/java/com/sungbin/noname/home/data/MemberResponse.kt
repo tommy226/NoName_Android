@@ -14,7 +14,8 @@ data class Items(
 data class Member(
     val account: String,
     val info: String,
-    val name: String
+    val name: String,
+    val fallow: Fallow? = null
 )
 
 data class File(

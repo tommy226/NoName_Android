@@ -82,7 +82,7 @@ class DetailMyActivity : AppCompatActivity() {
             viewModel.boardId?.let { boardId -> viewModel.likeBoard(boardId) }
         }
         binding.detailMyFillHeart.setOnClickListener {
-            viewModel.detailResponse.value?.fallow?.id?.let { subscribeId -> viewModel.unSubscribe(subscribeId) }
+            viewModel.detailResponse.value?.fallow?.id?.let { subscribeId -> viewModel.unlikeBoard(subscribeId) }
         }
     }
 }

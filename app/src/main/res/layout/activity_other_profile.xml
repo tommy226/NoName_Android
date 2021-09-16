@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="vm"
             type="com.sungbin.noname.profile.viewmodel.OtherProfileViewModel" />
@@ -36,6 +37,17 @@
                     android:padding="16dp"
                     android:textColor="@color/white"
                     android:src="@drawable/ic_baseline_arrow_back_ios_24"/>
+
+                <TextView
+                    android:id="@+id/title_text"
+                    style="@style/H3_18pt_Regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="프로필"
+                    tools:text="@string/title_feed"
+                    android:textColor="@color/white"
+                    tools:ignore="HardcodedText" />
 
             </RelativeLayout>
 
@@ -214,7 +226,26 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_line" />
+            app:layout_constraintTop_toBottomOf="@+id/view_line"
+            android:visibility="@{vm.memberInfo.items.member.fallow == null ? View.VISIBLE : View.INVISIBLE}"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/other_unfallow_btn"
+            style="@style/P1_16pt_Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="@dimen/margin_left_16"
+            android:layout_marginRight="@dimen/margin_right_16"
+            android:background="@drawable/red_border_fade"
+            android:text="팔로우 해제"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_line"
+            android:visibility="@{vm.memberInfo.items.member.fallow == null ? View.INVISIBLE : View.VISIBLE}"
+            tools:ignore="HardcodedText" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/other_boardRecycler"
