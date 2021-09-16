@@ -22,6 +22,7 @@ import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.login.ui.LoginActivity
 import com.sungbin.noname.upload.ui.UploadActivity
 import com.sungbin.noname.util.Event
+import com.sungbin.noname.util.IntentKey
 import com.sungbin.noname.util.PreferenceUtil
 import com.sungbin.noname.util.showToast
 import kotlinx.coroutines.CoroutineScope
@@ -31,7 +32,6 @@ import kotlin.coroutines.CoroutineContext
 
 class HomeActivity : AppCompatActivity(), CoroutineScope {
     private val TAG = HomeActivity::class.java.simpleName
-
     private lateinit var job: Job
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -206,11 +206,18 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
         viewModel.getBoards(viewModel.page)
     }
 
-    val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = result.data
-            refresh()
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra(IntentKey.RESULT)
+                Log.d(TAG, "registerForActivityResult intent data : $data")
+
+                when (data) {
+                    "upload" -> {
+                        refresh()
+                    }
+                }
+
+            }
         }
-    }
 }

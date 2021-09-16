@@ -2,6 +2,7 @@ package com.sungbin.noname.upload.ui
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -15,6 +16,7 @@ import com.gun0912.tedpermission.TedPermission
 import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityUploadBinding
+import com.sungbin.noname.home.ui.HomeActivity
 import com.sungbin.noname.network.ServerImpl
 import com.sungbin.noname.upload.adapter.UploadImageAdapter
 import com.sungbin.noname.upload.viewmodel.UploadViewModel
@@ -57,7 +59,10 @@ class UploadActivity : AppCompatActivity() {
         })
 
         viewmodel.boardResponse.observe(this, Observer { boardResponse ->
-            setResult(Activity.RESULT_OK)
+            val intent = Intent(this, HomeActivity::class.java).apply {
+                putExtra(IntentKey.RESULT, "upload")
+            }
+            setResult(Activity.RESULT_OK, intent)
             finish()
         })
 
