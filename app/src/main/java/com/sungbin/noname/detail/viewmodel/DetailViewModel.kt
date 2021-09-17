@@ -139,6 +139,22 @@ class DetailViewModel : ViewModel() {
         )
     }
 
+    fun getDetailLike(boardId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByBoardId(boardId)
+
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+                    it.body()?.items?.subscribes?.toMutableList()?.let { subscribes ->
+                        detailSubscribes.addAll(subscribes)
+                    }
+                }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()

@@ -17,9 +17,6 @@ class DetailSubscribeActivty : AppCompatActivity() {
         DataBindingUtil.setContentView(this, R.layout.activity_detail_subscribe_activty)
     }
 
-    private val memberId: Int by lazy {
-        intent.getIntExtra("ownerId",-1)
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
@@ -29,6 +26,17 @@ class DetailSubscribeActivty : AppCompatActivity() {
         }
 
         viewModel.clearSubscribes()
-        viewModel.getDetailFallow(memberId)
+        setSubscribes()
+    }
+
+    fun setSubscribes() {
+        var id = 0
+        if (intent.hasExtra("ownerId")) {  // 좋아요 or 팔로우 상세보기 검증
+            id = intent.getIntExtra("ownerId", -1)
+            viewModel.getDetailFallow(id)
+        } else {
+            id = intent.getIntExtra("boardId", -1)
+            viewModel.getDetailLike(id)
+        }
     }
 }
