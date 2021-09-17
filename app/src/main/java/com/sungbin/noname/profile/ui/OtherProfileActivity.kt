@@ -35,6 +35,8 @@ class OtherProfileActivity : AppCompatActivity() {
         fallowButton()
         viewModel.clearBoards()  // 처음 데이터 삭제
         viewModel.getInfo(memberId) // 다른 사람 정보 가져오기
+        viewModel.fallowOtherInfo(memberId) // 팔로우 정보
+
 
         var page = 0
         viewModel.getBoardsOther(memberId, page)

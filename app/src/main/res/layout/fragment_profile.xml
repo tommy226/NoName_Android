@@ -140,7 +140,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="0"
+            android:text="@{Integer.toString(vm.myFallowerCount)}"
             style="@style/P6_12pt_Regular"
             android:textColor="@color/black"
             tools:text="0"

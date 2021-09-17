@@ -9,6 +9,7 @@ import com.sungbin.noname.home.repository.SharedRepository
 import com.sungbin.noname.util.Event
 import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.customEnqueue
+import com.sungbin.noname.util.toComma
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,6 +25,12 @@ class OtherProfileViewModel : ViewModel() {
     private var _memberInfo = MutableLiveData<MemberResponse>()
     val memberInfo: LiveData<MemberResponse>
         get() = _memberInfo
+
+    private var _otherFallowerCount = MutableLiveData<String>("")
+    val otherFallowerCount: LiveData<String>
+        get() = _otherFallowerCount
+
+    private var tempFallowCount = 0
 
     // 다른사람이 올린 게시글
     var otherBoards = ListLivedata<Board>()
@@ -76,6 +83,8 @@ class OtherProfileViewModel : ViewModel() {
                 if (it.code() == 200) {
                     _isFallowed.value = Event(true)
                     _memberInfo.value?.items?.member?.fallow?.id = it.body()?.items?.id!!  // 팔로우 성공 시 subscribeId 업데이트
+                    tempFallowCount += 1
+                    _otherFallowerCount.value = tempFallowCount.toComma()
                 }
             },
             onError = {},
@@ -90,6 +99,23 @@ class OtherProfileViewModel : ViewModel() {
             onSuccess = {
                 if (it.code() == 200) {
                     _isFallowed.value = Event(false)
+                    tempFallowCount -= 1
+                    _otherFallowerCount.value = tempFallowCount.toComma()
+                }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun fallowOtherInfo(ownerId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByOwenerId(ownerId)
+
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+                    tempFallowCount = it.body()?.items?.TotalElements ?: 0
+                    _otherFallowerCount.value = tempFallowCount.toComma()
                 }
             },
             onError = {},

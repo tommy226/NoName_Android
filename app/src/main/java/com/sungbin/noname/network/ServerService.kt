@@ -113,7 +113,7 @@ interface ServerService {
     fun getSubscribePageByOwenerId(
         @Header("X-AUTH-TOKEN") token: String,
         @Path("ownerId") owenerId: Int
-    ): Call<ResponseBody>
+    ): Call<GetSubscribesInfo>
 
     @GET("subscribes/like/{boardId}")   // 게시글 좋아요 정보 및 갯수 확인
     fun getSubscribePageByBoardId(

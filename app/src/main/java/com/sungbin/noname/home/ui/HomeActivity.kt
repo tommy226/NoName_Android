@@ -60,6 +60,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
 
         viewModel.getInfo(viewModel.myId) // 자기 정보 가져오기
         viewModel.getBoards(viewModel.page) // 게시물 첫 페이지 요청
+        viewModel.getSubscribeOwnerId(viewModel.myId) // 팔로워 정보 받아오기
     }
 
     override fun onStart() {

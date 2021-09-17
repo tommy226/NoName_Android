@@ -54,6 +54,11 @@ open class SharedViewModel : ViewModel() {
     val feedResponse: LiveData<FeedPagingResponse>
         get() = _feedResponse
 
+    // 자신을 팔로우 하는 사람 수
+    private var _myFallowerCount = MutableLiveData<Int>(0)
+    val myFallowerCount: LiveData<Int>
+        get() = _myFallowerCount
+
     // 게시물 페이지
     var page = 0
 
@@ -66,10 +71,6 @@ open class SharedViewModel : ViewModel() {
     fun clearBoards(){
         userBoards.clear()
     }
-
-    private var _likeSuccess = MutableLiveData<Event<Boolean>>()
-    val likeSuccess: LiveData<Event<Boolean>>
-        get() = _likeSuccess
 
     fun getInfo(id: Int) = viewModelScope.launch {
         val response = repo.getInfo(id)
@@ -180,7 +181,11 @@ open class SharedViewModel : ViewModel() {
         val response = repo.getSubscribePageByOwenerId(ownerId)
 
         response.customEnqueue(
-            onSuccess = {},
+            onSuccess = {
+                if (it.code() == 200) {
+                    _myFallowerCount.value = it.body()?.items?.TotalElements
+                }
+            },
             onError = {},
             onFailure = {}
         )
