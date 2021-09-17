@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.FileDto
+import com.sungbin.noname.home.data.Subscribe
 import com.sungbin.noname.home.repository.SharedRepository
 import com.sungbin.noname.util.Event
+import com.sungbin.noname.util.ListLivedata
 import com.sungbin.noname.util.customEnqueue
 import com.sungbin.noname.util.toComma
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +43,11 @@ class DetailViewModel : ViewModel() {
     private var _isDelete = MutableLiveData<Event<Boolean>>()
     val isDelete: LiveData<Event<Boolean>>
         get() = _isDelete
+
+    // 게시물 좋아요 , 유저 팔로우 상세 정보
+    var detailSubscribes = ListLivedata<Subscribe>()
+    fun clearSubscribes() = detailSubscribes.clear()
+    val emptySubscribes = listOf<Subscribe>()
 
     fun getBoardDetail(id: Int) = viewModelScope.launch {
         val response = repo.getBoard(id)
@@ -110,6 +117,22 @@ class DetailViewModel : ViewModel() {
                         if(it.code() == 200){
                             _isDelete.value = Event(true)
                         }
+            },
+            onError = {},
+            onFailure = {}
+        )
+    }
+
+    fun getDetailFallow(ownerId: Int) = viewModelScope.launch {
+        val response = repo.getSubscribePageByOwenerId(ownerId)
+
+        response.customEnqueue(
+            onSuccess = {
+                if (it.code() == 200) {
+                    it.body()?.items?.subscribes?.toMutableList()?.let { subscribes ->
+                        detailSubscribes.addAll(subscribes)
+                    }
+                }
             },
             onError = {},
             onFailure = {}

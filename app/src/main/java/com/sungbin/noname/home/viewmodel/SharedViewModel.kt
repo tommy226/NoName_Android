@@ -68,9 +68,8 @@ open class SharedViewModel : ViewModel() {
     // 유저가 올린 게시글
     var userBoards = ListLivedata<Board>()
     var userBoardsCount = MutableLiveData(0)
-    fun clearBoards(){
-        userBoards.clear()
-    }
+    fun clearBoards() = userBoards.clear()
+
 
     fun getInfo(id: Int) = viewModelScope.launch {
         val response = repo.getInfo(id)

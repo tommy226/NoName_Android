@@ -7,17 +7,20 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.sungbin.noname.App
 import com.sungbin.noname.R
+import com.sungbin.noname.detail.adapter.DetailSubscribeAdapter
 import com.sungbin.noname.detail.ui.DetailActivity
 import com.sungbin.noname.detail.ui.DetailMyActivity
 import com.sungbin.noname.home.adapter.FeedImageAdapter
 import com.sungbin.noname.home.adapter.MemberFeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.data.FileDto
+import com.sungbin.noname.home.data.Subscribe
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
 
 object BindingConversions {
@@ -77,5 +80,22 @@ object BindingConversions {
         memberFeedAdapter.items = boardList.toMutableList()
         this.scrollToPosition(memberFeedAdapter.itemCount - 15)
         memberFeedAdapter.notifyDataSetChanged()
+    }
+
+    @BindingAdapter("app:subscribeList")
+    @JvmStatic
+    fun RecyclerView.setSubcribes(subscribeList: List<Subscribe>){
+        val detailSubscribeAdapter = DetailSubscribeAdapter()
+
+        detailSubscribeAdapter.setOnItemClickLister(object : DetailSubscribeAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, data: Subscribe) {
+            }
+        })
+        this.apply {
+            adapter = detailSubscribeAdapter
+            layoutManager = LinearLayoutManagerWrapper(this.context, LinearLayoutManager.VERTICAL, false)
+        }
+        detailSubscribeAdapter.items = subscribeList.toMutableList()
+        detailSubscribeAdapter.notifyDataSetChanged()
     }
 }

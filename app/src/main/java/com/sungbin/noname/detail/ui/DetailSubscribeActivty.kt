@@ -16,11 +16,19 @@ class DetailSubscribeActivty : AppCompatActivity() {
     private val binding: ActivityDetailSubscribeActivtyBinding by lazy {
         DataBindingUtil.setContentView(this, R.layout.activity_detail_subscribe_activty)
     }
+
+    private val memberId: Int by lazy {
+        intent.getIntExtra("ownerId",-1)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding.apply {
             vm = viewModel
             lifecycleOwner = this@DetailSubscribeActivty
+            detailCancel.setOnClickListener { onBackPressed() }
         }
+
+        viewModel.clearSubscribes()
+        viewModel.getDetailFallow(memberId)
     }
 }

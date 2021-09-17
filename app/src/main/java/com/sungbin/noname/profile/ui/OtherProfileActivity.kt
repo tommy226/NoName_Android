@@ -1,5 +1,6 @@
 package com.sungbin.noname.profile.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +9,15 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.sungbin.noname.App
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityOtherProfileBinding
+import com.sungbin.noname.detail.ui.DetailActivity
+import com.sungbin.noname.detail.ui.DetailMyActivity
+import com.sungbin.noname.detail.ui.DetailSubscribeActivty
 import com.sungbin.noname.profile.viewmodel.OtherProfileViewModel
 import com.sungbin.noname.util.EventObserver
+import com.sungbin.noname.util.PreferenceUtil
 
 class OtherProfileActivity : AppCompatActivity() {
     private val TAG = OtherProfileActivity::class.java.simpleName
@@ -31,6 +37,8 @@ class OtherProfileActivity : AppCompatActivity() {
             vm = viewModel
             lifecycleOwner = this@OtherProfileActivity
             backBtn.setOnClickListener { onBackPressed() }
+            otherFollower.setOnClickListener{ getDetailFallow()}
+            followerCount.setOnClickListener { getDetailFallow() }
         }
         fallowButton()
         viewModel.clearBoards()  // 처음 데이터 삭제
@@ -69,6 +77,11 @@ class OtherProfileActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+    fun getDetailFallow(){
+        val intent = Intent(this, DetailSubscribeActivty::class.java)
+        intent.putExtra("ownerId", memberId)
+        startActivity(intent)
     }
 
     fun fallowButton(){

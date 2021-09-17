@@ -35,9 +35,8 @@ class OtherProfileViewModel : ViewModel() {
     // 다른사람이 올린 게시글
     var otherBoards = ListLivedata<Board>()
     var otherBoardsCount = MutableLiveData(0)
-    fun clearBoards(){
-        otherBoards.clear()
-    }
+    fun clearBoards() = otherBoards.clear()
+
 
     private var _isFallowed = MutableLiveData<Event<Boolean>>()
     val isFallowed: LiveData<Event<Boolean>>
