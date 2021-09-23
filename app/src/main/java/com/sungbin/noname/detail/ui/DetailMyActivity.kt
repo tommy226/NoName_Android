@@ -1,5 +1,6 @@
 package com.sungbin.noname.detail.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -59,6 +60,14 @@ class DetailMyActivity : AppCompatActivity() {
             if(isDeleted){
                 finish()
                 showToast("글이 삭제 되었어요")
+            }
+        })
+
+        viewModel.isDetailLikes.observe(this, EventObserver{ isDetailLikes ->
+            if(isDetailLikes){
+                val intent = Intent(this, DetailSubscribeActivty::class.java)
+                intent.putExtra("boardId", boardId)
+                startActivity(intent)
             }
         })
     }

@@ -1,5 +1,6 @@
 package com.sungbin.noname.detail.ui
 
+import android.content.Intent
 import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -52,6 +53,14 @@ class DetailActivity : AppCompatActivity() {
                 Log.d(TAG, "ISLIKED ? $isLiked")
                 binding.detailHeart.visibility = View.VISIBLE
                 binding.detailFillHeart.visibility = View.INVISIBLE
+            }
+        })
+
+        viewModel.isDetailLikes.observe(this, EventObserver{ isDetailLikes ->
+            if(isDetailLikes){
+                val intent = Intent(this, DetailSubscribeActivty::class.java)
+                intent.putExtra("boardId", boardId)
+                startActivity(intent)
             }
         })
     }

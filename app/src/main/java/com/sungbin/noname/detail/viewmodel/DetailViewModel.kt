@@ -1,5 +1,6 @@
 package com.sungbin.noname.detail.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -43,6 +44,13 @@ class DetailViewModel : ViewModel() {
     private var _isDelete = MutableLiveData<Event<Boolean>>()
     val isDelete: LiveData<Event<Boolean>>
         get() = _isDelete
+
+    private var _isDetailLikes = MutableLiveData<Event<Boolean>>()
+    val isDetailLikes: LiveData<Event<Boolean>>
+        get() = _isDetailLikes
+    fun getDetailLikes(){
+        _isDetailLikes.value = Event(true)
+    }
 
     // 게시물 좋아요 , 유저 팔로우 상세 정보
     var detailSubscribes = ListLivedata<Subscribe>()

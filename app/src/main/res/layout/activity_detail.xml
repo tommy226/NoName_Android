@@ -162,6 +162,7 @@
             app:layout_constraintTop_toBottomOf="@+id/detail_comment"
             android:textColor="@color/black"
             android:text="@{vm.likeCount}"
+            android:onClick="@{()->vm.getDetailLikes()}"
             tools:text="1000"/>
 
         <TextView
@@ -171,6 +172,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="명이 좋아합니다."
+            android:onClick="@{()->vm.getDetailLikes()}"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/detail_like_count"
             app:layout_constraintTop_toBottomOf="@+id/detail_comment" />

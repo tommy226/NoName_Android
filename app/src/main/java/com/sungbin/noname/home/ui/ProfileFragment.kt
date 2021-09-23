@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.FragmentProfileBinding
+import com.sungbin.noname.detail.ui.DetailSubscribeActivty
 import com.sungbin.noname.home.viewmodel.SharedViewModel
 import com.sungbin.noname.profile.ui.ProfileEditActivity
 
@@ -56,6 +57,11 @@ class ProfileFragment : Fragment() {
         })
 
         return binding.root
+    }
+    fun getDetailFallow(){
+        val intent = Intent(activity, DetailSubscribeActivty::class.java)
+        intent.putExtra("ownerId", viewModel.myId)
+        startActivity(intent)
     }
 
     fun editProfile(){
