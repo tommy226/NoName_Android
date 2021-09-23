@@ -90,6 +90,12 @@ class FeedAdapter(val viewModel: SharedViewModel) : RecyclerView.Adapter<Recycle
             binding.feedShare.setOnClickListener { view ->
                 listener.onItemClick(view, data)
             }
+            binding.feedLikeCount.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
+            binding.feedLikeText.setOnClickListener { view ->
+                listener.onItemClick(view, data)
+            }
         }
     }
     inner class LoadingViewHolder(binding: ItemLoadingBinding) : RecyclerView.ViewHolder(binding.root)

@@ -20,6 +20,7 @@ import com.sungbin.noname.databinding.FragmentFeedBinding
 import com.sungbin.noname.databinding.ItemBoardBinding
 import com.sungbin.noname.detail.ui.DetailActivity
 import com.sungbin.noname.detail.ui.DetailMyActivity
+import com.sungbin.noname.detail.ui.DetailSubscribeActivty
 import com.sungbin.noname.home.adapter.FeedAdapter
 import com.sungbin.noname.home.data.Board
 import com.sungbin.noname.home.viewmodel.SharedViewModel
@@ -108,6 +109,11 @@ class FeedFragment : Fragment() {
                         } else {
                             Intent(v.context, DetailActivity::class.java)
                         }
+                    intent.putExtra("boardId", data.id)
+                    startActivity(intent)
+                }
+                R.id.feed_like_count, R.id.feed_like_text -> {              //  좋아요 숫자 클릭 시 좋아요 상세 보기로 이동
+                    val intent = Intent(v.context, DetailSubscribeActivty::class.java)
                     intent.putExtra("boardId", data.id)
                     startActivity(intent)
                 }

@@ -125,10 +125,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/feed_comment"
             android:textColor="@color/black"
+            android:text="0"
             tools:text="1000"/>
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/feed_like_text"
             style="@style/P6_12pt_Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
