@@ -31,7 +31,7 @@ class ProfileEditActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.run {
+        binding.apply {
             vm = viewmodel
             activity = this@ProfileEditActivity
             lifecycleOwner = this@ProfileEditActivity

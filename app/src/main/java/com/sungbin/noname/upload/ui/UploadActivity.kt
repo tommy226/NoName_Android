@@ -42,7 +42,7 @@ class UploadActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding.run {
+        binding.apply {
             vm = viewmodel
             activity = this@UploadActivity
             lifecycleOwner = this@UploadActivity

@@ -29,7 +29,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_profile, container, false)
 
-        binding.run {
+        binding.apply {
             vm = viewModel
             fragment = this@ProfileFragment
             lifecycleOwner = viewLifecycleOwner

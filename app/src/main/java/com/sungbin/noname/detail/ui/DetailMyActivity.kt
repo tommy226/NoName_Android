@@ -1,5 +1,6 @@
 package com.sungbin.noname.detail.ui
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,13 +8,18 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.sungbin.noname.R
 import com.sungbin.noname.databinding.ActivityDetailBinding
 import com.sungbin.noname.databinding.ActivityDetailMyBinding
 import com.sungbin.noname.detail.viewmodel.DetailViewModel
+import com.sungbin.noname.upload.ui.UploadActivity
+import com.sungbin.noname.upload.ui.UploadEditActivity
 import com.sungbin.noname.util.EventObserver
+import com.sungbin.noname.util.IntentKey
 import com.sungbin.noname.util.showToast
 
 class DetailMyActivity : AppCompatActivity() {
@@ -83,7 +89,12 @@ class DetailMyActivity : AppCompatActivity() {
                 viewModel.deleteMyBoard(boardId)
             }
             R.id.menu_config -> {
-                showToast("개발중..")
+                val intent = Intent(this@DetailMyActivity, UploadEditActivity::class.java)
+                intent.putExtra("boardId", boardId)
+                intent.putExtra("name", viewModel.detailResponse.value?.memberDto?.name)
+                intent.putExtra("image", viewModel.detailResponse.value?.memberDto?.src)
+                intent.putExtra("content", viewModel.detailResponse.value?.content)
+                startForResult.launch(intent)
             }
             else -> {
 
@@ -101,4 +112,20 @@ class DetailMyActivity : AppCompatActivity() {
             viewModel.detailResponse.value?.fallow?.id?.let { subscribeId -> viewModel.unlikeBoard(subscribeId) }
         }
     }
+
+    private val startForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data?.getStringExtra(IntentKey.RESULT)
+                Log.d(TAG, "registerForActivityResult intent data : $data")
+
+                when (data) {       // 글 수정 성공 시
+                    "edit" -> {
+                        viewModel.getBoardDetail(boardId)
+                        viewModel.getlikeCount(boardId)
+                    }
+                }
+
+            }
+        }
 }

@@ -42,7 +42,7 @@ class FeedFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_feed, container, false)
 
-        binding.run {
+        binding.apply {
             vm = viewModel
             lifecycleOwner = viewLifecycleOwner
         }

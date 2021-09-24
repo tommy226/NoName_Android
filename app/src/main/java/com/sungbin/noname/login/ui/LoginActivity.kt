@@ -49,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
-        binding.run {
+        binding.apply {
             vm = viewModel
             lifecycleOwner = this@LoginActivity
         }

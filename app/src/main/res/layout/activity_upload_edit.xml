@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="vm"
-            type="com.sungbin.noname.upload.viewmodel.UploadViewModel" />
-
-        <variable
             name="activity"
-            type="com.sungbin.noname.upload.ui.UploadActivity" />
-
+            type="com.sungbin.noname.upload.ui.UploadEditActivity" />
+        <variable
+            name="vm"
+            type="com.sungbin.noname.upload.viewmodel.UploadEditViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".upload.ui.UploadActivity">
+        tools:context=".upload.ui.UploadEditActivity">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/board_toolbar"
+            android:id="@+id/edit_board_toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -34,7 +32,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/board_cancel"
+                    android:id="@+id/edit_board_cancel"
                     style="@style/H3_18pt_Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -48,35 +46,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="@string/uploadBoard"
+                    android:text="@string/editBoard"
                     android:textColor="@color/white" />
 
                 <TextView
-                    android:id="@+id/board_complete"
+                    android:id="@+id/edit_board_complete"
                     style="@style/H3_18pt_Regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:padding="16dp"
                     android:text="완료"
+                    android:onClick="@{()->vm.editBoard(vm.boardId, vm.inputContent)}"
                     android:textColor="@color/white" />
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/board_profileImage"
+            android:id="@+id/edit_board_profileImage"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:src="@drawable/ic_baseline_face_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/board_toolbar"
-            app:imageUrl="@{vm.myImage}"/>
+            app:layout_constraintTop_toBottomOf="@+id/edit_board_toolbar"
+            app:imageUrl="@{vm.myImageUrl}"/>
 
         <TextView
-            android:id="@+id/board_name"
+            android:id="@+id/edit_board_name"
             style="@style/P1_16pt_Medium"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
@@ -86,8 +85,8 @@
             tools:text="닉네임"
             android:textColor="@color/black"
             android:gravity="center"
-            app:layout_constraintStart_toEndOf="@+id/board_profileImage"
-            app:layout_constraintTop_toBottomOf="@+id/board_toolbar" />
+            app:layout_constraintStart_toEndOf="@+id/edit_board_profileImage"
+            app:layout_constraintTop_toBottomOf="@+id/edit_board_toolbar" />
 
         <View
             android:id="@+id/view_line"
@@ -98,48 +97,29 @@
             android:background="@color/gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/board_profileImage" />
+            app:layout_constraintTop_toBottomOf="@id/edit_board_profileImage" />
 
-        <ImageView
-            android:id="@+id/board_addimage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:onClick="@{()->activity.permissionCheck()}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_line"
-            app:srcCompat="@drawable/ic_baseline_add_photo_alternate_24" />
 
         <EditText
-            android:id="@+id/borad_text"
+            android:id="@+id/edit_borad_text"
             style="@style/P1_16pt_Medium"
-            android:background="@drawable/board_layer"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin_top_16"
-            android:paddingHorizontal="@dimen/padding_8"
-            android:textColor="@color/black"
+            android:background="@drawable/board_layer"
             android:gravity="top"
+            android:hint="@string/edit_hint"
             android:importantForAutofill="no"
             android:inputType="textPersonName|textMultiLine"
+            android:paddingHorizontal="@dimen/padding_8"
+            android:textColor="@color/black"
             android:text="@={vm.inputContent}"
-            android:hint="@string/board_hint"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/board_addimage" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/image_recyclerview"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/borad_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/board_addimage"
             app:layout_constraintTop_toBottomOf="@+id/view_line" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

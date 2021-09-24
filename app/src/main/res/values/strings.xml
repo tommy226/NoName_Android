@@ -9,7 +9,9 @@
     <string name="title_profile">내 프로필</string>
 
     <string name="uploadBoard">게시글 작성하기</string>
+    <string name="editBoard">게시글 수정하기</string>
     <string name="board_hint">일상을 기록해 보아요</string>
+    <string name="edit_hint">글 수정 중...</string>
     <string name="permission_denied">접근 거부하셨습니다. \n [설정] - [권한]에서 권한을 허용해주세요.</string>
     <string name="profileEdit">프로필 편집하기</string>
     <string name="profile_imageEdit">프로필 사진 바꾸기</string>

@@ -74,7 +74,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun setSwipeRefresh() {
-        binding.run {
+        binding.apply {
             swipe.setColorSchemeColors(ContextCompat.getColor(this@HomeActivity, R.color.colorPrimaryDark))
             swipe.setOnRefreshListener {
                 val intent = Intent(this@HomeActivity, HomeActivity::class.java)
@@ -88,7 +88,7 @@ class HomeActivity : AppCompatActivity(), CoroutineScope {
     }
 
     private fun setDrawer(){
-        binding.run {
+        binding.apply {
             // 햄버거 버튼
             titleMenu.setOnClickListener {
                 Log.d("OpenDrawer", "Open")

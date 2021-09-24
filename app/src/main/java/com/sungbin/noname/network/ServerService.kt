@@ -44,6 +44,38 @@ interface ServerService {
         @Query("boardId") boardId: String
     ) : Call<BoardsImageResponse>
 
+    @PUT("boards/{id}")  // 게시글 수정
+    fun editBoard(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") boardId: Int,
+        @Body Board: BoardsContentRequest
+    ) : Call<ResponseBody>
+
+    @GET("boards/{id}") // 게시글 상세 정보
+    fun getBoard(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") boardId: Int
+    ): Call<DetailResponse>
+
+    @DELETE("boards/{id}") // 게시글 삭제
+    fun deleteBoard(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("id") boardId: Int
+    ): Call<ResponseBody>
+
+    @GET("boards") // 게시글 페이징
+    fun getBoards(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Query("page") page: Int,
+    ): Call<FeedPagingResponse>
+
+    @GET("boards/users/{memberId}")  // 유저가 올린 게시물 확인 (프로필 게시글)
+    fun getUserBoards(
+        @Header("X-AUTH-TOKEN") token: String,
+        @Path("memberId") memberId: Int,
+        @Query("page") page: Int
+    ): Call<FeedPagingResponse>
+
     @PUT("auth/{account}/") // 프로필 편집
     fun profileEdit(
         @Header("X-AUTH-TOKEN") token: String,
@@ -71,31 +103,6 @@ interface ServerService {
         @Header("X-AUTH-TOKEN") token: String,
         @Path("id") memberId: Int
     ) : Call<MemberResponse>
-
-    @GET("boards") // 보드 페이징
-    fun getBoards(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Query("page") page: Int,
-    ): Call<FeedPagingResponse>
-
-    @GET("boards/users/{memberId}")  // 유저가 올린 게시물 확인 (프로필 게시글)
-    fun getUserBoards(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Path("memberId") memberId: Int,
-        @Query("page") page: Int
-    ): Call<FeedPagingResponse>
-
-    @GET("boards/{id}") // 보드 상세 정보
-    fun getBoard(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Path("id") boardId: Int
-    ): Call<DetailResponse>
-
-    @DELETE("boards/{id}") // 보드 삭제
-    fun deleteBoard(
-        @Header("X-AUTH-TOKEN") token: String,
-        @Path("id") boardId: Int
-    ): Call<ResponseBody>
 
     @POST("subscribes/")            // 팔로우 or 좋아요 (ownerId or fallowId)
     fun subscribe(

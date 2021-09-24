@@ -24,4 +24,11 @@ class UploadRepository {
             files = files,
             boardId = id
         )
+
+    fun editBoard(id: Int, content: String) =
+        ServerImpl.service.editBoard(
+            token = token,
+            boardId = id,
+            Board = BoardsContentRequest(content = content)
+        )
 }
