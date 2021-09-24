@@ -66,6 +66,8 @@ class ProfileFragment : Fragment() {
 
     fun editProfile(){
         val intent = Intent(activity, ProfileEditActivity::class.java)
+        intent.putExtra("name", viewModel.myName.value)
+        intent.putExtra("info", viewModel.myInfo.value)
         startActivity(intent)
     }
 }

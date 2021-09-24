@@ -1,6 +1,7 @@
 package com.sungbin.noname.profile.ui
 
 import android.Manifest
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -36,6 +37,10 @@ class ProfileEditActivity : AppCompatActivity() {
             lifecycleOwner = this@ProfileEditActivity
         }
         viewmodel.getInfo(viewmodel.myId)
+
+        val intent = intent
+        viewmodel.inputName.value = intent.getStringExtra("name")  // 기존 프로필 정보 받아 놓기
+        viewmodel.inputInfo.value = intent.getStringExtra("info")
 
         viewmodel.toast.observe(this, EventObserver { message ->
             showToast(message)
