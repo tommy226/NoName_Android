@@ -26,3 +26,12 @@ Library
 
 Package
 -------
+* 최상단 패키지는 기능별로 정리
+* 하위 패키지는 view, viewmodel, repository, data로 정리
+* 유틸 클래스는 따로 두었다.
+
+![package](https://user-images.githubusercontent.com/86557597/136335807-a2ff0778-7edf-4a4a-a9a1-3730edd97c2b.PNG)
+
+UI(image)
+-------
+
