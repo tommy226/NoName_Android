@@ -1,3 +1,3 @@
-# NoName_Android
+# NoNameVely_Android(SNS)
 
-API 개발용
+자신의 애완동물을 자랑 해보세요 !
