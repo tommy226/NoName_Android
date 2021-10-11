@@ -17,6 +17,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 import com.sungbin.noname.App
 import com.sungbin.noname.R
+import com.sungbin.noname.databinding.ActivityHomeBinding
 import com.sungbin.noname.databinding.ActivityLoginBinding
 import com.sungbin.noname.home.ui.HomeActivity
 import com.sungbin.noname.login.viewmodel.LoginViewModel
@@ -30,8 +31,9 @@ class LoginActivity : AppCompatActivity() {
 
     private val viewModel: LoginViewModel by viewModels()
 
-    private lateinit var binding: ActivityLoginBinding
-
+    private val binding: ActivityLoginBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_login)
+    }
     private val googleSignInIntent by lazy {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -47,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
 
         binding.apply {
             vm = viewModel
@@ -67,7 +69,7 @@ class LoginActivity : AppCompatActivity() {
             App.prefs.setString(PreferenceUtil.AccessToken, tokenModel.accessToken)
             App.prefs.setString(PreferenceUtil.RefreshToken, tokenModel.refreshToken)
         })
-        viewModel.loginData.observe(this, Observer { userData ->
+        viewModel.loginData.observe(this, Observer { userData ->                                 // 자주 쓰이는 데이터 쉐어드 프리퍼런스에 임시 저장
             App.prefs.setString(PreferenceUtil.Name, userData.items.name)
             App.prefs.setInteger(PreferenceUtil.myId, userData.items.id)
         })

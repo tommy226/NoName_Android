@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.sungbin.noname.App
 import com.sungbin.noname.R
+import com.sungbin.noname.databinding.ActivityLoginBinding
 import com.sungbin.noname.databinding.ActivityRegisterBinding
 import com.sungbin.noname.signup.viewmodel.SignUpViewModel
 import com.sungbin.noname.util.EventObserver
@@ -20,10 +21,12 @@ class SignUpActivity : AppCompatActivity(){
 
     private val viewmodel: SignUpViewModel by viewModels()
 
-    private lateinit var binding: ActivityRegisterBinding
+    private val binding: ActivityRegisterBinding by lazy {
+        DataBindingUtil.setContentView(this, R.layout.activity_register)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_register)
+
         binding.apply {
             vm = viewmodel
             lifecycleOwner = this@SignUpActivity
