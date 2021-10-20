@@ -57,3 +57,9 @@ UI(image)
 * 상대 프로필 및 팔로우
 
 <img src="https://user-images.githubusercontent.com/86557597/136520715-0a4a7e1e-dc96-45ba-8ccc-eba8502a0dd6.jpg" width="30%"> <img src="https://user-images.githubusercontent.com/86557597/136520746-fba26985-1a69-4853-a749-add1f7553cdc.jpg" width="30%">
+
+구성
+-------
+* 팀 : 2인
+* 서버 : 박정수 ([https://github.com/Dexter0526/API_SERVER_JWT](https://github.com/Dexter0526/API_SERVER_JWT))
+* 안드로이드 : 문성빈
